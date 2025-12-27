@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資通安全概論第6單元自我評量測驗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .question-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-1px);
+        }
+
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .option.user-selected {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .explanation h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation p {
+            color: #533d03;
+            line-height: 1.6;
+        }
+
+        .history-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .history-panel.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .history-item.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .history-item.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .history-item.unanswered {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 2px solid #d6d8db;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #f44336, #ff7043);
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 30px;
+            background: #4763fa;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 22px;
+            cursor: pointer;
+            margin: 0 6px 8px 0;
+            box-shadow: 0 2px 8px rgba(70,90,160,0.09);
+            transition: background 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+        .action-btn:hover,
+        .action-btn:focus {
+            background: #253095;
+            color: #fff;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>資通安全概論 第6單元自我評量測驗</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats">
+                <span>題目 <span id="currentNum">1</span> / <span id="totalNum">86</span></span>
+                <span>答對：<span id="correctCount">0</span></span>
+                <span>答錯：<span id="incorrectCount">0</span></span>
+                <span>準確率：<span id="accuracy">0%</span></span>
+            </div>
+        </div>
+
+        <div class="quiz-card" id="quizCard">
+            <!-- 題目將由 JS 動態插入 -->
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <h3>答題記錄</h3>
+            <div class="history-grid" id="historyGrid">
+                <!-- 歷史記錄將由 JS 動態插入 -->
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="toggleHistory()">查看記錄</button>
+            <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">上一題</button>
+            <button class="btn btn-secondary" onclick="nextQuestion()" id="nextBtn">下一題</button>
+            <button class="btn btn-success" onclick="restartQuiz()">重新開始</button>
+            <button class="action-btn" id="backHome" onclick="window.location.href='index.html'">回主頁</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // 所有題目數據 (第6單元)
+        const questions = [
+            {
+                id: 1,
+                question: "防毒軟體的主要用途是防止下列哪一類惡意程式入侵電腦軟體或系統？",
+                type: "single",
+                options: ["病毒、蠕蟲、間諜、後門及木馬", "阻斷服務攻擊", "實體設備損壞", "網路封包偽造"],
+                correct: [0],
+                explanation: "防毒軟體的用途是防止病毒、蠕蟲、間諜、後門及木馬等惡意程式入侵電腦軟體或系統。",
+                page: "資通安全概論 2-90"
+            },
+            {
+                id: 2,
+                question: "根據教材，惡意程式的主要來源可能不包含下列哪一項？",
+                type: "single",
+                options: ["電子郵件", "USB硬碟", "網站瀏覽", "實體門禁卡"],
+                correct: [3],
+                explanation: "惡意程式來源包括電子郵件、USB硬碟、網站瀏覽、即時通訊和檔案傳輸/分享等。",
+                page: "資通安全概論 2-90"
+            },
+            {
+                id: 3,
+                question: "機關在部署防毒軟體時，下列哪一項管理重點是錯誤的？",
+                type: "single",
+                options: ["應定期自動更新病毒碼", "應分析病毒感染的事件與趨勢", "應確保所有電腦皆安裝同一廠牌之防毒軟體", "防火牆應控管未經防毒匣道過濾的連線行為"],
+                correct: [2],
+                explanation: "教材建議「個人電腦與伺服器防毒系統」與「防毒匣道系統」可採用不同廠牌，而非所有電腦必須安裝同一廠牌。",
+                page: "資通安全概論 2-91"
+            },
+            {
+                id: 4,
+                question: "在部署防毒軟體時，哪一種部署方式主要用於保護網路流量中的電子郵件免受惡意程式影響？",
+                type: "single",
+                options: ["個人電腦與伺服器防毒", "電子郵件防毒閘道", "上網防毒閘道", "邊界防火牆"],
+                correct: [1],
+                explanation: "電子郵件防毒閘道（AntiVirus）部署在郵件伺服器路徑上，用於過濾SMTP流量中的惡意程式。",
+                page: "資通安全概論 2-90"
+            },
+            {
+                id: 5,
+                question: "哪一項是機關選購防毒軟體時應考量的重要因素？",
+                type: "single",
+                options: ["是否與作業系統版本完全不相容", "病毒偵測的精準度", "是否不提供中央控管機制", "是否讓電腦效能嚴重下降"],
+                correct: [1],
+                explanation: "防毒軟體選購考量包括病毒偵測的精準度、對電腦效能的影響以及是否提供中央控管機制。",
+                page: "資通安全概論 2-91"
+            },
+            {
+                id: 6,
+                question: "為了避免未安裝或未正常運作防毒軟體的電腦上線，機關可以搭配哪種設備來達到控管目的？",
+                type: "single",
+                options: ["WAF", "NAC", "VPN", "IDS"],
+                correct: [1],
+                explanation: "教材提到應避免未安裝防毒軟體的電腦上線，並建議配合NAC（網路存取控制）設備。",
+                page: "資通安全概論 2-91"
+            },
+            {
+                id: 7,
+                question: "防毒軟體在網路部署方式上，下列何者正確？",
+                type: "single",
+                options: ["僅能部署在個人電腦端", "可部署於電子郵件防毒閘道", "只能部署於伺服器端", "只能部署在DMZ網段"],
+                correct: [1],
+                explanation: "防毒軟體部署方式包括個人電腦與伺服器防毒、電子郵件防毒閘道及上網防毒閘道。",
+                page: "資通安全概論 2-90"
+            },
+            {
+                id: 8,
+                question: "關於防毒軟體的管理重點，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["應定期自動更新病毒碼。", "病毒感染事件不需定期分析。", "「個人電腦與伺服器防毒系統」與「防毒匣道系統」必須採用同一廠牌。", "應避免未安裝防毒軟體的電腦上線。"],
+                correct: [0, 3],
+                explanation: "管理重點要求定期自動更新病毒碼，並定期分析病毒感染事件與趨勢，且建議「個人電腦與伺服器防毒系統」與「防毒匣道系統」可採用不同廠牌。",
+                page: "資通安全概論 2-91"
+            },
+            {
+                id: 9,
+                question: "網路防火牆是依照什麼規則，允許或限制傳輸的資料通過網路？",
+                type: "single",
+                options: ["使用者名稱", "資通系統名稱", "特定的規則", "網路流量速度"],
+                correct: [2],
+                explanation: "網路防火牆依照特定的規則允許或限制傳輸的資料通過網路。",
+                page: "資通安全概論 2-92"
+            },
+            {
+                id: 10,
+                question: "網路防火牆的主要用途是下列何者？",
+                type: "single",
+                options: ["為遠端使用者提供加密連線", "區隔不同安全等級網段", "僅提供應用程式層防護", "主動阻擋惡意軟體"],
+                correct: [1],
+                explanation: "網路防火牆的用途包括區隔不同安全等級網段（如外部網路、內部網路及DMZ）、過濾資料封包，避免未經授權存取內部網路資源，以及提供稽核與控制存取網路資源。",
+                page: "資通安全概論 2-92"
+            },
+            {
+                id: 11,
+                question: "為了確保網路服務的持續性，機關在部署網路防火牆時，建議採用何種運作模式？",
+                type: "single",
+                options: ["橋接模式", "透明模式", "高可靠度（High Availability）模式", "單一設備部署"],
+                correct: [2],
+                explanation: "部署方式建議建置2台防火牆並設定成高可靠度（High Availability）運作模式，當主要防火牆出現問題時，次要防火牆即接手主要防火牆的工作。",
+                page: "資通安全概論 2-93"
+            },
+            {
+                id: 12,
+                question: "網路防火牆的管理重點中，關於防火牆存取控管規則的定期盤查頻率，A級機關的要求是？",
+                type: "single",
+                options: ["每半年1次", "每年1次", "每2年1次", "無要求"],
+                correct: [1],
+                explanation: "防火牆存取控管規則應定期盤查，其中A級機關要求每年1次。",
+                page: "資通安全概論 2-94"
+            },
+            {
+                id: 13,
+                question: "關於網路防火牆的管理重點，下列哪一項是錯誤的？",
+                type: "single",
+                options: ["防火牆存取規則的變更應建立管理程序", "防火牆存取紀錄應即時匯出存檔", "防火牆存取控管規則應定期盤查", "防火牆不需要具備第七層（應用層）防護能力"],
+                correct: [3],
+                explanation: "防火牆的選購考量之一是具備第七層（應用層）防護能力。",
+                page: "資通安全概論 2-94"
+            },
+            {
+                id: 14,
+                question: "網路防火牆在資安部署中的主要職責是什麼？",
+                type: "single",
+                options: ["取代所有防毒軟體", "作為組織網路與外部網路之間的守門員", "分析應用程式原始碼", "專門處理資料備份與還原"],
+                correct: [1],
+                explanation: "防火牆的主要功能是過濾資料封包，避免未經授權存取內部網路資源，實質上扮演網路的守門員。",
+                page: "資通安全概論 2-92"
+            },
+            {
+                id: 15,
+                question: "網路防火牆的選購考量中，哪一項與確保網路設備在失效時能立即接手服務無關？",
+                type: "single",
+                options: ["防火牆本身的安全性", "可區隔的網路區段數", "可支援的傳輸頻寬大小", "具備第七層（應用層）防護能力"],
+                correct: [3],
+                explanation: "確保失效時能立即接手服務屬於高可靠度（HA）模式的部署考量，而不是防火牆選購考量的技術能力（例如具備第七層防護能力）。",
+                page: "資通安全概論 2-93, 2-94"
+            },
+            {
+                id: 16,
+                question: "網路防火牆的管理重點中，B級機關對防火牆存取控管規則的定期盤查頻率要求為何？",
+                type: "single",
+                options: ["每季1次", "每年1次", "每2年1次", "無要求"],
+                correct: [2],
+                explanation: "防火牆存取控管規則應定期盤查，B級機關要求2年1次。",
+                page: "資通安全概論 2-94"
+            },
+            {
+                id: 17,
+                question: "關於網路防火牆的用途與部署，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["防火牆的主要目的是過濾資料封包，避免未經授權存取。", "部署時應考量資安需求，妥善劃分IP網段與虛擬區域網路。", "高可靠度（HA）模式部署是為了在設備故障時確保服務不中斷。", "防火牆只需提供第三層（網路層）的過濾能力。"],
+                correct: [0, 1, 2],
+                explanation: "防火牆的主要用途包括過濾資料封包，部署時需劃分網段並建議採用HA模式。選購考量之一是具備第七層（應用層）防護能力，因此選項(D)不正確。",
+                page: "資通安全概論 2-92, 2-93"
+            },
+            {
+                id: 18,
+                question: "應用程式防火牆（WAF）的主要防護目標是針對哪一層的封包進行管制？",
+                type: "single",
+                options: ["網路層", "傳輸層", "應用層", "資料連結層"],
+                correct: [2],
+                explanation: "應用程式防火牆是針對 應用層 封包進行管制的防火牆機制。",
+                page: "資通安全概論 2-95"
+            },
+            {
+                id: 19,
+                question: "WAF的中文全稱是什麼？",
+                type: "single",
+                options: ["網路存取控制", "網路流量分析", "網站應用程式防火牆", "入侵防禦系統"],
+                correct: [2],
+                explanation: "WAF是網站應用程式防火牆（Web Application Firewall）的縮寫。",
+                page: "資通安全概論 2-95"
+            },
+            {
+                id: 20,
+                question: "WAF相較於IDS/IPS，在網站應用安全防護上的主要優勢是什麼？",
+                type: "single",
+                options: ["價格更便宜", "能判斷SSL加密連線的內容", "部署更容易", "處理網路層封包速度更快"],
+                correct: [1],
+                explanation: "WAF能夠偵測並阻擋網站應用層的攻擊，教材指出WAF可以部署於前端，終止HTTPS連線，以檢查IDS/IPS無法判斷的SSL加密連線內容。",
+                page: "資通安全概論 2-95, 2-96"
+            },
+            {
+                id: 21,
+                question: "哪一項攻擊類型是WAF主要設計來防護的目標？",
+                type: "single",
+                options: ["水災、火災等自然災害", "未經授權的實體存取", "SQL Injection、跨站指令碼（XSS）等網站應用層攻擊", "內部網路的ARP欺騙"],
+                correct: [2],
+                explanation: "WAF主要針對應用層封包，特別是用於網站應用的防護，包括SQL Injection、XSS等。",
+                page: "資通安全概論 2-95"
+            },
+            {
+                id: 22,
+                question: "WAF的部署模式中，哪一種模式是將WAF直接部署於網站伺服器與網際網路之間？",
+                type: "single",
+                options: ["透明模式", "代理模式", "監聽模式", "橋接模式"],
+                correct: [1],
+                explanation: "WAF的部署模式包括代理模式（Proxy Mode），作為網站流量的中介。",
+                page: "資通安全概論 2-96"
+            },
+            {
+                id: 23,
+                question: "WAF在偵測與過濾技術的選擇上，哪一項不是主要考量因素？",
+                type: "single",
+                options: ["偵測規則的精準度", "是否支援中文字元過濾", "是否能終止SSL連線", "是否具備實體環境溫控能力"],
+                correct: [3],
+                explanation: "WAF的考量因素集中於應用程式安全和流量處理，實體環境溫控屬於機房實體安全的範疇。",
+                page: "資通安全概論 2-95"
+            },
+            {
+                id: 24,
+                question: "關於應用程式防火牆（WAF）的部署優勢，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["WAF可以作為網站的 反向代理 ，提供安全防護。", "WAF可以解密傳輸中的HTTPS流量，對內容進行深度檢查。", "WAF相較於傳統IDS/IPS，更能應對Web應用程式層的特定攻擊。", "WAF部署後，後端真正的網站IP對使用者是公開的。"],
+                correct: [0, 1, 2],
+                explanation: "WAF通常作為反向代理（Reverse Proxy）部署，可以終止SSL/TLS連線，檢查加密流量內容，並專注於應用層攻擊防護。",
+                page: "資通安全概論 2-95, 2-96"
+            },
+            {
+                id: 25,
+                question: "WAF所應用的技術中，下列何者正確？（複選）",
+                type: "multiple",
+                options: ["黑名單/白名單規則比對。", "行為分析。", "通訊協定規範檢查。", "僅能對Web應用程式進行防護，無法對Web API進行防護。"],
+                correct: [0, 1, 2],
+                explanation: "WAF的技術包括黑白名單、行為分析、通訊協定規範檢查以及針對 Web API 的防護。",
+                page: "資通安全概論 2-95"
+            },
+            {
+                id: 26,
+                question: "電子郵件過濾機制的主要用途之一是什麼？",
+                type: "single",
+                options: ["加密所有內部網路傳輸", "過濾垃圾與廣告郵件", "修補作業系統漏洞", "提供遠端連線服務"],
+                correct: [1],
+                explanation: "電子郵件過濾機制一般指具垃圾郵件過濾之系統，用途包括過濾垃圾與廣告郵件以及避免電子郵件社交工程攻擊。",
+                page: "資通安全概論 2-97"
+            },
+            {
+                id: 27,
+                question: "下列哪一項不屬於教材中提到的垃圾郵件判斷技術？",
+                type: "single",
+                options: ["貝氏演算法", "外部資料庫比對", "機器學習演算法", "圖片辨識技術"],
+                correct: [2],
+                explanation: "教材中提到的判斷技術包括連線模式、關鍵字比對、內容過濾條件、外部資料庫比對、貝氏演算法和圖片辨識技術。雖然機器學習可能包含在貝氏演算法中，但教材並未直接提及「機器學習演算法」。",
+                page: "資通安全概論 2-97"
+            },
+            {
+                id: 28,
+                question: "在電子郵件過濾機制的部署方式中，哪種模式在設備故障時，郵件會自動繞過設備（Bypass流量），導致安全性較低？",
+                type: "single",
+                options: ["匣道模式（Mail Relay）", "代理模式", "Bridge模式", "高可用度模式"],
+                correct: [2],
+                explanation: "Bridge模式（目前較少見）在設備故障時會自動Bypass流量，安全性較低（Fail Open）。",
+                page: "資通安全概論 2-97"
+            },
+            {
+                id: 29,
+                question: "哪種部署模式的電子郵件過濾機制，其優點是安全性高（Fail Close），但設備故障時信件無法進出？",
+                type: "single",
+                options: ["匣道模式（Mail Relay）", "Bridge模式", "分散式部署", "軟體模式"],
+                correct: [0],
+                explanation: "匣道模式（Mail Relay）的優點是不影響其他網路流量，安全性高，缺點是設備故障時信件無法進出。",
+                page: "資通安全概論 2-97"
+            },
+            {
+                id: 30,
+                question: "關於電子郵件過濾機制的管理重點，下列何者正確？",
+                type: "single",
+                options: ["電子郵件過濾規則的變更不需建立管理程序", "只需手動更新垃圾郵件辨識特徵碼", "應定期自動更新垃圾郵件辨識特徵碼", "只需支援英文信件過濾"],
+                correct: [2],
+                explanation: "管理重點要求應定期自動更新垃圾郵件辨識特徵碼，且變更規則需建立管理程序。",
+                page: "資通安全概論 2-98"
+            },
+            {
+                id: 31,
+                question: "在選購電子郵件過濾機制時，哪一項非主要考量因素？",
+                type: "single",
+                options: ["對中文信件或多國語言的支援能力", "垃圾郵件判斷的精準度", "處理效能是否符合機關需求", "是否與內部實體門禁系統整合"],
+                correct: [3],
+                explanation: "選購考量集中於郵件處理能力、精準度和多語言支援，與實體門禁系統整合無關。",
+                page: "資通安全概論 2-98"
+            },
+            {
+                id: 32,
+                question: "電子郵件過濾機制除了過濾垃圾郵件外，其在安全防護上的另一個重要用途是什麼？",
+                type: "single",
+                options: ["提供網站流量分析", "避免電子郵件社交工程攻擊", "進行資料庫加密", "監控端點設備行為"],
+                correct: [1],
+                explanation: "用途包括過濾垃圾與廣告郵件，以及避免電子郵件社交工程攻擊。",
+                page: "資通安全概論 2-97"
+            },
+            {
+                id: 33,
+                question: "電子郵件過濾機制中的「貝氏演算法」屬於哪種判斷技術？",
+                type: "single",
+                options: ["連線模式判斷", "基於內容過濾的統計分析", "基於關鍵字比對", "基於外部黑名單"],
+                correct: [1],
+                explanation: "貝氏演算法是一種用於內容過濾的統計分析方法。",
+                page: "資通安全概論 2-97"
+            },
+            {
+                id: 34,
+                question: "關於電子郵件過濾機制的部署和管理，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["匣道模式（Mail Relay）部署時，不影響其他網路流量。", "Bridge模式在設備故障時，安全性較高（Fail Close）。", "管理重點包括過濾規則變更必須建立管理程序。", "選購考量之一是郵件附件的檢索能力。"],
+                correct: [0, 2, 3],
+                explanation: "匣道模式不影響其他流量。Bridge模式安全性較低（Fail Open）。規則變更需建立管理程序，且附件檢索能力是選購考量之一。",
+                page: "資通安全概論 2-97, 2-98"
+            },
+            {
+                id: 35,
+                question: "IDS與IPS偵測技術中的「特徵碼比對」有何主要限制？",
+                type: "single",
+                options: ["較易誤判", "只能偵測已知攻擊", "耗費運算資源", "無法判斷網路異常行為"],
+                correct: [1],
+                explanation: "特徵碼比對的優點是判斷較精準，但缺點是只能偵測 已知 攻擊。",
+                page: "資通安全概論 2-99"
+            },
+            {
+                id: 36,
+                question: "入侵偵測與防禦系統（IDS與IPS）在使用上的主要限制是什麼？",
+                type: "single",
+                options: ["無法偵測HTTP流量", "無法識別SSL加密連線的內容", "無法在DMZ區部署", "無法對網路異常行為進行分析"],
+                correct: [1],
+                explanation: "IDS/IPS的主要限制是 無法識別 SSL加密連線的內容。",
+                page: "資通安全概論 2-99"
+            },
+            {
+                id: 37,
+                question: "IDS與IPS偵測技術中的「異常行為模式分析」的主要優點是什麼？",
+                type: "single",
+                options: ["判斷較精準", "能偵測未知類型攻擊", "不耗費運算資源", "只能偵測已知攻擊"],
+                correct: [1],
+                explanation: "異常行為模式分析的優點是能偵測未知類型攻擊，但較易誤判。",
+                page: "資通安全概論 2-99"
+            },
+            {
+                id: 38,
+                question: "IDS與IPS的反應方式中，「被動方式」指的是什麼？",
+                type: "single",
+                options: ["立即將攻擊事件或攻擊來源進行封鎖", "只將異常事件記錄下來，供日後稽核分析使用", "對流量進行解密分析", "修改網路路由設定"],
+                correct: [1],
+                explanation: "被動方式是指只將異常事件記錄下來，供日後稽核分析使用。",
+                page: "資通安全概論 2-100"
+            },
+            {
+                id: 39,
+                question: "如果機關選擇部署IDS而非IPS，則在網路受到攻擊時，該系統將如何反應？",
+                type: "single",
+                options: ["主動將攻擊來源IP列入黑名單", "被動記錄並發出警報", "自動修補系統漏洞", "自動將網站下線"],
+                correct: [1],
+                explanation: "IDS（入侵偵測系統）扮演 被動 角色，主要功能是偵測並發出警報。",
+                page: "資通安全概論 2-101"
+            },
+            {
+                id: 40,
+                question: "IPS（入侵防禦系統）的部署方式中，哪一種方式的防禦能力較強？",
+                type: "single",
+                options: ["監聽模式", "透明模式", "橋接模式（Bridge模式）", "單一設備模式"],
+                correct: [2],
+                explanation: "Bridge模式部署的防禦能力較強。",
+                page: "資通安全概論 2-100"
+            },
+            {
+                id: 41,
+                question: "根據教材，IDS/IPS建議部署在網路中的哪個位置？",
+                type: "single",
+                options: ["僅部署在內部網段", "僅部署在核心交換器", "DMZ區與內部網路進出口", "僅部署在外部網路邊界"],
+                correct: [2],
+                explanation: "部署位置建議為DMZ區與內部網路進出口。",
+                page: "資通安全概論 2-100"
+            },
+            {
+                id: 42,
+                question: "相較於IPS，IDS在部署上的主要優勢是什麼？",
+                type: "single",
+                options: ["能主動阻擋惡意流量", "對網路部署無影響", "偵測未知攻擊能力更強", "能檢測SSL加密內容"],
+                correct: [1],
+                explanation: "IDS的監聽模式部署不影響網路部署，而IPS採用Bridge模式時防禦能力較強但可能影響網路。",
+                page: "資通安全概論 2-100, 2-101"
+            },
+            {
+                id: 43,
+                question: "關於入侵偵測系統（IDS）與入侵防禦系統（IPS）的比較，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["IDS的反應方式是被動的，只記錄事件。", "IPS的反應方式是主動的，能立即封鎖攻擊。", "IDS與IPS都能夠利用「狀態協定分析」技術，來偵測未知類型攻擊。", "IDS與IPS在部署時，皆無法偵測到SSL加密連線中的內容。"],
+                correct: [0, 1, 2, 3],
+                explanation: "IDS是被動，IPS是主動。狀態協定分析能偵測未知類型攻擊。兩者皆無法識別SSL加密連線的內容。",
+                page: "資通安全概論 2-99, 2-101"
+            },
+            {
+                id: 44,
+                question: "APT攻擊（進階持續性威脅）的特性是什麼？",
+                type: "single",
+                options: ["一次性、隨機性", "針對性、潛伏期長", "大量、非持續性", "僅針對個人電腦"],
+                correct: [1],
+                explanation: "APT攻擊具備針對性、持續性、複雜性及潛伏期長等特性。",
+                page: "資通安全概論 2-102"
+            },
+            {
+                id: 45,
+                question: "針對APT攻擊的防護策略中，「縱深防禦」概念是指什麼？",
+                type: "single",
+                options: ["只在網路邊界部署防火牆", "結合網路、端點及應用層面的安全控制措施", "僅使用一種最先進的資安設備", "完全依賴惡意軟體沙箱進行偵測"],
+                correct: [1],
+                explanation: "APT防護部署方式應採取多層次安全防護，即結合網路、端點及應用層面的安全控制措施。",
+                page: "資通安全概論 2-103"
+            },
+            {
+                id: 46,
+                question: "APT攻擊的防護管理重點中，哪一項強調機關需要建立快速檢測、遏制及修復的程序？",
+                type: "single",
+                options: ["持續的威脅情報收集", "完善的事件應變機制", "持續監控及適應性調整", "確保多層次安全防護的全面性"],
+                correct: [1],
+                explanation: "完善的事件應變機制是指建立快速檢測、遏制及修復的程序。",
+                page: "資通安全概論 2-103"
+            },
+            {
+                id: 47,
+                question: "為了應對不斷變化的APT攻擊手法，機關在管理上應持續執行哪一項工作？",
+                type: "single",
+                options: ["每五年更換一次設備", "持續更新及分析最新的威脅情報", "停止所有外部網路連線", "僅依賴防火牆規則"],
+                correct: [1],
+                explanation: "管理重點之一是持續更新及分析最新的威脅情報。",
+                page: "資通安全概論 2-103"
+            },
+            {
+                id: 48,
+                question: "APT攻擊在入侵成功後，通常會試圖執行哪種行為以確保未來能夠持續存取目標系統？",
+                type: "single",
+                options: ["發送大量垃圾郵件", "建立長期控制通道", "執行系統完整備份", "立即通知系統管理者"],
+                correct: [1],
+                explanation: "APT的「持續性」特徵，代表攻擊者在入侵成功後會建立持續的控制通道以長期潛伏。",
+                page: "資通安全概論 2-102"
+            },
+            {
+                id: 49,
+                question: "APT攻擊與一般病毒攻擊最大的區別在於其目的通常是什麼？",
+                type: "single",
+                options: ["破壞電腦硬體", "竊取特定高價值目標的機敏資料", "僅為了炫技", "發動分散式阻斷服務攻擊（DDoS）"],
+                correct: [1],
+                explanation: "APT通常是針對特定高價值目標，意圖長期潛伏並竊取資訊。",
+                page: "資通安全概論 2-102"
+            },
+            {
+                id: 50,
+                question: "APT防護的部署策略中，下列哪一項不是主要要素？",
+                type: "single",
+                options: ["多層次安全防護", "持續的威脅情報收集", "完善的事件應變機制", "單一且靜態的資安防護"],
+                correct: [3],
+                explanation: "部署方式強調多層次、持續收集情報、完善事件應變以及持續監控及適應性調整。",
+                page: "資通安全概論 2-103"
+            },
+            {
+                id: 51,
+                question: "關於APT安全防護策略，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["APT防護應包含網路、端點及應用層面的防護。", "需監控APT攻擊趨勢及手法。", "需建立快速檢測、遏制及修復的事件應變程序。", "攻擊發生時，只需被動記錄，不需主動應變。"],
+                correct: [0, 1, 2],
+                explanation: "APT防護採用多層次防護，需持續監控威脅情報，並建立完善的應變機制（快速檢測、遏制及修復）。",
+                page: "資通安全概論 2-103"
+            },
+            {
+                id: 52,
+                question: "SOC的中文全稱是什麼？",
+                type: "single",
+                options: ["系統安全控制", "安全操作中心", "安全與營運中心", "資通安全威脅偵測管理機制"],
+                correct: [3],
+                explanation: "SOC是資通安全威脅偵測管理（Security Operation Center）的縮寫。",
+                page: "資通安全概論 2-104"
+            },
+            {
+                id: 53,
+                question: "SOC提供的主要服務不包含下列哪一項？",
+                type: "single",
+                options: ["資安監控", "事件處理", "機房空調維護", "資安威脅預警"],
+                correct: [2],
+                explanation: "SOC提供資安監控、事件處理、資安威脅預警等服務，但不包括實體機房空調維護。",
+                page: "資通安全概論 2-104, 2-105"
+            },
+            {
+                id: 54,
+                question: "以A級公務機關為例，下列哪一項不屬於SOC建議的監控範圍？",
+                type: "single",
+                options: ["入侵防禦及防禦偵測機制（IDS/IPS）", "核心資通系統的應用程式紀錄", "目錄服務系統", "非營運性網站架構圖"],
+                correct: [3],
+                explanation: "SOC監控範圍應包含EDR、防毒軟體、網路防火牆、電子郵件過濾機制、IDS/IPS、WAF、APT、目錄服務系統及核心資通系統之紀錄。非營運性網站架構圖不在其主要監控範圍內。",
+                page: "資通安全概論 2-104"
+            },
+            {
+                id: 55,
+                question: "SOC管理機制如何提升機關資安監控的有效性？",
+                type: "single",
+                options: ["透過7x24全天候監控服務", "取代所有資安設備", "只對外部網路進行監控", "只處理資安事件的事後報告"],
+                correct: [0],
+                explanation: "SOC可以協助機關提升資安監控之有效性，包含7x24全天候監控服務、即時告警、追蹤分析與應變處理等。",
+                page: "資通安全概論 2-105"
+            },
+            {
+                id: 56,
+                question: "在資通安全威脅偵測管理聯防機制中，N-SOC的主要職責是什麼？",
+                type: "single",
+                options: ["收單一單位資安防護狀況", "建置相關資安防護機制", "協助制定領域資安威脅警報規範", "掌握領域整體資安現況與趨勢"],
+                correct: [2],
+                explanation: "N-SOC協助制定領域資安威脅警報規範、掌握各領域整體資安現況與趨勢，並研判緊急資安事件。",
+                page: "資通安全概論 2-106"
+            },
+            {
+                id: 57,
+                question: "領域SOC（Sector SOC）在聯防機制中的主要功能是什麼？",
+                type: "single",
+                options: ["僅負責制定國家級的威脅情資", "收整單一單位資安防護狀況，研判並通知緊急資安事件", "提供7x24全天候機房實體維護", "決定GCB的組態標準"],
+                correct: [1],
+                explanation: "領域SOC的功能包括收整單一單位資安防護狀況、研判並通知緊急資安事件，以及掌握領域整體資安現況與趨勢。",
+                page: "資通安全概論 2-106"
+            },
+            {
+                id: 58,
+                question: "SOC在進行追蹤分析時，通常會整合哪些服務以更全面地掌握網路風險狀態？",
+                type: "single",
+                options: ["機房溫度計", "全球預警與威脅情資", "人事變動紀錄", "財務報表"],
+                correct: [1],
+                explanation: "SOC搭配全球預警、威脅情資等服務及專屬事件追蹤平台，協助機關即時掌握最新網路風險狀態及安全資訊。",
+                page: "資通安全概論 2-105"
+            },
+            {
+                id: 59,
+                question: "關於資通安全威脅偵測管理機制（SOC），下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["SOC應監控的範圍建議包含端點偵測及應變機制（EDR）。", "SOC應提供即時告警服務。", "SOC的主要目的是取代機關所有的資安設備。", "SOC可以搭配全球威脅情資服務。"],
+                correct: [0, 1, 3],
+                explanation: "SOC監控範圍包括EDR，提供即時告警服務，並可搭配全球情資。SOC旨在提升監控有效性，而非取代所有資安設備。",
+                page: "資通安全概論 2-104, 2-105"
+            },
+            {
+                id: 60,
+                question: "組態管理資料庫（CMDB）的主要功能是什麼？",
+                type: "single",
+                options: ["儲存機關所有密碼", "儲存IT系統所有組態項目及其關聯性", "執行自動化弱點掃描", "負責即時事件應變"],
+                correct: [1],
+                explanation: "CMDB是儲存最新IT系統所有組態項目（CI）及其關聯性的資料庫。",
+                page: "資通安全概論 2-107"
+            },
+            {
+                id: 61,
+                question: "組態管理的目的之一是？",
+                type: "single",
+                options: ["加速病毒傳播", "提供IT服務管理作業中所需的精確資訊", "增加系統變更的負面影響", "完全取代資產管理"],
+                correct: [1],
+                explanation: "組態管理的目的包括IT資產管理、提供IT服務管理作業中所需的精確資訊，以及降低因變更對系統造成的各類負面影響。",
+                page: "資通安全概論 2-108"
+            },
+            {
+                id: 62,
+                question: "為了維護IT系統的組態現況，應透過哪個流程來隨時更新組態資料庫（CMDB）？",
+                type: "single",
+                options: ["風險評估", "營運持續計畫", "變更管理", "身分鑑別"],
+                correct: [2],
+                explanation: "應透過「變更管理」流程中加入「變更組態」的動作，來隨時更新CMDB。",
+                page: "資通安全概論 2-108"
+            },
+            {
+                id: 63,
+                question: "變更管理項目中，哪一項是變更實作前必須執行的步驟？",
+                type: "single",
+                options: ["取得授權與核准", "僅需記錄變更內容", "忽略變更的衝擊評估", "無需通知任何單位"],
+                correct: [0],
+                explanation: "變更管理項目包括記錄變更內容、評估衝擊、取得授權與核准、管理與協調實作，以及實作監督與回報。",
+                page: "資通安全概論 2-109"
+            },
+            {
+                id: 64,
+                question: "GCB（政府組態基準）的主要目的在於規範資通訊設備的什麼？",
+                type: "single",
+                options: ["硬體採購價格", "一致性安全設定", "機房實體位置", "網路流量速度"],
+                correct: [1],
+                explanation: "GCB的目的在於規範資通訊設備（如PC、伺服器、網通設備）的 一致性安全設定 。",
+                page: "資通安全概論 2-110"
+            },
+            {
+                id: 65,
+                question: "根據政府政策，GCB導入是哪兩級公務機關必須辦理的事項？",
+                type: "single",
+                options: ["A級與C級", "B級與C級", "A級與B級", "C級與D級"],
+                correct: [2],
+                explanation: "GCB導入是A級與B級公務機關必須辦理事項。",
+                page: "資通安全概論 2-110"
+            },
+            {
+                id: 66,
+                question: "在IT系統組態變更時，除了可用性影響外，還必須考量下列哪一項安全影響？",
+                type: "single",
+                options: ["行銷策略變動", "資通系統的存取控制影響", "員工午餐菜單變更", "機房地板清潔頻率"],
+                correct: [1],
+                explanation: "應考量對系統營運的安全影響，包括可用性影響、安全組態影響、 存取控制影響 。",
+                page: "資通安全概論 2-109"
+            },
+            {
+                id: 67,
+                question: "GCB所涵蓋的組態基準類別不包含下列哪一項？",
+                type: "single",
+                options: ["作業系統", "應用程式", "瀏覽器", "機房消防系統"],
+                correct: [3],
+                explanation: "GCB涵蓋作業系統、應用程式、瀏覽器、網通設備等資通訊設備。",
+                page: "資通安全概論 2-111"
+            },
+            {
+                id: 68,
+                question: "關於組態管理與GCB的敘述，下列何者正確？（複選）",
+                type: "multiple",
+                options: ["組態項目（CI）包含服務、軟體、硬體及設定等項目。", "變更管理流程應確保CMDB能反映變更後的現況。", "GCB旨在規範資通訊設備的一致性安全設定。", "GCB導入僅建議A級公務機關辦理。"],
+                correct: [0, 1, 2],
+                explanation: "組態項目定義正確。變更管理應更新CMDB。GCB旨在規範一致性安全設定。GCB導入是A級與B級公務機關必須辦理的事項，非僅建議。",
+                page: "資通安全概論 2-107, 2-108, 2-110"
+            },
+            {
+                id: 69,
+                question: "VANS（政府機關資安弱點通報機制）的主要目的之一是什麼？",
+                type: "single",
+                options: ["取代所有資安設備", "提供自動化入侵防禦", "結合資訊資產管理與弱點管理", "執行資通系統的完整備份"],
+                correct: [2],
+                explanation: "VANS目的在於結合資訊資產管理與弱點管理，掌握整體風險情勢。",
+                page: "資通安全概論 2-112"
+            },
+            {
+                id: 70,
+                question: "VANS如何協助機關掌握所使用資訊資產是否存在已公開揭露之弱點資訊？",
+                type: "single",
+                options: ["透過人工定期檢查所有設備", "將資訊資產清冊與弱點資料庫比對", "對網路流量進行深度封包檢查", "對伺服器進行滲透測試"],
+                correct: [1],
+                explanation: "VANS會將資訊資產清冊與弱點資料庫比對，以掌握資訊資產是否存在已公開揭露之弱點資訊。",
+                page: "資通安全概論 2-112"
+            },
+            {
+                id: 71,
+                question: "VANS所提供的服務中，哪一項功能能協助機關自動化檢視安全性更新的落實程度？",
+                type: "single",
+                options: ["提供威脅情報預警", "支援微軟安全性更新檢測報告解析功能", "提供7x24即時事件應變", "提供網路防火牆規則建議"],
+                correct: [1],
+                explanation: "VANS提供微軟安全性更新檢測報告解析功能，協助機關以自動化方式檢視安全性更新落實程度。",
+                page: "資通安全概論 2-114"
+            },
+            {
+                id: 72,
+                question: "VANS的實作流程中，哪一項是必須先定期蒐集並建立的清冊？",
+                type: "single",
+                options: ["弱點資料庫", "員工名單", "資訊資產清冊", "風險評估報告"],
+                correct: [2],
+                explanation: "VANS實作首先要定期蒐集資通系統主機與電腦所使用之資訊資產項目及版本，建立資訊資產清冊。",
+                page: "資通安全概論 2-112"
+            },
+            {
+                id: 73,
+                question: "VANS服務的一個重要環節是即時提醒資訊資產風險情形，其依據的門檻是什麼？",
+                type: "single",
+                options: ["機關資通系統的可用性", "機關訂定之風險值門檻", "資安事件數量", "每月網路流量總量"],
+                correct: [1],
+                explanation: "VANS會依照機關訂定之風險值門檻，即時提醒資訊資產風險情形，並進行弱點評估與修補作業。",
+                page: "資通安全概論 2-114"
+            },
+            {
+                id: 74,
+                question: "VANS主要涵蓋的資訊資產範圍中，包含下列哪一項？",
+                type: "single",
+                options: ["網路實體線路", "應用程式中介軟體", "組織管理政策文件", "電源供應器硬體"],
+                correct: [1],
+                explanation: "VANS資訊資產涵蓋範圍包括作業系統、應用程式中介軟體、應用框架、程式語言和應用軟體資產。",
+                page: "資通安全概論 2-116"
+            },
+            {
+                id: 75,
+                question: "VANS協助機關落實資通安全管理法的哪兩項應辦事項？",
+                type: "single",
+                options: ["實體安全與環境控制", "資產盤點與風險評估", "電子郵件過濾與網路分段", "身分鑑別與存取控制"],
+                correct: [1],
+                explanation: "VANS可協助機關落實資通安全管理法之資產盤點與風險評估應辦事項。",
+                page: "資通安全概論 2-114"
+            },
+            {
+                id: 76,
+                question: "下列哪一項屬於VANS資訊資產涵蓋範圍中的「作業系統」類別？",
+                type: "single",
+                options: ["Microsoft Office", "Apache Tomcat", "Windows Server", "MySQL"],
+                correct: [2],
+                explanation: "Windows Server和Linux屬於作業系統類別。",
+                page: "資通安全概論 2-116"
+            },
+            {
+                id: 77,
+                question: "關於VANS通報機制與提供的服務，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["VANS的目的是透過弱點比對，協助機關進行系統化風險評估。", "VANS可以持續維護機關的資訊資產盤點資料。", "VANS提供即時提醒，但不需要機關事先訂定風險值門檻。", "VANS涵蓋的資產範圍包括作業系統、程式語言及應用程式中介軟體。"],
+                correct: [0, 1, 3],
+                explanation: "VANS協助進行系統化風險評估。VANS可以持續維護資產盤點資料。VANS的即時提醒是 依照機關訂定之風險值門檻 進行的，因此(C)錯誤。涵蓋範圍正確。",
+                page: "資通安全概論 2-114, 2-116"
+            },
+            {
+                id: 78,
+                question: "EDR（端點偵測及回應系統）的主要用途是什麼？",
+                type: "single",
+                options: ["提供網路層的封包過濾", "偵測與阻擋威脅，確保端點設備安全", "執行資通系統的災難復原", "分析電子郵件垃圾郵件特徵碼"],
+                correct: [1],
+                explanation: "EDR的用途是偵測與阻擋威脅，確保端點設備安全。",
+                page: "資通安全概論 2-117"
+            },
+            {
+                id: 79,
+                question: "EDR系統的技術類型通常包括下列哪一項？",
+                type: "single",
+                options: ["地理資訊分析", "黑白名單比對", "實體環境監控", "網路封包加密"],
+                correct: [1],
+                explanation: "EDR的技術類型包括行為分析、規則比對、黑白名單等技術。",
+                page: "資通安全概論 2-117"
+            },
+            {
+                id: 80,
+                question: "EDR相較於傳統防毒軟體，最主要的優勢是哪一項？",
+                type: "single",
+                options: ["成本較低", "具備更深入的回應與應變能力", "只需部署在伺服器端", "只針對已知病毒進行偵測"],
+                correct: [1],
+                explanation: "EDR提供更深入的 偵測及回應 能力，超越傳統防毒軟體（Anti-Virus）僅能防毒的功能。",
+                page: "資通安全概論 2-117"
+            },
+            {
+                id: 81,
+                question: "EDR在偵測到威脅後，通常會執行哪種行為？",
+                type: "single",
+                options: ["忽略威脅，被動記錄", "通知網通設備進行軟體升級", "依據應變機制對威脅進行隔離或遏制", "更新組織的密碼管理政策"],
+                correct: [2],
+                explanation: "EDR的「回應」功能旨在對偵測到的威脅進行適當的應變，如隔離或遏制。",
+                page: "資通安全概論 2-117"
+            },
+            {
+                id: 82,
+                question: "EDR的選購考量中，哪一項重點與其偵測功能無關？",
+                type: "single",
+                options: ["偵測威脅的精準度", "是否可與防毒軟體整合", "系統呈現的攻擊事件資訊是否詳盡", "是否能對網路防火牆規則進行變更"],
+                correct: [3],
+                explanation: "EDR主要專注於端點設備的安全與應變，與網路防火牆規則變更無關。",
+                page: "資通安全概論 2-117"
+            },
+            {
+                id: 83,
+                question: "EDR系統的行為分析技術，主要用於偵測下列哪一類威脅？",
+                type: "single",
+                options: ["已知的病毒特徵碼", "主機上未見過或可疑的程式執行行為", "網路層的DDoS攻擊", "網站應用程式的SQL Injection"],
+                correct: [1],
+                explanation: "行為分析用於識別異常的或未經授權的行為，特別適用於偵測未知的威脅或潛伏攻擊，例如主機上可疑的程式執行。",
+                page: "資通安全概論 2-117"
+            },
+            {
+                id: 84,
+                question: "EDR主要部署在資通系統的哪一環節？",
+                type: "single",
+                options: ["網路邊界", "應用程式層", "端點設備", "雲端儲存"],
+                correct: [2],
+                explanation: "EDR為端點偵測及回應系統，主要目標是確保 端點設備 安全。",
+                page: "資通安全概論 2-117"
+            },
+            {
+                id: 85,
+                question: "EDR系統通常會收集和分析端點設備上的哪些數據來進行威脅偵測？",
+                type: "single",
+                options: ["網路防火牆日誌和郵件流量", "程序活動、檔案修改和登錄檔變更", "機房溫濕度數據", "硬體採購清單"],
+                correct: [1],
+                explanation: "EDR的核心功能是監控端點上的活動，例如程序執行、檔案操作、登錄檔變更等，以進行行為分析。",
+                page: "資通安全概論 2-117"
+            },
+            {
+                id: 86,
+                question: "關於端點偵測及回應系統（EDR），下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["EDR是為了確保端點設備的安全。", "EDR的技術類型不包括規則比對。", "EDR的選購考量之一是系統呈現的攻擊事件資訊必須詳盡且易於判讀。", "EDR通常可以與防毒軟體整合，提供更全面的防護。"],
+                correct: [0, 2, 3],
+                explanation: "EDR用途是確保端點設備安全。EDR技術包括規則比對。系統事件呈現和與防毒軟體整合都是重要的選購考量。",
+                page: "資通安全概論 2-117"
+            }
+        ];
+
+        // 全域變數
+        let currentQuestion = 0;
+        let userAnswers = {}; // 儲存使用者答案
+        let showingExplanation = false;
+
+        // 初始化測驗
+        function initQuiz() {
+            document.getElementById('totalNum').textContent = questions.length;
+            loadQuestion();
+            updateStats();
+            generateHistoryGrid();
+        }
+
+        // 載入題目
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            const quizCard = document.getElementById('quizCard');
+            
+            // 判斷題目類型
+            const typeLabel = question.type === 'single' ? '單選題' : '複選題';
+            const inputType = question.type === 'single' ? 'radio' : 'checkbox';
+            
+            // 生成選項HTML
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestion] && userAnswers[currentQuestion].includes(index);
+                optionsHTML += `
+                    <div class="option" onclick="selectOption(${index})">
+                        <input type="${inputType}" name="q${currentQuestion}" value="${index}" ${isSelected ? 'checked' : ''} onchange="handleOptionChange(${index})">
+                        <label>(${String.fromCharCode(65 + index)}) ${option}</label>
+                    </div>
+                `;
+            });
+
+            quizCard.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">第 ${currentQuestion + 1} 題</span>
+                    <span class="question-type">${typeLabel}</span>
+                </div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">${optionsHTML}</div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="submitAnswer()">提交答案</button>
+                    <button class="btn btn-secondary" onclick="showExplanation()" id="explanationBtn" style="display: none;">查看解答</button>
+                </div>
+                <div class="explanation" id="explanation">
+                    <h4>📝 解答說明</h4>
+                    <p><strong>正確答案：</strong>${question.correct.map(i => String.fromCharCode(65 + i)).join(', ')}</p>
+                    <p>${question.explanation}</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;"><strong>📖 出處頁碼：</strong>${question.page}</p>
+                </div>
+            `;
+
+            // 更新進度
+            document.getElementById('currentNum').textContent = currentQuestion + 1;
+            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // 更新按鈕狀態
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = currentQuestion === questions.length - 1;
+            
+            showingExplanation = false;
+        }
+
+        // 選擇選項
+        function selectOption(index) {
+            const question = questions[currentQuestion];
+            const checkbox = document.querySelector(`input[value="${index}"]`);
+            
+            if (question.type === 'single') {
+                // 單選題：取消所有選項，只選中當前項
+                document.querySelectorAll(`input[name="q${currentQuestion}"]`).forEach(input => {
+                    input.checked = false;
+                });
+                checkbox.checked = true;
+                userAnswers[currentQuestion] = [index];
+            } else {
+                // 複選題：切換選中狀態
+                checkbox.checked = !checkbox.checked;
+                if (!userAnswers[currentQuestion]) {
+                    userAnswers[currentQuestion] = [];
+                }
+                
+                if (checkbox.checked) {
+                    if (!userAnswers[currentQuestion].includes(index)) {
+                        userAnswers[currentQuestion].push(index);
+                    }
+                } else {
+                    userAnswers[currentQuestion] = userAnswers[currentQuestion].filter(i => i !== index);
+                }
+            }
+            
+            updateHistoryGrid();
+        }
+
+        // 處理選項變化
+        function handleOptionChange(index) {
+            // 這個函數由於selectOption已經處理了邏輯，可以保持空白
+        }
+
+        // 提交答案
+        function submitAnswer() {
+            const question = questions[currentQuestion];
+            const userAnswer = userAnswers[currentQuestion];
+            
+            if (!userAnswer || userAnswer.length === 0) {
+                showToast('請選擇答案！', 'error');
+                return;
+            }
+
+            // 檢查答案正確性
+            const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+            
+            // 顯示結果
+            highlightOptions(isCorrect);
+            
+            // 播放音效（模擬）
+            if (isCorrect) {
+                showToast('答對了！', 'success');
+            } else {
+                showToast('答錯了，請查看解答', 'error');
+            }
+            
+            // 顯示解答按鈕
+            document.getElementById('explanationBtn').style.display = 'inline-block';
+            
+            updateStats();
+            updateHistoryGrid();
+        }
+
+        // 比較陣列相等
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        // 標示選項正確性
+        function highlightOptions(isCorrect) {
+            const question = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, index) => {
+                const input = option.querySelector('input');
+                option.classList.remove('correct', 'incorrect', 'user-selected');
+                
+                if (question.correct.includes(index)) {
+                    option.classList.add('correct');
+                } else if (input.checked) {
+                    option.classList.add('incorrect');
+                }
+                
+                if (input.checked) {
+                    option.classList.add('user-selected');
+                }
+            });
+        }
+
+        // 顯示解答
+        function showExplanation() {
+            const explanation = document.getElementById('explanation');
+            explanation.classList.add('show');
+            showingExplanation = true;
+        }
+
+        // 上一題
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // 下一題
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        // 跳到指定題目
+        function goToQuestion(questionIndex) {
+            currentQuestion = questionIndex;
+            loadQuestion();
+            toggleHistory(); // 關閉歷史面板
+        }
+
+        // 切換歷史記錄面板
+        function toggleHistory() {
+            const historyPanel = document.getElementById('historyPanel');
+            historyPanel.classList.toggle('show');
+        }
+
+        // 生成歷史記錄網格
+        function generateHistoryGrid() {
+            const historyGrid = document.getElementById('historyGrid');
+            let gridHTML = '';
+            
+            for (let i = 0; i < questions.length; i++) {
+                let status = 'unanswered';
+                if (userAnswers[i]) {
+                    const isCorrect = arraysEqual(userAnswers[i].sort(), questions[i].correct.sort());
+                    status = isCorrect ? 'correct' : 'incorrect';
+                }
+                
+                gridHTML += `
+                    <div class="history-item ${status}" onclick="goToQuestion(${i})">
+                        ${i + 1}
+                    </div>
+                `;
+            }
+            
+            historyGrid.innerHTML = gridHTML;
+        }
+
+        // 更新歷史記錄網格
+        function updateHistoryGrid() {
+            generateHistoryGrid();
+        }
+
+        // 更新統計資料
+        function updateStats() {
+            let correctCount = 0;
+            let incorrectCount = 0;
+            
+            Object.keys(userAnswers).forEach(questionIndex => {
+                const question = questions[parseInt(questionIndex)];
+                const userAnswer = userAnswers[questionIndex];
+                
+                if (userAnswer && userAnswer.length > 0) {
+                    const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+                    if (isCorrect) {
+                        correctCount++;
+                    } else {
+                        incorrectCount++;
+                    }
+                }
+            });
+            
+            const totalAnswered = correctCount + incorrectCount;
+            const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('accuracy').textContent = `${accuracy}%`;
+        }
+
+        // 顯示提示訊息
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 重新開始測驗
+        function restartQuiz() {
+            if (confirm('確定要重新開始測驗嗎？所有答案將被清除。')) {
+                userAnswers = {};
+                currentQuestion = 0;
+                showingExplanation = false;
+                initQuiz();
+                showToast('測驗已重新開始', 'success');
+            }
+        }
+
+        // 頁面載入完成後初始化
+        window.addEventListener('load', initQuiz);
+    </script>
+</body>
+</html>

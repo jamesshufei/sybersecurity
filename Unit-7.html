@@ -1,0 +1,2641 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資通安全概論第7單元自我評量測驗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .question-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-1px);
+        }
+
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .option.user-selected {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .explanation h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation p {
+            color: #533d03;
+            line-height: 1.6;
+        }
+
+        .history-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .history-panel.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .history-item.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .history-item.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .history-item.unanswered {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 2px solid #d6d8db;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #f44336, #ff7043);
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 30px;
+            background: #4763fa;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 22px;
+            cursor: pointer;
+            margin: 0 6px 8px 0;
+            box-shadow: 0 2px 8px rgba(70,90,160,0.09);
+            transition: background 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+        .action-btn:hover,
+        .action-btn:focus {
+            background: #253095;
+            color: #fff;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>資通安全概論 第7單元自我評量測驗</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats">
+                <span>題目 <span id="currentNum">1</span> / <span id="totalNum">215</span></span>
+                <span>答對：<span id="correctCount">0</span></span>
+                <span>答錯：<span id="incorrectCount">0</span></span>
+                <span>準確率：<span id="accuracy">0%</span></span>
+            </div>
+        </div>
+
+        <div class="quiz-card" id="quizCard">
+            <!-- 題目將由 JS 動態插入 -->
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <h3>答題記錄</h3>
+            <div class="history-grid" id="historyGrid">
+                <!-- 歷史記錄將由 JS 動態插入 -->
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="toggleHistory()">查看記錄</button>
+            <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">上一題</button>
+            <button class="btn btn-secondary" onclick="nextQuestion()" id="nextBtn">下一題</button>
+            <button class="btn btn-success" onclick="restartQuiz()">重新開始</button>
+            <button class="action-btn" id="backHome" onclick="window.location.href='index.html'">回主頁</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // 所有題目數據 (第7單元及後續)
+        const questions = [
+            {
+                id: 1,
+                question: "依據資通安全責任等級分級辦法，機關級別為「B」的機關，其核心資通安全系統要求每隔多久應執行一次滲透測試？",
+                type: "single",
+                options: ["每年2次", "每年1次", "每2年1次", "無要求"],
+                correct: [2],
+                explanation: "B級機關的滲透測試頻率要求為每2年1次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 2,
+                question: "依據資通安全責任等級分級辦法，機關級別為「A」的機關，其核心資通安全系統要求每隔多久應執行一次弱點掃描？",
+                type: "single",
+                options: ["每年2次", "每年1次", "每2年1次", "無要求"],
+                correct: [0],
+                explanation: "A級機關的弱點掃描頻率要求為每年2次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 3,
+                question: "依據資通安全責任等級分級辦法，哪一級別的機關對於核心資通安全系統的弱點掃描與滲透測試皆「無要求」？",
+                type: "single",
+                options: ["A級與B級", "B級與C級", "C級與D級", "D級與E級"],
+                correct: [3],
+                explanation: "D級與E級機關對於核心資通安全系統的弱點掃描與滲透測試皆無要求。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 4,
+                question: "依據資通安全責任等級分級辦法，哪一級別的機關要求每年執行滲透測試1次？",
+                type: "single",
+                options: ["A級", "B級", "C級", "D級"],
+                correct: [0],
+                explanation: "只有A級機關要求每年執行滲透測試1次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 5,
+                question: "下列何者是安全性檢測所包含的核心資通安全系統檢測項目？",
+                type: "single",
+                options: ["資通安全健診與社交工程演練", "弱點掃描與滲透測試", "實體安全檢查與網路區域規劃", "災害復原演練與軟體變更控制"],
+                correct: [1],
+                explanation: "安全性檢測包含核心資通安全系統之弱點掃描與滲透測試。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 6,
+                question: "關於C級機關的安全性檢測頻率，下列敘述何者正確？",
+                type: "single",
+                options: ["弱點掃描與滲透測試皆為每年1次", "弱點掃描為每年1次，滲透測試為每2年1次", "弱點掃描與滲透測試皆為每2年1次", "弱點掃描為每2年1次，滲透測試無要求"],
+                correct: [2],
+                explanation: "C級機關的弱點掃描和滲透測試頻率皆為每2年1次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 7,
+                question: "關於資通安全責任等級C級和B級的安全性檢測規定，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["B級的弱點掃描頻率高於C級。", "B級的滲透測試頻率高於C級。", "兩者皆要求每兩年執行一次滲透測試。", "兩者皆要求執行弱點掃描。"],
+                correct: [0, 2, 3],
+                explanation: "B級弱點掃描每年1次，C級每2年1次。B級和C級的滲透測試頻率皆為每2年1次，故B錯誤。兩者皆要求執行弱點掃描。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 8,
+                question: "弱點掃描的目標是檢查系統或應用程式是否存在下列何種問題？",
+                type: "single",
+                options: ["未知的零時差攻擊", "已知的安全弱點", "加密演算法的強度", "系統的硬體故障"],
+                correct: [1],
+                explanation: "弱點掃描係透過工具或程序，檢查系統或應用程式是否存在已知的安全弱點。",
+                page: "資通安全概論 3-3"
+            },
+            {
+                id: 9,
+                question: "弱點掃描的目的之一，是評估掃描目標目前的哪種狀況？",
+                type: "single",
+                options: ["員工滿意度", "資安防護能力", "財務狀況", "市場競爭力"],
+                correct: [1],
+                explanation: "弱點掃描的目的包含評估資安防護能力，了解掃描目標目前的資安保護狀況。",
+                page: "資通安全概論 3-3"
+            },
+            {
+                id: 10,
+                question: "針對「主機系統-弱點掃描」，檢查項目應至少符合哪個機構發布的弱點內容？",
+                type: "single",
+                options: ["OWASP TOP 10", "Common Vulnerabilities and Exposures (CVE)", "ISO/IEC 27001", "NIST SP 800-210"],
+                correct: [1],
+                explanation: "主機系統弱點掃描的檢查項目應至少符合Common Vulnerabilities and Exposures (CVE) 發布的弱點內容。",
+                page: "資通安全概論 3-4"
+            },
+            {
+                id: 11,
+                question: "弱點掃描流程中，哪一項工作的目的是驗證已發現的弱點是否已成功修補？",
+                type: "single",
+                options: ["執行初掃", "執行複掃", "進行掃描工具更新", "產出弱點排除清單"],
+                correct: [1],
+                explanation: "執行「複掃」的目的是確認先前的弱點是否已成功排除，確保掃描目標的安全。",
+                page: "資通安全概論 3-5"
+            },
+            {
+                id: 12,
+                question: "根據OWASP TOP 10:2021，哪一項是指網站應用程式中的權限控制設計不當，導致使用者可以存取非授權資源？",
+                type: "single",
+                options: ["A02 Cryptographic Failures", "A03 Injection", "A01 Broken Access Control", "A05 Security Misconfiguration"],
+                correct: [2],
+                explanation: "A01 Broken Access Control 指權限控制失效。",
+                page: "資通安全概論 3-4"
+            },
+            {
+                id: 13,
+                question: "弱點掃描報告中的「弱點排除清單」主要說明了哪一類項目？",
+                type: "single",
+                options: ["所有高風險弱點的修補狀態", "經人工判斷為誤判的項目及理由", "因特定原因（如無法修補）而暫不修補的弱點及其理由", "複掃後新發現的弱點"],
+                correct: [2],
+                explanation: "弱點排除清單說明因特定原因而暫不修補的弱點及其理由。",
+                page: "資通安全概論 3-6"
+            },
+            {
+                id: 14,
+                question: "關於弱點掃描的考量因素，若掃描可能對目標系統造成不穩定或破壞，則屬於哪一類型？",
+                type: "single",
+                options: ["非侵入式", "有登錄權限", "侵入式", "外部掃描"],
+                correct: [2],
+                explanation: "侵入式可能對系統造成不穩定或破壞。",
+                page: "資通安全概論 3-9"
+            },
+            {
+                id: 15,
+                question: "弱點掃描服務委外時，若由機關資安部門自行執行，需要考量哪些主要因素？",
+                type: "single",
+                options: ["滲透測試的頻率", "弱點掃描軟體的購置與持續更新", "是否需要實體隔離區域", "網路服務中斷時間"],
+                correct: [1],
+                explanation: "機關自行執行弱點掃描需考量軟體的購置與持續更新，以及專業人才。",
+                page: "資通安全概論 3-11"
+            },
+            {
+                id: 16,
+                question: "根據弱點掃描的考慮因素，「非侵入式」的優點是什麼？",
+                type: "single",
+                options: ["可發現更多潛在弱點", "安全性高，適合運作中環境", "通常用於滲透測試", "掃描速度較快"],
+                correct: [1],
+                explanation: "非侵入式不會對目標系統造成影響，安全性高，適合運作中環境。",
+                page: "資通安全概論 3-9"
+            },
+            {
+                id: 17,
+                question: "在弱點掃描的報告中，下列哪一項應提供與初掃結果的比較？",
+                type: "single",
+                options: ["執行結果摘要", "專案執行計畫", "掃描誤判清單", "複掃報告的差異化分析"],
+                correct: [3],
+                explanation: "複掃報告應提供與初掃結果的比較。",
+                page: "資通安全概論 3-6"
+            },
+            {
+                id: 18,
+                question: "關於弱點掃描的執行，下列敘述何者正確？",
+                type: "single",
+                options: ["應在每次掃描前將弱點資料庫更新至最新版本", "為了不影響運作，初掃應在公務時段進行", "若複掃仍發現未修補的弱點，服務提供者無需協助解決", "弱點掃描的主要輸出是詳細的風險統計表"],
+                correct: [0],
+                explanation: "每次掃描前應將掃描工具的弱點資料庫更新至最新版本。",
+                page: "資通安全概論 3-5"
+            },
+            {
+                id: 19,
+                question: "根據弱點掃描服務的服務水準協議（SLA），因執行弱點掃描服務造成軟硬體設備服務中斷時，服務中斷時間不得超過多久？",
+                type: "single",
+                options: ["1小時", "4小時", "8小時", "1天"],
+                correct: [2],
+                explanation: "設備服務中斷時間不得超過8小時。",
+                page: "資通安全概論 3-14"
+            },
+            {
+                id: 20,
+                question: "弱點掃描服務委外合約的「專案目標」是什麼？",
+                type: "single",
+                options: ["訓練內部資安專業人才", "協助掃描目標提升系統安全防護成效", "購買最新的掃描軟體", "執行資安事件應變"],
+                correct: [1],
+                explanation: "專案目標是藉由執行成果，評估資安防護能力與發現潛在弱點，並協助掃描目標提升系統安全防護成效。",
+                page: "資通安全概論 3-13"
+            },
+            {
+                id: 21,
+                question: "關於弱點掃描的類型，下列哪一項是針對作業系統、網路服務、系統設定等進行掃描？",
+                type: "single",
+                options: ["Web網頁-弱點掃描", "應用程式-弱點掃描", "主機系統-弱點掃描", "行動應用程式-弱點掃描"],
+                correct: [2],
+                explanation: "主機系統-弱點掃描針對作業系統、網路服務、系統設定、帳號密碼管理等進行掃描。",
+                page: "資通安全概論 3-4"
+            },
+            {
+                id: 22,
+                question: "在弱點掃描的考量因素中，「有登錄權限（Authenticated）」相比「無登錄權限」掃描的優勢是什麼？",
+                type: "single",
+                options: ["可節省一半的掃描時間", "更為深入與澈底", "無需擔心對系統造成破壞", "掃描費用較低"],
+                correct: [1],
+                explanation: "使用「有登錄權限」進行掃描可以較「無登錄權限」更為深入與澈底。",
+                page: "資通安全概論 3-8"
+            },
+            {
+                id: 23,
+                question: "根據弱點掃描服務的服務水準協議（SLA），初掃的執行時程應以多久為限？",
+                type: "single",
+                options: ["1週", "2週", "1個月", "3個月"],
+                correct: [1],
+                explanation: "初掃每次以2週為限。",
+                page: "資通安全概論 3-14"
+            },
+            {
+                id: 24,
+                question: "在弱點掃描服務委外招標文件的「貳、專案工作項目」中，主機系統弱點掃描檢查項目包含下列哪一項？",
+                type: "single",
+                options: ["A01 Broken Access Control", "軟體及資訊完整性檢查", "帳號密碼破解測試", "伺服器端請求偽造 (A10)"],
+                correct: [2],
+                explanation: "帳號密碼破解測試屬於主機系統弱點掃描項目。",
+                page: "資通安全概論 3-4, 3-14"
+            },
+            {
+                id: 25,
+                question: "在弱點掃描報告的「詳細弱點清單」中，必須標示哪些內容？",
+                type: "single",
+                options: ["攻擊者的IP位址", "弱點的風險等級", "應用程式的開發語言", "系統維運人員的姓名"],
+                correct: [1],
+                explanation: "詳細弱點清單中應標示弱點的風險等級。",
+                page: "資通安全概論 3-6"
+            },
+            {
+                id: 26,
+                question: "關於「外部掃描」的位置，通常是從哪裡進行？",
+                type: "single",
+                options: ["內部網路", "網際網路", "實體隔離區域", "網路管理區域"],
+                correct: [1],
+                explanation: "外部掃描通常是從網際網路進行，模擬外部駭客攻擊。",
+                page: "資通安全概論 3-8"
+            },
+            {
+                id: 27,
+                question: "關於弱點掃描服務委外，下列哪一項內容屬於「肆、交付項目」？",
+                type: "single",
+                options: ["廠商資格", "專案目標", "弱點複掃服務中文報告", "服務水準協議(SLA)"],
+                correct: [2],
+                explanation: "弱點複掃服務中文報告是交付項目之一。",
+                page: "資通安全概論 3-14, 3-15"
+            },
+            {
+                id: 28,
+                question: "關於弱點掃描的目的，下列敘述何者錯誤？",
+                type: "single",
+                options: ["主動找出潛在弱點", "提供修補弱點的方法與建議", "作為主機資訊安全管理的參考基準", "驗證系統在遭遇攻擊時的防護能力與執行成效"],
+                correct: [3],
+                explanation: "驗證系統在遭遇攻擊時的防護能力與執行成效是滲透測試的目的，而非弱點掃描的主要目的。",
+                page: "資通安全概論 3-3, 3-16"
+            },
+            {
+                id: 29,
+                question: "關於弱點掃描的類型與標準，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["主機系統掃描應至少符合Common Vulnerabilities and Exposures (CVE)發布的弱點內容。", "Web網頁掃描的檢查項目應符合OWASP TOP 10等最新版本。", "針對木馬、後門程式的掃描屬於Web網頁弱點掃描。", "帳號密碼破解測試屬於主機系統弱點掃描的檢查項目。"],
+                correct: [0, 1, 3],
+                explanation: "針對木馬、後門程式的掃描屬於主機系統弱點掃描。",
+                page: "資通安全概論 3-4"
+            },
+            {
+                id: 30,
+                question: "關於弱點掃描的流程和輸出，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["掃描前應使用取得合法授權的商業掃描軟體。", "執行初掃時，應安排在非公務時段或與組織協調進行。", "複掃報告必須與初掃結果進行差異化分析。", "弱點統計分析應依風險等級（如高、中、低）及弱點類別進行分類。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為弱點掃描流程和報告的要求。",
+                page: "資通安全概論 3-5, 3-6"
+            },
+            {
+                id: 31,
+                question: "關於弱點掃描的考量因素，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["弱點掃描主要採用侵入式，而滲透測試主要採用非侵入式。", "委外進行弱點掃描通常須簽訂契約，較無彈性。", "有登錄權限的掃描能測試到登錄後更多的功能。", "委外費用通常與主機數量、掃描次數成正相關。"],
+                correct: [1, 2, 3],
+                explanation: "弱點掃描主要採用非侵入式，而侵入式通常用於滲透測試。",
+                page: "資通安全概論 3-9, 3-11"
+            },
+            {
+                id: 32,
+                question: "弱點掃描服務委外招標文件中，「參、管理需求」涵蓋了哪些內容？（複選）",
+                type: "multiple",
+                options: ["專案期間", "廠商資格", "服務水準協議(SLA)與罰責", "業務保密安全責任"],
+                correct: [1, 2, 3],
+                explanation: "參、管理需求包含廠商資格、服務水準協議、品質需求與驗收標準及業務保密安全責任。專案期間屬於壹、專案概述。",
+                page: "資通安全概論 3-11, 3-15"
+            },
+            {
+                id: 33,
+                question: "滲透測試的定義，是透過模擬何種方式對系統或物聯網設備進行安全強度測試？",
+                type: "single",
+                options: ["系統更新程序", "內部人員操作", "有心人士之攻擊方式", "弱點掃描工具"],
+                correct: [2],
+                explanation: "滲透測試係透過模擬有心人士之攻擊方式，對系統或物聯網設備進行安全強度的測試。",
+                page: "資通安全概論 3-16"
+            },
+            {
+                id: 34,
+                question: "滲透測試的目的之一，是檢測受測目標在遭遇攻擊活動時的何種能力？",
+                type: "single",
+                options: ["資安防護能力與執行成效", "資料備份速度", "網路頻寬負載能力", "使用者介面友善度"],
+                correct: [0],
+                explanation: "滲透測試的目的在於評估防護能力，檢測受測目標在遭遇攻擊活動時之資安防護能力與執行成效。",
+                page: "資通安全概論 3-16"
+            },
+            {
+                id: 35,
+                question: "滲透測試的流程中，哪個階段旨在確認初測找出的資安漏洞已經完成修正？",
+                type: "single",
+                options: ["資料蒐集與資訊分析", "執行測試", "執行複測", "事前準備與了解"],
+                correct: [2],
+                explanation: "透過複測，確認初測找出之資安漏洞已經完成修正。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 36,
+                question: "滲透測試報告的「執行結果摘要」中，應包含哪些風險相關的資訊？",
+                type: "single",
+                options: ["受測目標風險等級與數量列表", "所有執行人員的證照清單", "詳細的網路架構圖", "系統的原始碼路徑"],
+                correct: [0],
+                explanation: "執行結果摘要中包含受測目標風險等級與數量列表/受測目標風險漏洞名稱列表/風險漏洞分布列表。",
+                page: "資通安全概論 3-18"
+            },
+            {
+                id: 37,
+                question: "滲透測試的類型中，下列哪一項屬於「應用程式」的測試項目？",
+                type: "single",
+                options: ["遠端服務", "設定管理", "邏輯漏洞", "電子郵件服務套件"],
+                correct: [2],
+                explanation: "邏輯漏洞、使用者認證、連線管理、使用者授權、輸入驗證、Web Service、Ajax皆屬於應用程式的測試項目。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 38,
+                question: "滲透測試報告的「滲透測試弱點發現」部分，應詳細說明哪些內容？",
+                type: "single",
+                options: ["系統維運人員的加班時數", "檢測目標、弱點名稱、問題URL/IP及測試截圖等詳細過程", "硬體設備的採購清單", "未來五年的資安預算規劃"],
+                correct: [1],
+                explanation: "弱點發現應說明詳細過程及內容（包括檢測目標、弱點名稱、問題 URL/IP、問題參數、測試語法、測試截圖等）。",
+                page: "資通安全概論 3-18"
+            },
+            {
+                id: 39,
+                question: "滲透測試的流程中，在執行測試前，應完成哪些準備工作？",
+                type: "single",
+                options: ["確認弱點已排除", "進行初次測試", "工具準備與風險管理", "產出全面報告"],
+                correct: [2],
+                explanation: "流程的「事前準備與了解」階段包含工具準備與風險管理。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 40,
+                question: "關於滲透測試與弱點掃描的比較，下列敘述何者正確？",
+                type: "single",
+                options: ["滲透測試主要發現已知弱點，弱點掃描模擬攻擊行為。", "滲透測試的目的是精進整體防護，弱點掃描的目的是作為管理依據。", "兩者在報告中皆不需要提供改善建議。", "兩者在服務委外時，皆無需執行複測。"],
+                correct: [1],
+                explanation: "滲透測試目的為精進整體防護，弱點掃描目的為作為管理依據。滲透測試模擬攻擊行為，弱點掃描發現已知弱點。",
+                page: "資通安全概論 3-3, 3-16"
+            },
+            {
+                id: 41,
+                question: "滲透測試的「作業系統」測試類別中，包含下列哪一項測試項目？",
+                type: "single",
+                options: ["Web Service", "連線管理", "遠端服務", "密碼強度測試"],
+                correct: [2],
+                explanation: "作業系統測試項目包含遠端服務、本機服務、網站服務和設定管理。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 42,
+                question: "滲透測試報告的「執行結果摘要」中，應包含下列哪些項目？（複選）",
+                type: "multiple",
+                options: ["受測目標風險等級與數量列表", "受測目標風險漏洞名稱列表", "風險漏洞分布列表", "簡要說明滲透測試結果"],
+                correct: [0, 1, 2, 3],
+                explanation: "執行結果摘要包括風險等級列表、漏洞名稱列表、分布列表以及簡要說明測試結果。",
+                page: "資通安全概論 3-18"
+            },
+            {
+                id: 43,
+                question: "關於滲透測試的目的，下列哪些敘述正確？（複選）",
+                type: "multiple",
+                options: ["透過複測確認初測找出的資安漏洞已完成修正。", "評估防護能力。", "找出潛在弱點。", "提供改善建議。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為滲透測試的目的。",
+                page: "資通安全概論 3-16"
+            },
+            {
+                id: 44,
+                question: "軟體安全工程主要探討哪一類安全問題的解決方法？",
+                type: "single",
+                options: ["實體安全", "軟體安全", "網路架構", "硬體部署"],
+                correct: [1],
+                explanation: "軟體安全工程探討軟體安全問題的解決方法。",
+                page: "資通安全概論 3-21"
+            },
+            {
+                id: 45,
+                question: "應用安全屬於哪一類問題，應由設計來解決？",
+                type: "single",
+                options: ["系統管理", "網路工程", "軟體工程", "維護作業"],
+                correct: [2],
+                explanation: "應用安全屬於軟體工程的問題，由設計來解決。",
+                page: "資通安全概論 3-21"
+            },
+            {
+                id: 46,
+                question: "在安全系統發展生命週期（SSDLC）中，哪個階段的目的在於進行風險分析與確認應用程式的資安需求？",
+                type: "single",
+                options: ["架構設計", "需求分析", "程式實作", "測試與驗收"],
+                correct: [1],
+                explanation: "需求分析階段進行風險分析與確認應用程式的資安需求。",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 47,
+                question: "在SSDLC的「部署與維運」階段，應落實軟體之穩定運作，需定期執行下列哪些動作？",
+                type: "single",
+                options: ["修補漏洞(Patch)", "定義系統邊界", "進行風險分析", "撰寫程式碼註解"],
+                correct: [0],
+                explanation: "部署與維運階段應定期修補漏洞(Patch)、按步升級更新版本(Upgrade)及即時監控(Monitor)。",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 48,
+                question: "應用程式上線後，為了維持變更後的安全狀態仍可符合安全政策要求，機關應實作哪一項流程？",
+                type: "single",
+                options: ["災害復原程序", "弱點掃描", "應用程式變更控制流程", "職責區隔"],
+                correct: [2],
+                explanation: "變更控制的目的是維持變更後的安全狀態仍可符合安全政策要求。",
+                page: "資通安全概論 3-23"
+            },
+            {
+                id: 49,
+                question: "在變更控制的步驟中，「變更需求管理」階段應完成下列哪一項工作？",
+                type: "single",
+                options: ["提交變更申請進行核准", "將變更的程式碼交付測試", "計算變更所需成本", "向管理階層報告變更結果"],
+                correct: [2],
+                explanation: "變更需求管理步驟包含填寫申請、分析需求、發展實作策略及計算變更所需成本。",
+                page: "資通安全概論 3-24"
+            },
+            {
+                id: 50,
+                question: "關於「職責區隔」的安全控制，下列敘述何者正確？",
+                type: "single",
+                options: ["程式設計人員應負責存取線上運作中的軟體", "作業人員應有權限存取線上的程式碼", "線上運作的軟體應由程式庫中發行，不應直接由開發人員更新", "品管部門應與開發部門採用相同的測試方法"],
+                correct: [2],
+                explanation: "線上運作的軟體應由程式庫中發行，不應直接由程式設計人員或測試人員進行更新。",
+                page: "資通安全概論 3-25"
+            },
+            {
+                id: 51,
+                question: "在程式庫維護中，開發部門在凍結版本後，應該執行哪一個動作將版本存放到程式庫中？",
+                type: "single",
+                options: ["Check Out", "Release", "Check In", "Upgrade"],
+                correct: [2],
+                explanation: "開發部門凍結版本後，應簽入(Check In)到程式庫。",
+                page: "資通安全概論 3-26"
+            },
+            {
+                id: 52,
+                question: "程式庫應進行版本控制，並保留所有版本程式碼。若主版本為1.0，次版本為1.1，則緊急修正版本應如何編號？",
+                type: "single",
+                options: ["1.2", "2.0", "1.0.1", "1.1.0"],
+                correct: [2],
+                explanation: "緊急修正版本的編號範例為 1.0.1。",
+                page: "資通安全概論 3-26"
+            },
+            {
+                id: 53,
+                question: "行動應用程式（App）安全中，駭客可運用哪一種技術來變造原來的程式，將變造的程式再發佈到非官方的App商店？",
+                type: "single",
+                options: ["入侵偵測", "反向工程", "弱點掃描", "資安健診"],
+                correct: [1],
+                explanation: "駭客可運用反向工程的技術來變造原來的程式。",
+                page: "資通安全概論 3-27"
+            },
+            {
+                id: 54,
+                question: "關於 SSDLC 的「測試與驗收」階段，主要目的是確保系統符合哪些需求？",
+                type: "single",
+                options: ["程式設計師的偏好", "各項功能與安全性皆可符合既定的需求", "程式碼註解的完整度", "電力供應的穩定性"],
+                correct: [1],
+                explanation: "測試與驗收階段旨在確保各項功能與安全性皆可符合既定的需求。",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 55,
+                question: "在變更控制流程中，哪個步驟涉及將變更後的程式碼交付測試與品質認可？",
+                type: "single",
+                options: ["變更需求管理", "變更審查", "變更測試與部署", "變更結果報告"],
+                correct: [2],
+                explanation: "變更測試與部署涉及將變更後的程式碼交付測試與品質認可。",
+                page: "資通安全概論 3-24"
+            },
+            {
+                id: 56,
+                question: "關於「職責區隔」，程式設計人員與作業人員的權限應如何區隔？",
+                type: "single",
+                options: ["程式設計人員應存取線上運作軟體，作業人員存取程式碼。", "程式設計人員不應存取線上運作軟體，作業人員不應存取線上程式碼。", "兩者都應存取線上運作軟體，以利協作。", "兩者皆不得使用程式庫。"],
+                correct: [1],
+                explanation: "作業人員不應有權限存取線上的程式碼或程式物件；程式設計人員不應存取線上運作中的軟體。",
+                page: "資通安全概論 3-25"
+            },
+            {
+                id: 57,
+                question: "關於「程式庫維護」，誰應由程式庫中發行(Release)最新版本應用程式至線上系統？",
+                type: "single",
+                options: ["開發部門人員", "測試部門人員", "上線人員", "系統使用者"],
+                correct: [2],
+                explanation: "上線人員應由程式庫中發行(Release)最新版本應用程式至線上系統。",
+                page: "資通安全概論 3-26"
+            },
+            {
+                id: 58,
+                question: "架構安全屬於哪一類問題，應由設定來解決？",
+                type: "single",
+                options: ["軟體工程", "系統管理", "資料庫設計", "程式實作"],
+                correct: [1],
+                explanation: "架構安全屬於系統管理問題，由設定來解決。",
+                page: "資通安全概論 3-21"
+            },
+            {
+                id: 59,
+                question: "在變更控制流程中，哪個步驟應將變更的程式碼與變更申請連結（例如程式碼中的註解）？",
+                type: "single",
+                options: ["變更需求管理", "變更審查", "變更測試與部署", "變更結果報告"],
+                correct: [2],
+                explanation: "變更測試與部署中，要求將變更的程式碼與變更申請連結。",
+                page: "資通安全概論 3-24"
+            },
+            {
+                id: 60,
+                question: "關於 SSDLC 的「程式實作」階段，下列哪一項是程式設計師應隨時注意的事項？",
+                type: "single",
+                options: ["進行風險分析", "正確安全的程式撰寫習慣", "進行版本控制", "安排教育訓練"],
+                correct: [1],
+                explanation: "程式設計師應隨時注意正確安全的程式撰寫習慣。",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 61,
+                question: "為了維持應用程式變更後的安全狀態，變更控制必須確保變更是哪三項條件？",
+                type: "single",
+                options: ["獲得授權、經過測試且被記錄下來", "由品管部門核准、由開發部門執行且經由上線人員測試", "自動化執行、即時監控且無須人工介入", "僅限於軟體變更、無須包含組態變更且不受職責區隔限制"],
+                correct: [0],
+                explanation: "必須確保變更是獲得授權、經過測試且被記錄下來。",
+                page: "資通安全概論 3-23"
+            },
+            {
+                id: 62,
+                question: "關於安全控制中的「職責區隔」，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["品管部門應測試程式碼品質。", "品管部門與開發部門應採用不同的測試方法。", "軟體開發完成後應被保存在程式庫中。", "程式設計人員應被授予存取線上運作中的軟體權限。"],
+                correct: [0, 1, 2],
+                explanation: "程式設計人員不應存取線上運作中的軟體。",
+                page: "資通安全概論 3-25"
+            },
+            {
+                id: 63,
+                question: "關於安全控制中的「程式庫維護」，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["應用程式應集中存放在程式庫中。", "程式庫應進行版本控制。", "測試部門應由程式庫中簽出(Check Out)取得最新版本進行測試。", "程式庫必須進行存取控管。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為程式庫維護的要求。",
+                page: "資通安全概論 3-26"
+            },
+            {
+                id: 64,
+                question: "關於應用程式變更控制的步驟，下列哪些屬於「變更審查」階段的工作？（複選）",
+                type: "multiple",
+                options: ["提交變更申請進行核准。", "記錄變更開發的產出。", "評估變更與安全的關聯性。", "進行應用程式變更的開發工作。"],
+                correct: [0],
+                explanation: "變更審查為提交變更申請進行核准。選項(B)和(D)屬於變更開發；選項(C)屬於變更評估。",
+                page: "資通安全概論 3-24"
+            },
+            {
+                id: 65,
+                question: "資通安全健診的目的主要在於檢視機關資通系統與設備的何種狀態？",
+                type: "single",
+                options: ["硬體採購預算", "營運持續能力", "資通安全維護管理措施的落實情形", "雲端服務的合約"],
+                correct: [2],
+                explanation: "資通安全健診旨在檢視機關資通系統與設備之資通安全維護管理措施落實情形。",
+                page: "資通安全概論 3-36"
+            },
+            {
+                id: 66,
+                question: "在健診項目中，針對使用者電腦需要檢視下列哪一項情形？",
+                type: "single",
+                options: ["作業系統是否更新", "應用程式是否使用最新版本", "是否使用停止支援之作業系統或軟體", "以上皆是"],
+                correct: [3],
+                explanation: "健診需檢視作業系統更新、應用程式安全性更新，以及是否使用停止支援之軟體。",
+                page: "資通安全概論 3-37"
+            },
+            {
+                id: 67,
+                question: "在健診流程的哪個階段，應調查網路交換器（Switch）是否支援Port Mirror功能？",
+                type: "single",
+                options: ["結束會議", "健診執行", "修補規劃與追蹤", "基本環境調查"],
+                correct: [3],
+                explanation: "健診流程中的基本環境調查階段包含調查網路交換器是否支援Port Mirror功能。",
+                page: "資通安全概論 3-40"
+            },
+            {
+                id: 68,
+                question: "健診項目中，針對目錄伺服器設定，應以哪一個單位所發展的「政府組態基準」內容為標準？",
+                type: "single",
+                options: ["數位發展部", "國家資通安全研究院", "行政院公共工程委員會", "國家通訊傳播委員會"],
+                correct: [1],
+                explanation: "AD伺服器組態設定以行政院國家資通安全研究院所發展之「政府組態基準」內容為標準。",
+                page: "資通安全概論 3-39"
+            },
+            {
+                id: 69,
+                question: "資安健診報告中，對於無法即時修補的弱點，應規劃哪兩項內容？",
+                type: "single",
+                options: ["成本效益分析與廠商資格", "改善計畫與改善時程", "應用程式原始碼與組態設定", "複測報告與弱點排除清單"],
+                correct: [1],
+                explanation: "無法即時修補之弱點，需規劃改善計畫與改善時程。",
+                page: "資通安全概論 3-45"
+            },
+            {
+                id: 70,
+                question: "在健診流程的「健診執行」階段，其工作內容不包含下列哪一項？",
+                type: "single",
+                options: ["惡意活動檢視", "密碼強度檢視", "網站安全與網站程式弱點檢視", "政府組態基準部署現況與例外管理清單提供"],
+                correct: [3],
+                explanation: "政府組態基準部署現況與例外管理清單屬於健診流程中的「基本環境調查」內容。",
+                page: "資通安全概論 3-40, 3-41"
+            },
+            {
+                id: 71,
+                question: "健診流程的「結束會議」中，參與人員應包含機關的哪些層級？",
+                type: "single",
+                options: ["所有基層員工", "管領階層與相關業務承辦人", "資訊委外廠商", "外部稽核人員"],
+                correct: [1],
+                explanation: "參與人員應包含機關管領階層與相關業務承辦人。",
+                page: "資通安全概論 3-45"
+            },
+            {
+                id: 72,
+                question: "資安健診報告中之改善建議，應優先處理哪一類型的弱點？",
+                type: "single",
+                options: ["可即時修補與風險等級較低的弱點", "可即時修補與風險等級較高的弱點", "難以修補但風險等級較低的弱點", "不論風險等級，只修補易於處理的弱點"],
+                correct: [1],
+                explanation: "優先處理可即時修補與風險等級較高的弱點。",
+                page: "資通安全概論 3-45"
+            },
+            {
+                id: 73,
+                question: "健診項目中，針對防火牆連線設定規則，需確認哪兩項的適切性？",
+                type: "single",
+                options: ["廠商資格與契約內容", "流量加密與數位簽章", "來源與目的IP及通訊埠連通", "系統備份與災害復原"],
+                correct: [2],
+                explanation: "檢視防火牆連線設定規則時，需確認來源與目的IP及通訊埠連通之適切性。",
+                page: "資通安全概論 3-39"
+            },
+            {
+                id: 74,
+                question: "資通安全健診報告中，下列哪一項屬於應包含的內容？",
+                type: "single",
+                options: ["資安健診執行期間", "發現事項", "改善建議", "以上皆是"],
+                correct: [3],
+                explanation: "健診報告中應包含健診發現事項、改善建議與結論。",
+                page: "資通安全概論 3-44"
+            },
+            {
+                id: 75,
+                question: "關於資安健診的健診流程，下列哪些敘述正確？（複選）",
+                type: "multiple",
+                options: ["健診流程包含基本環境調查。", "健診報告完成後需召開結束會議。", "健診完成後，需針對已修補的弱點執行複測。", "健診報告中的弱點應優先處理風險等級較低的項目。"],
+                correct: [0, 1, 2],
+                explanation: "應優先處理風險等級較高的弱點。",
+                page: "資通安全概論 3-40, 3-45"
+            },
+            {
+                id: 76,
+                question: "關於健診項目中「伺服器主機惡意活動檢視」的內容，下列哪些是需要檢視的？（複選）",
+                type: "multiple",
+                options: ["作業系統更新情形。", "應用程式的安全性更新情形。", "是否使用不合宜之作業系統。", "防毒軟體安裝、更新及定期掃描結果的處理情形。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為伺服器主機惡意活動檢視的項目。",
+                page: "資通安全概論 3-38"
+            },
+            {
+                id: 77,
+                question: "關於健診報告的後續處理，下列哪些敘述正確？（複選）",
+                type: "multiple",
+                options: ["無法即時修補的弱點，應規劃改善計畫與改善時程。", "結束會議的目的是說明各項目發現事項、改善建議與結論。", "針對已修補弱點，須留存弱點修補紀錄。", "弱點修補完成後須執行複測，以確認修補方法之有效性。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為健診報告後續處理的要求。",
+                page: "資通安全概論 3-45"
+            },
+            {
+                id: 78,
+                question: "網路區域規劃的主要目的不包含下列哪一項？",
+                type: "single",
+                options: ["作為存取控制與安全規劃的基準群組", "清楚界定規劃不同屬性的區域", "避免來自內部與外部的攻擊", "確保雲端服務合約符合SLA"],
+                correct: [3],
+                explanation: "網路區域規劃的目的包括界定區域、作為存取控制基準、避免攻擊與防範災害擴大。",
+                page: "資通安全概論 3-46"
+            },
+            {
+                id: 79,
+                question: "在建議的網路區域劃分項目中，日誌伺服器(Log Server)與備份主機(Backup Server)應放置於哪個區域？",
+                type: "single",
+                options: ["非軍事區(DMZ)", "內部網路", "網路記錄區域", "實體隔離區域"],
+                correct: [2],
+                explanation: "網路記錄區域放置備份主機與紀錄主機。",
+                page: "資通安全概論 3-47, 3-48"
+            },
+            {
+                id: 80,
+                question: "非軍事區（DMZ）主要用於放置哪一類型的設備？",
+                type: "single",
+                options: ["內部使用者終端", "路由器管理介面", "機關對外服務伺服器", "機密性資料電腦"],
+                correct: [2],
+                explanation: "DMZ主要放置機關對外服務伺服器，如網頁伺服器、FTP伺服器。",
+                page: "資通安全概論 3-47"
+            },
+            {
+                id: 81,
+                question: "網路連線安全中，下列哪一種協定連線時採用明文傳輸，通訊內容有可能被監聽？",
+                type: "single",
+                options: ["HTTPS", "FTPS", "SSH", "FTP"],
+                correct: [3],
+                explanation: "HTTP、FTP與TELNET連線採用明文傳輸。",
+                page: "資通安全概論 3-49"
+            },
+            {
+                id: 82,
+                question: "在網路區域規劃中，下列哪一項區域應明確標示網路的路徑及維運方式，並將其維運網段與服務網段區隔？",
+                type: "single",
+                options: ["實體隔離區域", "網路記錄區域", "網路管理區域", "外部網路"],
+                correct: [2],
+                explanation: "網路管理區域應明確標示網路路徑及維運方式，並區隔維運與服務網段。",
+                page: "資通安全概論 3-48"
+            },
+            {
+                id: 83,
+                question: "關於雲端服務供應商與客戶之間的協定，Service Level Agreement (SLA) 提供的是何種類型的衡量標準？",
+                type: "single",
+                options: ["法律條文", "數值的度量", "罰則的規範", "契約終止條件"],
+                correct: [1],
+                explanation: "SLA提供的是數值的度量，用來客觀衡量業者提供的特定服務項目是否滿足客戶要求。",
+                page: "資通安全概論 3-66"
+            },
+            {
+                id: 84,
+                question: "虛擬私有網路（VPN）的主要用途是什麼？",
+                type: "single",
+                options: ["加速網路存取速度", "在公開的網路上建立虛擬的私有通道", "取代所有內部防火牆", "實施職責區隔"],
+                correct: [1],
+                explanation: "VPN的用途是在公開的網路上建立虛擬的私有通道。",
+                page: "資通安全概論 3-51"
+            },
+            {
+                id: 85,
+                question: "網路連線安全中，用於保護資料在傳輸過程中機密性的技術是？",
+                type: "single",
+                options: ["數位簽章", "傳輸加密", "雜湊函數", "最小權限原則"],
+                correct: [1],
+                explanation: "傳輸加密旨在保護資料在傳輸過程中的機密性。",
+                page: "資通安全概論 3-48"
+            },
+            {
+                id: 86,
+                question: "關於網路連線安全的協定，下列哪一組協定屬於加密的網路傳輸協定？",
+                type: "single",
+                options: ["HTTP、FTP", "HTTPS、FTPS、SSH", "TELNET、HTTPS", "FTP、SSH"],
+                correct: [1],
+                explanation: "HTTPS、FTPS與SSH是加密的網路傳輸協定。",
+                page: "資通安全概論 3-49"
+            },
+            {
+                id: 87,
+                question: "根據NIST SP 800-210的雲端安全管理模型，在使用Infrastructure as a Service (IaaS)時，哪一層次的存取控制主要由雲端客戶負責？",
+                type: "single",
+                options: ["網路(Networking)", "儲存(Storage)", "作業系統(Operating System)", "虛擬機管理程式(Hypervisor)"],
+                correct: [2],
+                explanation: "在IaaS模型中，雲端客戶主要負責作業系統、中介系統、執行、資料和應用程式的存取控制。",
+                page: "資通安全概論 3-54"
+            },
+            {
+                id: 88,
+                question: "網路區域規劃中，應嚴密控管哪兩個區域之間的存取？",
+                type: "single",
+                options: ["DMZ到外部網路", "內部網路到外部網路", "DMZ到內部區域", "網路記錄區域到網路管理區域"],
+                correct: [2],
+                explanation: "DMZ需要嚴密控管此區域到內部區域的存取。",
+                page: "資通安全概論 3-47"
+            },
+            {
+                id: 89,
+                question: "網路連線安全中，下列哪一項技術是用來達成「資訊完整性」？",
+                type: "single",
+                options: ["對稱式加密", "非對稱式加密", "通道加密", "數位簽章"],
+                correct: [3],
+                explanation: "資訊完整性以數位簽章技術來達成。",
+                page: "資通安全概論 3-48"
+            },
+            {
+                id: 90,
+                question: "在雲端運算環境中，客戶端資安問題不包含下列哪一項？",
+                type: "single",
+                options: ["資料竊取", "網路封包竊聽", "虛擬化環境的系統與網路安全", "共用環境的系統安全防護"],
+                correct: [2],
+                explanation: "虛擬化環境的系統與網路安全屬於雲端服務提供者（CSP）的資安問題。",
+                page: "資通安全概論 3-64"
+            },
+            {
+                id: 91,
+                question: "關於雲端服務合約，下列哪一項是用來規範業者在約定的服務提供期間能達到客戶要求？",
+                type: "single",
+                options: ["政府採購法", "服務水準協議(SLA)", "資通安全管理法", "個人資料保護法"],
+                correct: [1],
+                explanation: "雲端提供者與客戶之間會訂定Service Level Agreement (SLA)來規範業者服務。",
+                page: "資通安全概論 3-66"
+            },
+            {
+                id: 92,
+                question: "根據NIST SP 800-210，在使用Platform as a Service (PaaS)時，客戶主要負責哪些層次的存取控制？",
+                type: "single",
+                options: ["應用程式、資料", "作業系統、虛擬機器", "儲存、網路", "虛擬機管理程式、硬體"],
+                correct: [0],
+                explanation: "PaaS模型中，客戶負責應用程式和資料的存取控制。",
+                page: "資通安全概論 3-54"
+            },
+            {
+                id: 93,
+                question: "網路區域規劃中，內部網路（LAN）通常建議採用哪種方式與不同網段切開？",
+                type: "single",
+                options: ["使用實體隔離", "利用VLAN與不同路由", "設置多個防火牆", "僅限於使用加密傳輸"],
+                correct: [1],
+                explanation: "內部網路利用 VLAN與不同路由等方式切開。",
+                page: "資通安全概論 3-47"
+            },
+            {
+                id: 94,
+                question: "雲端運算環境中，雲端服務提供者（CSP）的資安問題不包含下列哪一項？",
+                type: "single",
+                options: ["資料可用性", "分散式阻斷服務攻擊", "虛擬化環境的系統安全", "即時阻絕資安威脅"],
+                correct: [0],
+                explanation: "資料可用性（客戶端資料的可用性）是客戶端資安問題。",
+                page: "資通安全概論 3-64"
+            },
+            {
+                id: 95,
+                question: "在網路區域規劃中，網路記錄區域應只允許哪些連線行為？",
+                type: "single",
+                options: ["所有內部網路連線", "僅限於設備備份與紀錄之發送及管理員管理連線行為", "外部網路的存取", "應用程式開發連線"],
+                correct: [1],
+                explanation: "網路記錄區域僅允許設備備份與紀錄之發送及管理員管理連線行為。",
+                page: "資通安全概論 3-48"
+            },
+            {
+                id: 96,
+                question: "關於雲端安全管理，下列哪一項是雲端環境下的重要考量因素？",
+                type: "single",
+                options: ["CMMC驗證", "雲端服務客戶資產的移除", "實體隔離的嚴格性", "對稱式金鑰交換"],
+                correct: [1],
+                explanation: "雲端安全管理的考量因素包含雲端服務客戶資產的移除。",
+                page: "資通安全概論 3-63"
+            },
+            {
+                id: 97,
+                question: "在實體隔離區域中，為了避免資料外洩，資料傳輸應採取何種模式？",
+                type: "single",
+                options: ["雙向傳輸", "僅可將資料傳入", "僅可將資料傳出（單向傳輸）", "不傳輸任何資料"],
+                correct: [2],
+                explanation: "實體隔離區域可實施單向傳輸，僅可將資料傳出，不可傳入。",
+                page: "資通安全概論 3-48"
+            },
+            {
+                id: 98,
+                question: "關於網路區域規劃的目的，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["清楚界定規劃不同屬性的區域。", "作為存取控制與安全規劃的基準群組。", "避免來自內部與外部的攻擊。", "防範災害擴大。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為網路區域規劃的目的。",
+                page: "資通安全概論 3-46"
+            },
+            {
+                id: 99,
+                question: "關於雲端安全管理與責任，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["在SaaS模型中，雲端客戶主要負責應用程式和資料的存取控制。", "IaaS模型中，網路層的存取控制主要由雲端服務提供者負責。", "PaaS模型中，雲端客戶負責應用程式與資料層的存取控制。", "ISO/IEC 27017:2015提供了雲端安全管理的指導。"],
+                correct: [0, 1, 2, 3],
+                explanation: "SaaS客戶負責應用程式和資料。IaaS中網路層由提供者負責。PaaS客戶負責應用程式與資料。ISO/IEC 27017:2015為雲端安全管理標準。",
+                page: "資通安全概論 3-54, 3-63"
+            },
+            {
+                id: 100,
+                question: "關於網路連線安全中的傳輸加密，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["HTTP連線時，通訊內容有可能被監聽。", "應採用通道加密與傳輸層加密，如HTTPS。", "HTTPS連線時，可再檢查憑證是否有效。", "SSH是一種加密的網路傳輸協定。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為網路連線安全的相關敘述。",
+                page: "資通安全概論 3-48, 3-49"
+            },
+            {
+                id: 101,
+                question: "下列哪一項屬於實體安全的「人為的破壞」威脅類型？",
+                type: "single",
+                options: ["水災", "電力供應中斷", "員工疏失", "地震"],
+                correct: [2],
+                explanation: "員工疏失屬於人為的破壞類型。",
+                page: "資通安全概論 3-67"
+            },
+            {
+                id: 102,
+                question: "實體安全防護措施規劃中，設置「夠大聲的警報器」主要屬於哪一項功能？",
+                type: "single",
+                options: ["偵測", "延遲", "嚇阻", "處理"],
+                correct: [2],
+                explanation: "夠大聲的警報器屬於嚇阻犯罪發生的措施。",
+                page: "資通安全概論 3-68"
+            },
+            {
+                id: 103,
+                question: "實體安全防護措施規劃中，「階層式的防護設計」主要是為了達成哪一項功能？",
+                type: "single",
+                options: ["嚇阻", "延遲入侵時間", "偵測實體威脅", "處理回復正常作業"],
+                correct: [1],
+                explanation: "階層式的防護設計，從門口到重要資產需要經過層層關卡，旨在延遲入侵時間。",
+                page: "資通安全概論 3-68"
+            },
+            {
+                id: 104,
+                question: "下列哪一項感應器屬於實體安全防護措施中的「偵測」功能？",
+                type: "single",
+                options: ["圍牆", "紅外線進出感應", "門鎖", "警告標語"],
+                correct: [1],
+                explanation: "門窗開啟偵測、紅外線進出感應、動作感應器、煙霧偵測器和溫濕度偵測都屬於偵測實體威脅。",
+                page: "資通安全概論 3-69"
+            },
+            {
+                id: 105,
+                question: "實體進出控管中，下列哪一項可以用來防範「尾隨進出」（Tailgating）？",
+                type: "single",
+                options: ["門禁卡及PIN碼雙重鑑別", "旋轉門、驗票匣門", "全時攝影系統", "有相片的識別證"],
+                correct: [1],
+                explanation: "旋轉門、驗票匣門或 Mantrap+警衛等機制可用於防範尾隨進出。",
+                page: "資通安全概論 3-70"
+            },
+            {
+                id: 106,
+                question: "安全區域規劃中，應在規劃圖面上清楚標示哪些安全等級的區域劃分？",
+                type: "single",
+                options: ["高、中、普", "作業、限制、公開、機敏", "開發、測試、上線", "內部、外部、DMZ"],
+                correct: [1],
+                explanation: "應在規劃圖面上清楚標示「作業」、「限制」、「公開」或「機敏」區域。",
+                page: "資通安全概論 3-72"
+            },
+            {
+                id: 107,
+                question: "關於機房空調系統的濕度調節，下列哪一項是理想的相對濕度控制範圍？",
+                type: "single",
+                options: ["10%~30%", "40%~60%", "60%~80%", "80%以上"],
+                correct: [1],
+                explanation: "理想的相對濕度應控制在40%~60%。",
+                page: "資通安全概論 3-75"
+            },
+            {
+                id: 108,
+                question: "安全區域應維持「正風壓」的主要目的是什麼？",
+                type: "single",
+                options: ["降低空調成本", "讓開門時風往外吹，避免煙霧與不好的氣體向內流動", "確保室內溫度穩定", "提高空氣新鮮度"],
+                correct: [1],
+                explanation: "安全區域應維持正風壓，目的是讓煙霧與不好的氣體向外流動。",
+                page: "資通安全概論 3-75"
+            },
+            {
+                id: 109,
+                question: "當主要電力來源中斷時，用來提供電力（例如：發電機）的電源稱為？",
+                type: "single",
+                options: ["主要電力來源", "次要電力來源", "不斷電系統 (UPS)", "專屬電力供應"],
+                correct: [1],
+                explanation: "當主要電力來源中斷時使用的電力為次要電力來源。",
+                page: "資通安全概論 3-76"
+            },
+            {
+                id: 110,
+                question: "不斷電系統（UPS）中的「在線式」與「非在線式」的主要區別是什麼？",
+                type: "single",
+                options: ["只有在線式具有電力備援功能", "在線式在市電正常時電力會通過UPS系統，非在線式不會", "非在線式電力供應較穩定", "在線式不適合對電力供應品質要求嚴格的使用者"],
+                correct: [1],
+                explanation: "在線式不論市電是否正常，電力供應會通過UPS系統，非在線式平時電力供應不會通過UPS系統。",
+                page: "資通安全概論 3-76"
+            },
+            {
+                id: 111,
+                question: "關於電器火災（C類火災），其可燃物是下列哪一項？",
+                type: "single",
+                options: ["木材、紙張", "石油、酒精", "電器設備、電路", "鎂、鈉"],
+                correct: [2],
+                explanation: "C類火災的可燃物為電器設備、電路及電纜等。",
+                page: "資通安全概論 3-80"
+            },
+            {
+                id: 112,
+                question: "在實體安全中，防止靜電危害的方法包含下列哪一項？",
+                type: "single",
+                options: ["在機房使用地毯", "將空調濕度維持在0%", "在機房使用抗靜電高架地板", "在拆解電腦硬體時，無需佩戴抗靜電帶"],
+                correct: [2],
+                explanation: "防止靜電危害應在機房使用抗靜電高架地板。",
+                page: "資通安全概論 3-78"
+            },
+            {
+                id: 113,
+                question: "關於火災的組成要素，下列何者不是火由四種因素所組成之一？",
+                type: "single",
+                options: ["可燃物", "溫度超出燃點", "水分", "氧氣"],
+                correct: [2],
+                explanation: "火由可燃物、溫度超出燃點、氧氣和化學反應組成。",
+                page: "資通安全概論 3-79"
+            },
+            {
+                id: 114,
+                question: "針對油類火災（B類火災），最適合的滅火方式包含使用下列哪種滅火器？",
+                type: "single",
+                options: ["水", "ABC類乾粉、CO2、FM-200", "僅限於泡沫", "乾粉（特殊滅火藥劑）"],
+                correct: [1],
+                explanation: "B類火災適合使用BC類或ABC類乾粉、泡沫、CO2、FM-200之滅火器。",
+                page: "資通安全概論 3-80"
+            },
+            {
+                id: 115,
+                question: "為了偵測漏水問題，水的偵測點建議設置在哪兩個位置？",
+                type: "single",
+                options: ["高架地板下與天花板", "機櫃內與網路管理區域", "門禁系統與監視器旁", "供電設備旁與空調室外機"],
+                correct: [0],
+                explanation: "偵測水的位置應在高架地板下與天花板。",
+                page: "資通安全概論 3-81"
+            },
+            {
+                id: 116,
+                question: "關於監視錄影系統（CCTV）的選擇，下列哪一項因素不需要考慮？",
+                type: "single",
+                options: ["CCTV的目的（偵測/行為/識別）", "CCTV攝影機的放置環境", "儲存空間與保存期限需求", "網路區域劃分的IP範圍"],
+                correct: [3],
+                explanation: "監視錄影系統的選擇應考慮其目的、環境、監視區域、照明、儲存需求及與其他系統整合。",
+                page: "資通安全概論 3-74"
+            },
+            {
+                id: 117,
+                question: "實體安全區域規劃中，安全區域等級較高的隔間應採用足夠強度的牆面，且必須確認牆面由何處連接到天花板？",
+                type: "single",
+                options: ["活動隔間板", "實際建物樓地板", "地毯", "機櫃頂部"],
+                correct: [1],
+                explanation: "應確定牆面由實際建物樓地板連接到天花板。",
+                page: "資通安全概論 3-73"
+            },
+            {
+                id: 118,
+                question: "在防止靜電危害的方法中，建議機房中不應使用哪一項設備，若有必要應使用抗靜電的？",
+                type: "single",
+                options: ["高架地板", "抗靜電帶", "地毯", "抗靜電桌面"],
+                correct: [2],
+                explanation: "在機房中不使用地毯，若有必要請使用抗靜電的地毯。",
+                page: "資通安全概論 3-78"
+            },
+            {
+                id: 119,
+                question: "在實體安全防護措施中，「處理」回復正常作業階段的工作不包含下列哪一項？",
+                type: "single",
+                options: ["處理人員或組織", "相關緊急處理程序", "布建全時攝影系統", "聯絡與通報程序（警察、消防）"],
+                correct: [2],
+                explanation: "布建全時攝影系統屬於「嚇阻」功能。",
+                page: "資通安全概論 3-68, 3-69"
+            },
+            {
+                id: 120,
+                question: "關於不斷電系統（UPS），下列哪一種類型適合對電力供應品質要求較嚴格的使用者？",
+                type: "single",
+                options: ["非在線式", "在線式", "旁路式", "離線式"],
+                correct: [1],
+                explanation: "在線式電力的供應較為穩定，適合對電力供應品質要求較嚴格的使用者。",
+                page: "資通安全概論 3-76"
+            },
+            {
+                id: 121,
+                question: "關於電力供應不穩定的後果，下列敘述何者正確？",
+                type: "single",
+                options: ["突然的高電壓可能導致系統效能降低", "突然的低電壓可能導致設備故障", "電力不穩定可能導致瞬間資料遺失", "電力干擾來源僅限於閃電"],
+                correct: [2],
+                explanation: "電力不穩定可能導致瞬間資料遺失。突然的高電壓可能導致設備故障；突然的低電壓可能導致設備運作不正常。",
+                page: "資通安全概論 3-77"
+            },
+            {
+                id: 122,
+                question: "滅火方式中，「瓦解燃燒的化學反應」主要應用於下列哪一項？",
+                type: "single",
+                options: ["使用水降低溫度", "使用泡沫去除氧氣", "使用特殊化學藥劑", "去除可燃物"],
+                correct: [2],
+                explanation: "瓦解燃燒的化學反應是滅火的四種方式之一，通常透過化學藥劑達成。",
+                page: "資通安全概論 3-79"
+            },
+            {
+                id: 123,
+                question: "關於實體安全中的進出識別方式，下列哪些敘述正確？（複選）",
+                type: "multiple",
+                options: ["有相片的識別證，由警衛檢查。", "生物特徵辨識。", "持有卡片識別。", "門禁卡及PIN碼雙重鑑別。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為進出識別的方式。",
+                page: "資通安全概論 3-69"
+            },
+            {
+                id: 124,
+                question: "關於實體安全中火災的分類與滅火方式，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["A類火災（普通火災）可燃物為木材、紙張等，可用水滅火。", "B類火災（油類火災）不適合使用CO2滅火器。", "C類火災（電氣火災）應使用BC類或ABC類乾粉滅火器。", "D類火災（金屬火災）應使用乾粉（特殊滅火藥劑）。"],
+                correct: [0, 2, 3],
+                explanation: "B類火災可使用CO2滅火器。",
+                page: "資通安全概論 3-80"
+            },
+            {
+                id: 125,
+                question: "實體安全中的「嚇阻」犯罪發生措施包含哪些？（複選）",
+                type: "multiple",
+                options: ["設置圍牆、警衛。", "公布違反實體控管要求人員姓名。", "訂定相關罰則。", "安裝門鎖和隔間。"],
+                correct: [0, 1, 2],
+                explanation: "設置門鎖和隔間屬於「延遲」入侵時間的措施。",
+                page: "資通安全概論 3-68"
+            },
+            {
+                id: 126,
+                question: "關於實體安全中的空調系統規劃，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["空調系統的功能包含溫度調節、濕度調節及換氣功能。", "安全區域應維持正風壓。", "空調系統需有獨立的電力供應線路。", "應設置緊急手動關閉開關。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為空調系統的要求。",
+                page: "資通安全概論 3-75"
+            },
+            {
+                id: 127,
+                question: "關於不斷電系統（UPS），下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["在線式UPS當電力中斷時無需切換。", "非在線式UPS平時電力供應不會通過UPS系統。", "在線式UPS的電力供應較為穩定。", "非在線式UPS只有在市電供應中斷時，電力供給才會切換至UPS系統。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為UPS系統的特性描述。",
+                page: "資通安全概論 3-76"
+            },
+            {
+                id: 128,
+                question: "關於弱點掃描和滲透測試的比較，下列敘述何者正確？",
+                type: "single",
+                options: ["滲透測試通常採用非侵入式，弱點掃描通常採用侵入式。", "弱點掃描的目標是尋找潛在漏洞，滲透測試是模擬攻擊以檢測防護能力。", "滲透測試僅需進行一次，弱點掃描需定期執行。", "兩者皆不需要執行複測。"],
+                correct: [1],
+                explanation: "弱點掃描主要採用非侵入式，滲透測試模擬攻擊。兩者都需要執行複測。",
+                page: "資通安全概論 3-3, 3-9, 3-16"
+            },
+            {
+                id: 129,
+                question: "在資通安全健診中，檢查防火牆連線設定規則時，主要目的是確認是否有哪一類問題？",
+                type: "single",
+                options: ["硬體相容性", "安全性弱點", "廠商契約是否有效", "使用者密碼強度"],
+                correct: [1],
+                explanation: "檢視防火牆連線設定規則是否有安全性弱點。",
+                page: "資通安全概論 3-39"
+            },
+            {
+                id: 130,
+                question: "關於應用程式安全中的變更控制，哪一個步驟的產出會包含變更開發的產出（新增或刪除功能）？",
+                type: "single",
+                options: ["變更需求管理", "變更評估", "變更審查", "變更開發"],
+                correct: [3],
+                explanation: "變更開發階段記錄變更開發的產出。",
+                page: "資通安全概論 3-24"
+            },
+            {
+                id: 131,
+                question: "在網路區域規劃中，為了避免當服務網段被攻擊時，進而影響網路設備的管理，應將哪個區域與服務網段區隔？",
+                type: "single",
+                options: ["內部網路", "DMZ", "網路管理區域", "外部網路"],
+                correct: [2],
+                explanation: "網路管理區域應與服務的網段有所區隔。",
+                page: "資通安全概論 3-48"
+            },
+            {
+                id: 132,
+                question: "實體安全中，將機密性資料的電腦放置在一個僅可將資料傳出，不可傳入的環境中，是哪一種區域的特性？",
+                type: "single",
+                options: ["DMZ", "內部網路", "實體隔離區域", "網路管理區域"],
+                correct: [2],
+                explanation: "實體隔離區域可進行單向傳輸。",
+                page: "資通安全概論 3-46, 3-48"
+            },
+            {
+                id: 133,
+                question: "關於資通安全健診流程中的「修補規劃與追蹤」，下列哪一項是針對已修補弱點的必要動作？",
+                type: "single",
+                options: ["規劃下一年度健診預算", "留存弱點修補紀錄", "通知主管機關", "重新執行滲透測試"],
+                correct: [1],
+                explanation: "針對已修補弱點，須留存弱點修補紀錄。",
+                page: "資通安全概論 3-45"
+            },
+            {
+                id: 134,
+                question: "在實體安全中，撲滅金屬火災（D類火災）必須採用哪種滅火方式？",
+                type: "single",
+                options: ["水", "CO2", "泡沫", "乾粉（特殊滅火藥劑）"],
+                correct: [3],
+                explanation: "D類火災必須採用乾粉（特殊滅火藥劑）。",
+                page: "資通安全概論 3-80"
+            },
+            {
+                id: 135,
+                question: "在弱點掃描服務委外中，下列哪一項屬於OWASP TOP 10 (2021)的檢查項目？",
+                type: "single",
+                options: ["系統的不安全或錯誤設定", "網路通訊埠掃描", "A05 Security Misconfiguration", "常用應用程式的弱點"],
+                correct: [2],
+                explanation: "A05 Security Misconfiguration (安全組態錯誤) 屬於OWASP TOP 10 項目。",
+                page: "資通安全概論 3-14"
+            },
+            {
+                id: 136,
+                question: "根據NIST SP 800-210，雲端服務客戶對虛擬運算環境的哪一項問題應負起責任？",
+                type: "single",
+                options: ["虛擬運算環境的區隔", "虛擬機器強化", "資料可用性", "以上皆非"],
+                correct: [2],
+                explanation: "資料可用性屬於客戶端資安問題。虛擬運算環境的區隔和虛擬機器強化屬於雲端提供者責任或共享責任。",
+                page: "資通安全概論 3-64, 3-63"
+            },
+            {
+                id: 137,
+                question: "在應用程式的安全控制中，誰應確保應用程式集中存放在程式庫中並進行存取控管？",
+                type: "single",
+                options: ["程式設計師", "系統使用者", "機關", "外部稽核人員"],
+                correct: [2],
+                explanation: "應用程式應集中存放在程式庫中，並進行存取控管是機關的責任。",
+                page: "資通安全概論 3-26"
+            },
+            {
+                id: 138,
+                question: "關於雲端運算環境中，服務協定與契約的關係，下列敘述何者正確？",
+                type: "single",
+                options: ["契約提供數值的度量，SLA規範業者服務及罰則。", "契約明訂業者應提供的服務及罰則，SLA提供數值的度量。", "契約與SLA皆為數值度量，用以客觀衡量服務。", "兩者皆僅由雲端客戶單方訂定。"],
+                correct: [1],
+                explanation: "契約明訂服務及罰則，SLA提供數值的度量。",
+                page: "資通安全概論 3-66"
+            },
+            {
+                id: 139,
+                question: "在滲透測試的測試類型中，密碼破解和密碼強度測試屬於哪一個類別？",
+                type: "single",
+                options: ["作業系統", "應用程式", "網路服務套件", "密碼破解"],
+                correct: [3],
+                explanation: "密碼破解類別包含密碼破解和密碼強度測試。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 140,
+                question: "關於實體安全的「縱深防禦」，下列哪一項是其中一個潛在的「脆弱環節」？",
+                type: "single",
+                options: ["嚇阻成功", "延遲入侵時間夠久", "偵測太慢", "處理成功"],
+                correct: [2],
+                explanation: "縱深防禦的脆弱環節可能發生在「偵測太慢」。",
+                page: "資通安全概論 3-70"
+            },
+            {
+                id: 141,
+                question: "在弱點掃描服務委外中，若機關自行執行，需要考量哪方面的專業人才？",
+                type: "single",
+                options: ["法務部門", "弱點掃描之專業人才", "公共關係部門", "硬體維護人員"],
+                correct: [1],
+                explanation: "機關自行執行弱點掃描需考量弱點掃描之專業人才。",
+                page: "資通安全概論 3-11"
+            },
+            {
+                id: 142,
+                question: "在滲透測試流程中，哪個階段需進行工具準備與風險管理？",
+                type: "single",
+                options: ["事前準備與了解", "執行測試", "進行初次測試與複測", "產出報告協助修補與追蹤"],
+                correct: [0],
+                explanation: "工具準備與風險管理屬於事前準備與了解階段。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 143,
+                question: "關於資通安全責任等級A級和B級的弱點掃描頻率，下列敘述何者正確？",
+                type: "single",
+                options: ["A級每年1次，B級每年2次", "A級每年2次，B級每年1次", "兩者皆為每年1次", "兩者皆為每2年1次"],
+                correct: [1],
+                explanation: "A級每年2次，B級每年1次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 144,
+                question: "關於雲端安全管理，NIST SP 800-210提供哪方面的指南？",
+                type: "single",
+                options: ["資通安全成熟度模型驗證", "雲端責任分工", "實體隔離技術", "數位鑑識流程"],
+                correct: [1],
+                explanation: "NIST SP 800-210提供雲端環境下的角色共享與權責相關指南。",
+                page: "資通安全概論 3-53, 3-54"
+            },
+            {
+                id: 145,
+                question: "在實體安全區域規劃中，下列哪些區域需要加強保護？",
+                type: "single",
+                options: ["電腦資訊設備機房", "儲存媒體存放室", "電力與空調設備機房", "以上皆是"],
+                correct: [3],
+                explanation: "電腦資訊設備機房、儲存媒體存放室、電力與空調設備機房、電話與資料線路配接室、監控與錄影機房及管道間皆需加強保護。",
+                page: "資通安全概論 3-71"
+            },
+            {
+                id: 146,
+                question: "應用程式變更控制流程中，必須確保變更是獲得哪一項的批准？",
+                type: "single",
+                options: ["授權", "測試", "記錄", "開發"],
+                correct: [0],
+                explanation: "變更必須確保是獲得授權、經過測試且被記錄下來。",
+                page: "資通安全概論 3-23"
+            },
+            {
+                id: 147,
+                question: "滲透測試報告的「改善與建議」部分，主要著重於提供哪方面的建議？",
+                type: "single",
+                options: ["網路拓撲結構", "弱點修補建議", "硬體升級方案", "人員招募計畫"],
+                correct: [1],
+                explanation: "報告著重於提供弱點修補建議。",
+                page: "資通安全概論 3-18"
+            },
+            {
+                id: 148,
+                question: "關於弱點掃描的類型，下列哪一項是屬於OWASP TOP 10 (2021)的檢查項目？",
+                type: "single",
+                options: ["作業系統未修正的弱點", "A06 Vulnerable and Outdated Components", "帳號密碼破解測試", "網路通訊埠掃描"],
+                correct: [1],
+                explanation: "A06 Vulnerable and Outdated Components (脆弱及過時的組件) 屬於OWASP TOP 10 項目。",
+                page: "資通安全概論 3-14"
+            },
+            {
+                id: 149,
+                question: "關於資通安全健診的項目，下列哪一項不是伺服器主機惡意活動檢視的內容？",
+                type: "single",
+                options: ["是否使用停止支援之作業系統或軟體", "應用程式之安全性更新情形", "防毒軟體安裝、更新情形", "網路交換器是否支援Port Mirror功能"],
+                correct: [3],
+                explanation: "網路交換器是否支援Port Mirror功能屬於健診流程中的「基本環境調查」，而非伺服器主機惡意活動檢視。",
+                page: "資通安全概論 3-38, 3-40"
+            },
+            {
+                id: 150,
+                question: "滲透測試報告中，哪一項內容應包含測試期間、執行項目、執行範圍、執行人員及使用工具？",
+                type: "single",
+                options: ["執行結果摘要", "改善與建議", "專案執行計畫", "滲透測試弱點發現"],
+                correct: [2],
+                explanation: "專案執行計畫包含測試期間、執行項目、執行範圍、執行人員及使用工具。",
+                page: "資通安全概論 3-18"
+            },
+            {
+                id: 151,
+                question: "在實體安全中，下列哪些屬於「天然環境災害」的威脅類型？（複選）",
+                type: "multiple",
+                options: ["水災、颱風", "非授權入侵", "地震、山崩", "極端溫度"],
+                correct: [0, 2, 3],
+                explanation: "非授權入侵屬於人為的破壞。",
+                page: "資通安全概論 3-67"
+            },
+            {
+                id: 152,
+                question: "關於網路連線安全中，虛擬私有網路（VPN）能保護通訊資料的哪些安全屬性？（複選）",
+                type: "multiple",
+                options: ["機密性", "完整性", "不可否認性", "實體安全"],
+                correct: [0, 1],
+                explanation: "VPN的用途是保護通訊資料的機密性與完整性。",
+                page: "資通安全概論 3-51"
+            },
+            {
+                id: 153,
+                question: "關於弱點掃描的分類，下列哪些屬於弱點掃描的類型？（複選）",
+                type: "multiple",
+                options: ["主機系統", "Web網頁", "應用程式", "網路通訊埠"],
+                correct: [0, 1],
+                explanation: "常見的弱點掃描分為主機系統和Web網頁兩大類型。應用程式和網路通訊埠屬於主機系統掃描的檢查項目。",
+                page: "資通安全概論 3-4"
+            },
+            {
+                id: 154,
+                question: "關於實體安全中電力備援的敘述，下列何者正確？（複選）",
+                type: "multiple",
+                options: ["次要電力來源（發電機）用於主要電力來源中斷時。", "不斷電系統（UPS）分為在線式與非在線式。", "在線式UPS不論市電是否正常，電力供應皆通過UPS系統。", "非在線式UPS通常在電力品質要求較嚴格的環境中使用。"],
+                correct: [0, 1, 2],
+                explanation: "在線式UPS適合對電力供應品質要求較嚴格的使用者。",
+                page: "資通安全概論 3-76"
+            },
+            {
+                id: 155,
+                question: "關於資通安全責任等級C級和A級的滲透測試頻率，下列敘述何者正確？",
+                type: "single",
+                options: ["C級每年1次，A級每2年1次", "C級每2年1次，A級每年1次", "兩者皆為每年1次", "C級無要求，A級每年1次"],
+                correct: [1],
+                explanation: "A級每年1次；C級每2年1次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 156,
+                question: "在軟體生命週期中，若軟體已部署並開始維運，應持續監控與維護，屬於哪一個階段的工作？",
+                type: "single",
+                options: ["需求分析", "程式實作", "部署與維運", "測試與驗收"],
+                correct: [2],
+                explanation: "部署與維運階段旨在落實軟體之穩定運作，應定期修補漏洞及即時監控.",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 157,
+                question: "實體安全區域規劃中，空間規劃應依不同安全等級劃分，下列哪一等級通常具有最高機密性？",
+                type: "single",
+                options: ["公開", "限制", "作業", "機敏"],
+                correct: [3],
+                explanation: "區域劃分應依不同安全等級，包括公開、限制、作業、機敏區。",
+                page: "資通安全概論 3-72"
+            },
+            {
+                id: 158,
+                question: "關於雲端運算環境中的安全，下列哪一項屬於雲端服務提供者（CSP）應關注的資安問題？",
+                type: "single",
+                options: ["網路封包竊聽", "分散式阻斷服務攻擊", "資料內容加密保護", "退租後資料完整刪除"],
+                correct: [1],
+                explanation: "分散式阻斷服務攻擊屬於雲端服務提供者需關注的問題。",
+                page: "資通安全概論 3-64"
+            },
+            {
+                id: 159,
+                question: "弱點掃描與滲透測試報告中，都應包含哪一項主要內容？",
+                type: "single",
+                options: ["員工薪資與職位", "弱點的修補建議", "軟硬體設備採購清單", "系統使用者帳號密碼"],
+                correct: [1],
+                explanation: "兩者目的皆包含提供改善建議和修補弱點的方法。",
+                page: "資通安全概論 3-3, 3-16"
+            },
+            {
+                id: 160,
+                question: "關於電力供應不穩定的原因，下列何者不屬於電力干擾來源？",
+                type: "single",
+                options: ["閃電", "高壓電塔", "電器用品", "網頁伺服器"],
+                correct: [3],
+                explanation: "電力干擾來源包括閃電、高壓電塔、電纜線、電器用品等。",
+                page: "資通安全概論 3-77"
+            },
+            {
+                id: 161,
+                question: "應用程式安全中，為了防止駭客透過反向工程變造程式，應加強哪方面的防護？",
+                type: "single",
+                options: ["應用程式的保護", "網路連線加密", "變更控制流程", "職責區隔"],
+                correct: [0],
+                explanation: "駭客可運用反向工程變造程式，機關應加強行動應用程式的保護。",
+                page: "資通安全概論 3-27"
+            },
+            {
+                id: 162,
+                question: "滲透測試報告的核心成果是？",
+                type: "single",
+                options: ["測試工具清單", "詳細的測試報告", "廠商報價單", "風險移轉計畫"],
+                correct: [1],
+                explanation: "滲透測試的核心成果是詳細的測試報告（初測及複測）。",
+                page: "資通安全概論 3-18"
+            },
+            {
+                id: 163,
+                question: "關於資通安全健診的健診項目，下列哪一項是針對「使用者電腦」惡意活動檢視的內容？",
+                type: "single",
+                options: ["AD伺服器組態設定", "伺服器主機應用程式之安全性更新情形", "檢視使用者電腦防毒軟體安裝、更新及定期掃描結果之處理情形", "防火牆連線設定規則"],
+                correct: [2],
+                explanation: "選項C屬於使用者電腦惡意活動檢視。",
+                page: "資通安全概論 3-37"
+            },
+            {
+                id: 164,
+                question: "關於 SSDLC 的「測試與驗收」階段，應依據哪個文件擬訂測試計畫？",
+                type: "single",
+                options: ["變更控制清單", "資安需求", "程式庫版本", "軟體開發語言"],
+                correct: [1],
+                explanation: "測試與驗收階段應依據資安需求擬訂測試計畫。",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 165,
+                question: "實體安全中，理想的空調規劃要求保護進氣口，主要目的是什麼？",
+                type: "single",
+                options: ["避免惡意污染", "避免溫度過低", "避免靜電產生", "避免濕度過高"],
+                correct: [0],
+                explanation: "保護進氣口是為了避免惡意污染。",
+                page: "資通安全概論 3-75"
+            },
+            {
+                id: 166,
+                question: "關於資通安全責任等級A級和C級的弱點掃描頻率，下列敘述何者正確？",
+                type: "single",
+                options: ["A級每年2次，C級每2年1次", "A級每年1次，C級每年1次", "兩者皆為每2年1次", "A級無要求，C級每年1次"],
+                correct: [0],
+                explanation: "A級每年2次，C級每2年1次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 167,
+                question: "弱點掃描服務委外中，下列哪些內容屬於「壹、專案概述」的描述範圍？（複選）",
+                type: "multiple",
+                options: ["專案名稱", "專案目標", "專案範圍", "專案期間"],
+                correct: [0, 1, 2, 3],
+                explanation: "專案概述針對整個專案整體性的描述，包括名稱、目標、範圍及期間。",
+                page: "資通安全概論 3-11, 3-13"
+            },
+            {
+                id: 168,
+                question: "關於滲透測試的類型，下列哪些屬於「應用程式」的測試項目？（複選）",
+                type: "multiple",
+                options: ["使用者認證", "Web Service", "遠端連線服務套件", "輸入驗證"],
+                correct: [0, 1, 3],
+                explanation: "使用者認證、Web Service、輸入驗證屬於應用程式測試項目。遠端連線服務套件屬於網路服務套件的應用程式測試。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 169,
+                question: "關於應用程式的安全控制，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["變更控制流程必須確保變更是獲得授權、經過測試且被記錄下來。", "品管部門與開發部門應採用不同的測試方法，以實現職責區隔。", "測試部門應由程式庫中簽入(Check In)最新版本進行測試。", "程式庫應進行版本控制，包含主版本、次版本與緊急修正版本。"],
+                correct: [0, 1, 3],
+                explanation: "測試部門應由程式庫中簽出(Check Out)取得最新版本進行測試。",
+                page: "資通安全概論 3-23, 3-25, 3-26"
+            },
+            {
+                id: 170,
+                question: "在健診項目中，關於防火牆連線設定檢視，哪些項目是需要確認其適切性？（複選）",
+                type: "multiple",
+                options: ["來源IP", "目的IP", "通訊埠連通", "是否有安全性弱點"],
+                correct: [0, 1, 2, 3],
+                explanation: "檢視防火牆連線設定規則是否有安全性弱點，並確認來源與目的IP及通訊埠連通之適切性。",
+                page: "資通安全概論 3-39"
+            },
+            {
+                id: 171,
+                question: "關於網路連線安全，下列哪些協定在連線時採用明文傳輸，可能被監聽？（複選）",
+                type: "multiple",
+                options: ["HTTP", "TELNET", "FTPS", "SSH"],
+                correct: [0, 1],
+                explanation: "HTTP和TELNET採用明文傳輸。",
+                page: "資通安全概論 3-49"
+            },
+            {
+                id: 172,
+                question: "關於雲端運算環境中，下列哪些屬於客戶端應關注的資安問題？（複選）",
+                type: "multiple",
+                options: ["資料可用性", "資料竊取", "共用環境的系統安全防護", "虛擬化環境的系統安全"],
+                correct: [0, 1, 2],
+                explanation: "虛擬化環境的系統安全屬於雲端服務提供者應關注的問題。",
+                page: "資通安全概論 3-64"
+            },
+            {
+                id: 173,
+                question: "實體安全防護措施中，「延遲」入侵時間的措施包含哪些？",
+                type: "single",
+                options: ["門鎖、隔間", "人員、標示牌", "警衛巡守頻率", "夠大聲的警報器"],
+                correct: [0],
+                explanation: "門鎖、隔間、人員及標示牌屬於延遲措施。選項C和D屬於嚇阻措施。",
+                page: "資通安全概論 3-68"
+            },
+            {
+                id: 174,
+                question: "關於 SSDLC 的「部署與維運」階段，應落實軟體之穩定運作，需進行哪些動作？（複選）",
+                type: "multiple",
+                options: ["定期修補漏洞(Patch)", "按步升級更新版本(Upgrade)", "即時監控(Monitor)", "進行風險分析"],
+                correct: [0, 1, 2],
+                explanation: "部署與維運階段應定期修補漏洞、升級更新版本及即時監控。風險分析屬於需求分析階段。",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 175,
+                question: "關於弱點掃描的考量因素，下列哪些敘述正確？（複選）",
+                type: "multiple",
+                options: ["內部掃描 vs 外部掃描", "有登錄權限 vs 無登錄權限", "侵入式 vs 非侵入式", "委外 vs 機關IT資安部門"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為弱點掃描的考慮因素。",
+                page: "資通安全概論 3-7"
+            },
+            {
+                id: 176,
+                question: "關於健診流程中的「結束會議」，下列敘述何者正確？",
+                type: "single",
+                options: ["需向外部稽核單位報告", "應說明各項目發現事項、改善建議與結論", "僅需告知資通安全健診廠商", "參與人員僅限資訊人員"],
+                correct: [1],
+                explanation: "結束會議旨在說明發現事項、改善建議與結論。",
+                page: "資通安全概論 3-45"
+            },
+            {
+                id: 177,
+                question: "在滲透測試報告的「滲透測試弱點發現」中，必須說明哪些內容？（複選）",
+                type: "multiple",
+                options: ["測試語法", "問題參數", "可能造成的風險", "受測目標的硬體規格"],
+                correct: [0, 1, 2],
+                explanation: "弱點發現應包含測試語法、問題參數、及說明可能造成的風險。",
+                page: "資通安全概論 3-18"
+            },
+            {
+                id: 178,
+                question: "在軟體變更控制流程中，必須確保變更是符合哪些條件？（複選）",
+                type: "multiple",
+                options: ["獲得授權", "經過測試", "被記錄下來", "具備變更後的資安報告"],
+                correct: [0, 1, 2],
+                explanation: "變更必須確保是獲得授權、經過測試且被記錄下來。",
+                page: "資通安全概論 3-23"
+            },
+            {
+                id: 179,
+                question: "在網路區域規劃中，下列哪些屬於網路管理區域應放置的設備？（複選）",
+                type: "multiple",
+                options: ["網路管理系統", "鑑別系統", "網頁伺服器", "監控系統"],
+                correct: [0, 1, 3],
+                explanation: "網路管理區域放置網路管理系統、鑑別系統和監控系統。網頁伺服器放置在DMZ。",
+                page: "資通安全概論 3-47, 3-48"
+            },
+            {
+                id: 180,
+                question: "關於實體安全中空調規劃的要求，下列哪些敘述正確？（複選）",
+                type: "multiple",
+                options: ["應維持正風壓", "應保護進氣口", "需設置自動偵煙與自動關閉機制", "應有獨立的電力供應線路"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為空調系統的要求。",
+                page: "資通安全概論 3-75"
+            },
+            {
+                id: 181,
+                question: "在資通安全健診項目中，下列哪些是針對伺服器主機的檢視項目？",
+                type: "single",
+                options: ["檢視是否使用停止支援之作業系統或軟體", "檢視防毒軟體安裝、更新及定期掃描結果之處理情形", "檢視應用程式之安全性更新情形", "以上皆是"],
+                correct: [3],
+                explanation: "所有選項皆為伺服器主機的健診項目。",
+                page: "資通安全概論 3-38"
+            },
+            {
+                id: 182,
+                question: "關於滲透測試的目的，下列哪一項是錯誤的？",
+                type: "single",
+                options: ["確認弱點已排除", "提供改善建議", "評估資安防護能力", "提供作為管理依據的掃描結果"],
+                correct: [3],
+                explanation: "提供作為管理依據的掃描結果是弱點掃描的目的。",
+                page: "資通安全概論 3-3, 3-16"
+            },
+            {
+                id: 183,
+                question: "實體安全中，下列哪兩項用於防範尾隨進出的設施，且具有鑑別機制？",
+                type: "single",
+                options: ["旋轉門、驗票匣門", "Mantrap+警衛或內外門的鑑別機制", "圍牆、警衛", "攝影機、動作感應器"],
+                correct: [1],
+                explanation: "Mantrap+警衛或內外門的鑑別機制可有效防範尾隨進出。",
+                page: "資通安全概論 3-70"
+            },
+            {
+                id: 184,
+                question: "根據NIST SP 800-210，在使用Software as a Service (SaaS)時，下列哪些層次的存取控制是由雲端客戶負責？",
+                type: "single",
+                options: ["資料", "作業系統", "應用程式", "儲存"],
+                correct: [0],
+                explanation: "SaaS中，客戶負責應用程式和資料的存取控制。",
+                page: "資通安全概論 3-54"
+            },
+            {
+                id: 185,
+                question: "關於機關級別為B級的資通安全檢測規定，下列敘述何者正確？",
+                type: "single",
+                options: ["弱點掃描：每年2次；滲透測試：每年1次", "弱點掃描：每年1次；滲透測試：每2年1次", "弱點掃描：每年1次；滲透測試：每年1次", "弱點掃描：每2年1次；滲透測試：每2年1次"],
+                correct: [1],
+                explanation: "B級機關弱點掃描每年1次，滲透測試每2年1次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 186,
+                question: "關於滲透測試的類型，下列哪些屬於「作業系統」的測試項目？",
+                type: "single",
+                options: ["遠端服務", "設定管理", "密碼強度測試", "網站服務"],
+                correct: [0],
+                explanation: "密碼強度測試屬於密碼破解類別。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 187,
+                question: "在滲透測試流程中，「產出報告協助修補與追蹤」包含哪些階段？",
+                type: "single",
+                options: ["進行初次測試與複測", "資料蒐集與資訊分析", "產出全面報告提供修補建議與追蹤", "驗證防禦成效"],
+                correct: [2],
+                explanation: "產出全面報告提供修補建議與追蹤是流程中的一環。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 188,
+                question: "在軟體生命週期中，哪個階段應落實既有之規劃，將使用者介面、功能運作及安全性等完整的實現？",
+                type: "single",
+                options: ["架構設計", "程式實作", "測試與驗收", "部署與維運"],
+                correct: [1],
+                explanation: "程式實作階段應落實既有之規劃。",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 189,
+                question: "應用程式變更控制的步驟中，下列哪一項屬於「變更評估」階段的工作？",
+                type: "single",
+                options: ["填寫變更需求申請", "評估變更與安全的關聯性", "提交變更申請進行核准", "將變更程式碼與變更申請連結"],
+                correct: [1],
+                explanation: "變更評估階段負責評估變更與安全的關聯性。",
+                page: "資通安全概論 3-24"
+            },
+            {
+                id: 190,
+                question: "關於「職責區隔」，下列哪些人員/部門應採行不同的測試方法？",
+                type: "single",
+                options: ["開發部門與測試部門", "開發部門與品管部門", "品管部門與測試部門", "作業人員與上線人員"],
+                correct: [1],
+                explanation: "品管部門應測試程式碼品質，且與開發部門採用不同的測試方法。",
+                page: "資通安全概論 3-25"
+            },
+            {
+                id: 191,
+                question: "關於資通安全健診健診流程中的「修補規劃與追蹤」，下列敘述何者正確？",
+                type: "single",
+                options: ["應優先處理無法即時修補的弱點", "無需留存弱點修補紀錄", "弱點修補完成後須執行複測", "僅規劃改善計畫即可，無需改善時程"],
+                correct: [2],
+                explanation: "弱點修補完成後須執行複測，以確認修補方法之有效性。",
+                page: "資通安全概論 3-45"
+            },
+            {
+                id: 192,
+                question: "實體安全中，下列哪個等級的安全區域通常包含電腦資訊設備機房？",
+                type: "single",
+                options: ["公開區", "限制區", "作業區", "機敏區"],
+                correct: [3],
+                explanation: "機敏區通常指需要加強保護的區域，例如電腦資訊設備機房。",
+                page: "資通安全概論 3-71, 3-72"
+            },
+            {
+                id: 193,
+                question: "關於不斷電系統（UPS），下列哪一項敘述錯誤？",
+                type: "single",
+                options: ["在線式UPS不論市電是否正常，電力供應會通過UPS系統", "非在線式UPS當電力中斷時，需切換至UPS系統供應電力", "在線式UPS適合對電力供應品質要求較嚴格的使用者", "非在線式UPS當電力中斷時無需切換"],
+                correct: [3],
+                explanation: "非在線式UPS在市電中斷時，設備的電力供給來源才會「切換」至UPS系統。",
+                page: "資通安全概論 3-76"
+            },
+            {
+                id: 194,
+                question: "網路連線安全中，利用對稱式與非對稱式加密演算法來達成的是哪一項屬性？",
+                type: "single",
+                options: ["資訊完整性", "資訊機密性", "不可否認性", "鑑別性"],
+                correct: [1],
+                explanation: "資訊機密性利用對稱式與非對稱式加密演算法來達成。",
+                page: "資通安全概論 3-48"
+            },
+            {
+                id: 195,
+                question: "弱點掃描報告中的「詳細弱點清單」，除了弱點名稱、描述、受影響設備資訊外，還必須提供哪項內容？",
+                type: "single",
+                options: ["具體的修補建議", "專案執行人員名單", "掃描工具原始碼", "錯誤程式碼位置"],
+                correct: [0],
+                explanation: "詳細弱點清單需提供具體的修補建議。",
+                page: "資通安全概論 3-6"
+            },
+            {
+                id: 196,
+                question: "關於實體安全防護措施中，「嚇阻」犯罪發生的措施，下列哪一項不屬於此類？",
+                type: "single",
+                options: ["圍牆、警衛", "警告標語", "加強警衛巡守頻率", "門鎖、隔間"],
+                correct: [3],
+                explanation: "門鎖、隔間屬於「延遲」入侵時間。",
+                page: "資通安全概論 3-68"
+            },
+            {
+                id: 197,
+                question: "關於雲端運算環境中，服務水準協議（SLA）與契約的關係，下列哪一項敘述正確？",
+                type: "single",
+                options: ["SLA提供數值的度量，契約規範業者應提供的服務及罰則", "契約提供數值的度量，SLA規範服務及罰則", "兩者都只規範服務的數量", "兩者都沒有法律效力"],
+                correct: [0],
+                explanation: "契約明訂業者應該提供的服務以及罰則，而服務協定提供的是數值的度量。",
+                page: "資通安全概論 3-66"
+            },
+            {
+                id: 198,
+                question: "根據 SSDLC 流程，程式設計師應在哪個階段保持正確安全的程式撰寫習慣？",
+                type: "single",
+                options: ["需求分析", "架構設計", "程式實作", "測試與驗收"],
+                correct: [2],
+                explanation: "程式設計師應在程式實作階段注意程式撰寫習慣。",
+                page: "資通安全概論 3-22"
+            },
+            {
+                id: 199,
+                question: "在資通安全健診流程中，「基本環境調查」的內容包含哪些？（複選）",
+                type: "multiple",
+                options: ["伺服器主機資訊", "網段劃分資訊", "網路交換器是否支援Port Mirror功能", "政府組態基準部署現況"],
+                correct: [0, 1, 2, 3],
+                explanation: "基本環境調查內容包含使用者電腦與伺服器主機資訊、政府組態基準部署現況與例外管理清單、服務主機與防護設備資訊、網段劃分資訊及網路交換器是否支援Port Mirror功能。",
+                page: "資通安全概論 3-40"
+            },
+            {
+                id: 200,
+                question: "關於網路區域劃分，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["內部網路可利用VLAN與不同路由切開。", "外部網路無法直接連線內部網路。", "網路記錄區域存放的網段應特別規劃。", "網路管理設備應與服務的網段有所區隔。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為網路區域劃分的正確原則。",
+                page: "資通安全概論 3-47, 3-48"
+            },
+            {
+                id: 201,
+                question: "關於實體安全中空調規劃的目的，下列哪些敘述正確？（複選）",
+                type: "multiple",
+                options: ["溫度調節", "濕度調節", "換氣功能", "避免靜電"],
+                correct: [0, 1, 2, 3],
+                explanation: "濕度調節過低容易產生靜電，因此空調功能間接包含靜電防範。",
+                page: "資通安全概論 3-75"
+            },
+            {
+                id: 202,
+                question: "關於資通安全健診報告的後續處理，下列哪些是機關應執行的動作？（複選）",
+                type: "multiple",
+                options: ["優先處理可即時修補與風險等級較高的弱點。", "對於無法即時修補的弱點，需規劃改善計畫與時程。", "針對已修補弱點，須留存修補紀錄。", "弱點修補完成後須執行複測。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為健診報告後續處理的要求。",
+                page: "資通安全概論 3-45"
+            },
+            {
+                id: 203,
+                question: "在資通安全責任等級C級和B級的安全性檢測規定中，下列何者為兩者的共同要求？",
+                type: "single",
+                options: ["弱點掃描每年2次", "滲透測試每年1次", "滲透測試每2年1次", "弱點掃描每2年1次"],
+                correct: [2],
+                explanation: "B級與C級的滲透測試頻率皆為每2年1次。",
+                page: "資通安全概論 3-2"
+            },
+            {
+                id: 204,
+                question: "關於弱點掃描的考量因素，若機關決定「委外」執行，最需要事先考慮清楚的因素是？",
+                type: "single",
+                options: ["弱點掃描軟體的購置與持續更新", "委外通常須簽訂契約，按照契約進行較無彈性", "弱點掃描專業人才的培訓", "掃描結果是否需人工判讀"],
+                correct: [1],
+                explanation: "委外通常須簽訂契約，按照契約進行較無彈性。",
+                page: "資通安全概論 3-11"
+            },
+            {
+                id: 205,
+                question: "關於滲透測試的「測試類型」，下列哪一項不屬於主要測試類別？",
+                type: "single",
+                options: ["作業系統", "應用程式", "實體安全", "密碼破解"],
+                correct: [2],
+                explanation: "滲透測試主要針對作業系統、應用程式、服務及物聯網設備，不直接針對實體安全。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 206,
+                question: "軟體安全工程強調應用程式的安全應由設計解決，而架構安全則應由何者解決？",
+                type: "single",
+                options: ["程式實作", "系統管理員的設定", "委外廠商的協助", "終端使用者的權限"],
+                correct: [1],
+                explanation: "架構安全屬於系統管理問題，由設定來解決。",
+                page: "資通安全概論 3-21"
+            },
+            {
+                id: 207,
+                question: "在軟體變更控制流程中，哪個步驟負責分析變更需求並發展實作策略、方法或步驟？",
+                type: "single",
+                options: ["變更需求管理", "變更評估", "變更審查", "變更開發"],
+                correct: [0],
+                explanation: "變更需求管理負責分析變更需求並發展實作策略、方法或步驟。",
+                page: "資通安全概論 3-24"
+            },
+            {
+                id: 208,
+                question: "關於程式庫維護中，下列哪一項是測試部門應執行的動作？",
+                type: "single",
+                options: ["Check In", "Check Out", "Release", "Modify"],
+                correct: [1],
+                explanation: "測試部門應由程式庫中簽出(Check Out)取得最新版本進行測試。",
+                page: "資通安全概論 3-26"
+            },
+            {
+                id: 209,
+                question: "實體安全防護措施中，「評估」事件狀態後，應採取的行動是什麼？",
+                type: "single",
+                options: ["警衛緊急處理標準程序", "聯絡與通報程序", "門禁管制", "布建全時攝影系統"],
+                correct: [0],
+                explanation: "評估事件狀態是警衛緊急處理標準程序。",
+                page: "資通安全概論 3-69"
+            },
+            {
+                id: 210,
+                question: "在實體安全中，下列哪一類火災是可燃物為木材、紙張、衣服及塑膠等？",
+                type: "single",
+                options: ["A類火災", "B類火災", "C類火災", "D類火災"],
+                correct: [0],
+                explanation: "A類火災的可燃物為木材、紙張、衣服及塑膠等。",
+                page: "資通安全概論 3-80"
+            },
+            {
+                id: 211,
+                question: "關於網路區域規劃，下列哪一個區域的存取對內部網路需要經過防火牆的存取控制？",
+                type: "single",
+                options: ["內部網路", "外部網路", "DMZ", "網路管理區域"],
+                correct: [1],
+                explanation: "外部網路對內部需要經過防火牆的存取控制。",
+                page: "資通安全概論 3-47"
+            },
+            {
+                id: 212,
+                question: "關於雲端運算中契約與SLA的關係，下列敘述何者錯誤？",
+                type: "single",
+                options: ["契約與SLA都旨在規範業者達到客戶要求", "契約包含業者提供的服務以及罰則", "SLA提供數值的度量來衡量服務是否滿足要求", "契約提供數值度量"],
+                correct: [3],
+                explanation: "SLA提供數值的度量，契約明訂服務與罰則。",
+                page: "資通安全概論 3-66"
+            },
+            {
+                id: 213,
+                question: "關於滲透測試流程，下列哪個階段是檢查受測目標在遭遇攻擊活動時之資安防護能力與執行成效？",
+                type: "single",
+                options: ["事前準備與了解", "執行測試", "驗證防禦成效", "產出報告協助修補與追蹤"],
+                correct: [2],
+                explanation: "驗證防禦成效是在執行測試後，確認系統實際的防護能力。",
+                page: "資通安全概論 3-17"
+            },
+            {
+                id: 214,
+                question: "關於弱點掃描的報告內容，下列哪些資訊是必須列出的？（複選）",
+                type: "multiple",
+                options: ["弱點名稱、描述", "受影響的設備名稱、IP/URL", "標示弱點的風險等級", "具體的修補建議"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為詳細弱點清單中必須列出的內容。",
+                page: "資通安全概論 3-6"
+            },
+            {
+                id: 215,
+                question: "關於實體安全中防範靜電危害的方法，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["在機房使用抗靜電高架地板", "建築物、機房、電力設備及電腦設備要正常的接地", "空調維持在合適的濕度", "在組裝或拆解電腦硬體時戴上抗靜電帶"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆為防止靜電危害的方法。",
+                page: "資通安全概論 3-78"
+            }
+        ];
+
+        // 全域變數
+        let currentQuestion = 0;
+        let userAnswers = {}; // 儲存使用者答案
+        let showingExplanation = false;
+
+        // 初始化測驗
+        function initQuiz() {
+            document.getElementById('totalNum').textContent = questions.length;
+            loadQuestion();
+            updateStats();
+            generateHistoryGrid();
+        }
+
+        // 載入題目
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            const quizCard = document.getElementById('quizCard');
+            
+            // 判斷題目類型
+            const typeLabel = question.type === 'single' ? '單選題' : '複選題';
+            const inputType = question.type === 'single' ? 'radio' : 'checkbox';
+            
+            // 生成選項HTML
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestion] && userAnswers[currentQuestion].includes(index);
+                optionsHTML += `
+                    <div class="option" onclick="selectOption(${index})">
+                        <input type="${inputType}" name="q${currentQuestion}" value="${index}" ${isSelected ? 'checked' : ''} onchange="handleOptionChange(${index})">
+                        <label>(${String.fromCharCode(65 + index)}) ${option}</label>
+                    </div>
+                `;
+            });
+
+            quizCard.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">第 ${currentQuestion + 1} 題</span>
+                    <span class="question-type">${typeLabel}</span>
+                </div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">${optionsHTML}</div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="submitAnswer()">提交答案</button>
+                    <button class="btn btn-secondary" onclick="showExplanation()" id="explanationBtn" style="display: none;">查看解答</button>
+                </div>
+                <div class="explanation" id="explanation">
+                    <h4>📝 解答說明</h4>
+                    <p><strong>正確答案：</strong>${question.correct.map(i => String.fromCharCode(65 + i)).join(', ')}</p>
+                    <p>${question.explanation}</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;"><strong>📖 出處頁碼：</strong>${question.page}</p>
+                </div>
+            `;
+
+            // 更新進度
+            document.getElementById('currentNum').textContent = currentQuestion + 1;
+            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // 更新按鈕狀態
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = currentQuestion === questions.length - 1;
+            
+            showingExplanation = false;
+        }
+
+        // 選擇選項
+        function selectOption(index) {
+            const question = questions[currentQuestion];
+            const checkbox = document.querySelector(`input[value="${index}"]`);
+            
+            if (question.type === 'single') {
+                // 單選題：取消所有選項，只選中當前項
+                document.querySelectorAll(`input[name="q${currentQuestion}"]`).forEach(input => {
+                    input.checked = false;
+                });
+                checkbox.checked = true;
+                userAnswers[currentQuestion] = [index];
+            } else {
+                // 複選題：切換選中狀態
+                checkbox.checked = !checkbox.checked;
+                if (!userAnswers[currentQuestion]) {
+                    userAnswers[currentQuestion] = [];
+                }
+                
+                if (checkbox.checked) {
+                    if (!userAnswers[currentQuestion].includes(index)) {
+                        userAnswers[currentQuestion].push(index);
+                    }
+                } else {
+                    userAnswers[currentQuestion] = userAnswers[currentQuestion].filter(i => i !== index);
+                }
+            }
+            
+            updateHistoryGrid();
+        }
+
+        // 處理選項變化
+        function handleOptionChange(index) {
+            // 這個函數由於selectOption已經處理了邏輯，可以保持空白
+        }
+
+        // 提交答案
+        function submitAnswer() {
+            const question = questions[currentQuestion];
+            const userAnswer = userAnswers[currentQuestion];
+            
+            if (!userAnswer || userAnswer.length === 0) {
+                showToast('請選擇答案！', 'error');
+                return;
+            }
+
+            // 檢查答案正確性
+            const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+            
+            // 顯示結果
+            highlightOptions(isCorrect);
+            
+            // 播放音效（模擬）
+            if (isCorrect) {
+                showToast('答對了！', 'success');
+            } else {
+                showToast('答錯了，請查看解答', 'error');
+            }
+            
+            // 顯示解答按鈕
+            document.getElementById('explanationBtn').style.display = 'inline-block';
+            
+            updateStats();
+            updateHistoryGrid();
+        }
+
+        // 比較陣列相等
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        // 標示選項正確性
+        function highlightOptions(isCorrect) {
+            const question = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, index) => {
+                const input = option.querySelector('input');
+                option.classList.remove('correct', 'incorrect', 'user-selected');
+                
+                if (question.correct.includes(index)) {
+                    option.classList.add('correct');
+                } else if (input.checked) {
+                    option.classList.add('incorrect');
+                }
+                
+                if (input.checked) {
+                    option.classList.add('user-selected');
+                }
+            });
+        }
+
+        // 顯示解答
+        function showExplanation() {
+            const explanation = document.getElementById('explanation');
+            explanation.classList.add('show');
+            showingExplanation = true;
+        }
+
+        // 上一題
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // 下一題
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        // 跳到指定題目
+        function goToQuestion(questionIndex) {
+            currentQuestion = questionIndex;
+            loadQuestion();
+            toggleHistory(); // 關閉歷史面板
+        }
+
+        // 切換歷史記錄面板
+        function toggleHistory() {
+            const historyPanel = document.getElementById('historyPanel');
+            historyPanel.classList.toggle('show');
+        }
+
+        // 生成歷史記錄網格
+        function generateHistoryGrid() {
+            const historyGrid = document.getElementById('historyGrid');
+            let gridHTML = '';
+            
+            for (let i = 0; i < questions.length; i++) {
+                let status = 'unanswered';
+                if (userAnswers[i]) {
+                    const isCorrect = arraysEqual(userAnswers[i].sort(), questions[i].correct.sort());
+                    status = isCorrect ? 'correct' : 'incorrect';
+                }
+                
+                gridHTML += `
+                    <div class="history-item ${status}" onclick="goToQuestion(${i})">
+                        ${i + 1}
+                    </div>
+                `;
+            }
+            
+            historyGrid.innerHTML = gridHTML;
+        }
+
+        // 更新歷史記錄網格
+        function updateHistoryGrid() {
+            generateHistoryGrid();
+        }
+
+        // 更新統計資料
+        function updateStats() {
+            let correctCount = 0;
+            let incorrectCount = 0;
+            
+            Object.keys(userAnswers).forEach(questionIndex => {
+                const question = questions[parseInt(questionIndex)];
+                const userAnswer = userAnswers[questionIndex];
+                
+                if (userAnswer && userAnswer.length > 0) {
+                    const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+                    if (isCorrect) {
+                        correctCount++;
+                    } else {
+                        incorrectCount++;
+                    }
+                }
+            });
+            
+            const totalAnswered = correctCount + incorrectCount;
+            const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('accuracy').textContent = `${accuracy}%`;
+        }
+
+        // 顯示提示訊息
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 重新開始測驗
+        function restartQuiz() {
+            if (confirm('確定要重新開始測驗嗎？所有答案將被清除。')) {
+                userAnswers = {};
+                currentQuestion = 0;
+                showingExplanation = false;
+                initQuiz();
+                showToast('測驗已重新開始', 'success');
+            }
+        }
+
+        // 頁面載入完成後初始化
+        window.addEventListener('load', initQuiz);
+    </script>
+</body>
+</html>

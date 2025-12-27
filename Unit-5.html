@@ -1,0 +1,2677 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資通安全概論第5單元自我評量測驗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .question-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-1px);
+        }
+
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .option.user-selected {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .explanation h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation p {
+            color: #533d03;
+            line-height: 1.6;
+        }
+
+        .history-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .history-panel.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .history-item.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .history-item.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .history-item.unanswered {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 2px solid #d6d8db;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #f44336, #ff7043);
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 30px;
+            background: #4763fa;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 22px;
+            cursor: pointer;
+            margin: 0 6px 8px 0;
+            box-shadow: 0 2px 8px rgba(70,90,160,0.09);
+            transition: background 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+        .action-btn:hover,
+        .action-btn:focus {
+            background: #253095;
+            color: #fff;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>資通安全概論 第5單元自我評量測驗</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats">
+                <span>題目 <span id="currentNum">1</span> / <span id="totalNum">219</span></span>
+                <span>答對：<span id="correctCount">0</span></span>
+                <span>答錯：<span id="incorrectCount">0</span></span>
+                <span>準確率：<span id="accuracy">0%</span></span>
+            </div>
+        </div>
+
+        <div class="quiz-card" id="quizCard">
+            <!-- 題目將由 JS 動態插入 -->
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <h3>答題記錄</h3>
+            <div class="history-grid" id="historyGrid">
+                <!-- 歷史記錄將由 JS 動態插入 -->
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="toggleHistory()">查看記錄</button>
+            <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">上一題</button>
+            <button class="btn btn-secondary" onclick="nextQuestion()" id="nextBtn">下一題</button>
+            <button class="btn btn-success" onclick="restartQuiz()">重新開始</button>
+            <button class="action-btn" id="backHome" onclick="window.location.href='index.html'">回主頁</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // 所有題目數據 (第5單元)
+        const questions = [
+            {
+                id: 1,
+                question: "存取控制措施的主要目的為何？",
+                type: "single",
+                options: ["記錄系統的運作日誌", "控制及限制對系統資源的存取權限", "確保資通系統在災害後能快速復原", "確保系統原始碼不被竊取"],
+                correct: [1],
+                explanation: "存取控制的目的在於控制及限制對系統資源的存取權限，確保只有獲得授權的人員才能存取資料及資源。",
+                page: "資通安全概論 2-3"
+            },
+            {
+                id: 2,
+                question: "根據「存取控制」的「帳號管理」機制，等級「普」的機關應建立哪些程序？",
+                type: "single",
+                options: ["僅需建立帳號申請與啟用程序", "僅需建立帳號修改與刪除程序", "建立帳號之申請、建立、修改、啟用、停用及刪除之程序", "不需建立任何程序，只需定期審核"],
+                correct: [2],
+                explanation: "等級「普」的帳號管理要求是建立帳號管理機制，包含帳號之申請、建立、修改、啟用、停用及刪除之程序。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 3,
+                question: "對於臨時或緊急帳號的管理，針對資通安全責任等級「中」或「高」的機關，下列哪一項是必須執行的措施？",
+                type: "single",
+                options: ["只需定期審核其使用紀錄", "已逾期之臨時或緊急帳號應刪除或禁用", "只需確保其密碼強度足夠", "無需特別管理，因為其使用期間短暫"],
+                correct: [1],
+                explanation: "等級「中」要求已逾期之臨時或緊急帳號應刪除或禁用。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 4,
+                question: "關於「最小權限」原則的敘述，下列何者正確？",
+                type: "single",
+                options: ["應賦予所有使用者最高權限以利工作進行", "僅允許使用者完成指派任務所需之授權存取", "僅適用於遠端存取連線", "與存取控制無關"],
+                correct: [1],
+                explanation: "最小權限原則要求僅允許使用者（或代表使用者行為之程序）依機關任務及業務功能，完成指派任務所需之授權存取。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 5,
+                question: "針對遠端存取，無論是資通安全責任等級「高」、「中」或「普」的機關，下列哪一項敘述是共同要求必須完成的？",
+                type: "single",
+                options: ["遠端存取之來源應為已預先定義及管理的存取控制點", "使用者之權限檢查作業應於伺服器端完成", "須採取多重認證技術", "發生帳號違常使用時應回報管理者"],
+                correct: [1],
+                explanation: "「權限檢查實作」要求使用者之權限檢查作業應於伺服器端完成，這是高中普三個等級都包含的控制措施。",
+                page: "資通安全概論 2-3"
+            },
+            {
+                id: 6,
+                question: "在存取控制的授權原則中，「業務僅知原則」指的是什麼？",
+                type: "single",
+                options: ["只提供執行業務上所需知道的資訊", "在任何情況下都應避免衝突或監督工作", "僅在發生資安事件時才提供資訊", "確保密碼強度足夠"],
+                correct: [0],
+                explanation: "「業務僅知原則」是指只提供執行業務上所需知道的資訊。",
+                page: "資通安全概論 2-4"
+            },
+            {
+                id: 7,
+                question: "對於資通安全責任等級「高」的機關，在「帳號管理」上，當系統閒置時間或可使用期限逾越機關許可時，系統應採取的動作為何？",
+                type: "single",
+                options: ["發出警告訊息", "自動將使用者登出", "禁用該帳號一小時", "通知資安長"],
+                correct: [1],
+                explanation: "等級「高」要求逾越機關所許可之閒置時間或可使用期限時，系統應自動將使用者登出。",
+                page: "資通安全概論 2-4"
+            },
+            {
+                id: 8,
+                question: "等級「高」的機關在「帳號管理」上，除了要求閒置帳號應禁用外，還額外要求監控資通系統帳號，若發現帳號違常使用時，應執行下列哪一項動作？",
+                type: "single",
+                options: ["立即修改該帳號密碼", "將該帳號停用", "回報管理者", "立即執行系統備份"],
+                correct: [2],
+                explanation: "等級「高」要求監控資通系統帳號，如發現帳號違常使用時回報管理者。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 9,
+                question: "關於「遠端存取」的控制措施，資通安全等級「高」與「中」皆要求應採用哪一項安全機制？",
+                type: "single",
+                options: ["多重認證技術", "加密機制", "生物特徵鑑別", "職務區隔原則"],
+                correct: [1],
+                explanation: "等級「普」的遠端存取措施要求應採用加密機制。",
+                page: "資通安全概論 2-3"
+            },
+            {
+                id: 10,
+                question: "在資通安全等級「中」與「高」的機關中，必須定期審核資通系統帳號的哪些生命週期階段？",
+                type: "single",
+                options: ["僅審核帳號的建立與刪除", "僅審核帳號的修改與啟用", "審核帳號之申請、建立、修改、啟用、停用及刪除", "僅審核帳號的停用與刪除"],
+                correct: [2],
+                explanation: "等級「中」及「高」要求定期審核資通系統帳號之申請、建立、修改、啟用、停用及刪除。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 11,
+                question: "存取控制中的「遠端存取」措施，資通安全等級「高」的額外要求（不包含在普級要求中）是下列哪一項？",
+                type: "single",
+                options: ["應採用加密機制", "使用者之權限檢查應於伺服器端完成", "應監控遠端存取連線", "遠端存取之來源應為已預先定義及管理的存取控制點"],
+                correct: [3],
+                explanation: "等級「高」要求遠端存取之來源應為已預先定義及管理的存取控制點。",
+                page: "資通安全概論 2-3"
+            },
+            {
+                id: 12,
+                question: "在「存取控制-授權原則」中，「職務區隔」的主要目的是什麼？",
+                type: "single",
+                options: ["將資訊分類為機密等級", "確保資訊流通順暢", "避免某些衝突或監督工作職務由同一個人來進行", "賦予所有員工相同權限"],
+                correct: [2],
+                explanation: "職務區隔旨在避免某些衝突或監督工作職務由同一個人來進行。",
+                page: "資通安全概論 2-4"
+            },
+            {
+                id: 13,
+                question: "針對資通系統閒置帳號的管理，資通安全責任等級「中」的機關要求是什麼？",
+                type: "single",
+                options: ["無需特別處理", "應禁用", "應定期變更密碼", "應僅限於白天使用"],
+                correct: [1],
+                explanation: "等級「中」要求資通系統閒置帳號應禁用。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 14,
+                question: "等級「高」的資通系統在帳號管理方面，除了自動登出外，還要求應定義哪些項目來規範系統使用？",
+                type: "single",
+                options: ["系統硬體規格與作業系統版本", "閒置時間、可使用期限、使用情況及條件", "使用者薪資與職位", "網路頻寬使用限制"],
+                correct: [1],
+                explanation: "等級「高」要求機關應定義各系統之閒置時間或可使用期限與資通系統之使用情況及條件。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 15,
+                question: "關於存取控制的原則，下列敘述何者錯誤？",
+                type: "single",
+                options: ["最小權限原則僅針對應用程式或程序", "遠端存取連線應被監控", "所有等級的機關都應建立完整的帳號管理程序", "存取控制目的在降低資安風險"],
+                correct: [0],
+                explanation: "最小權限原則是針對「使用者（或代表使用者行為之程序）」允許其完成指派任務所需之授權存取。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 16,
+                question: "針對遠端存取連線的監控，資通安全責任等級「普」的機關是否需要執行？",
+                type: "single",
+                options: ["不需要", "需要，應監控遠端存取機關內部網段或資通系統後臺之連線", "只需監控使用者登入是否成功", "只需在伺服器端完成權限檢查"],
+                correct: [1],
+                explanation: "遠端存取連線監控是「高中普」等級都需遵循的要求。",
+                page: "資通安全概論 2-4"
+            },
+            {
+                id: 17,
+                question: "等級「中」的遠端存取控制措施，除了包含等級「普」的所有控制措施外，還要求必須在進行遠端存取之前完成哪一項步驟？",
+                type: "single",
+                options: ["使用多重認證", "取得授權，建立使用限制、組態需求、連線需求及文件化", "確保遠端存取來源為預先定義之控制點", "進行實體設備的存取保護"],
+                correct: [1],
+                explanation: "等級「中」的遠端存取要求對於每一種允許之遠端存取類型，均應先取得授權，建立使用限制、組態需求、連線需求及文件化。",
+                page: "資通安全概論 2-3"
+            },
+            {
+                id: 18,
+                question: "關於資通系統存取控制中的「帳號管理」措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["等級「普」要求建立帳號的完整生命週期管理程序。", "等級「中」要求已逾期之臨時或緊急帳號應刪除或禁用。", "等級「高」要求在發現帳號違常使用時，應回報管理者。", "閒置帳號管理只適用於等級「高」的機關。"],
+                correct: [0, 1, 2],
+                explanation: "普級要求建立帳號管理機制。中級要求刪除或禁用逾期臨時或緊急帳號。高級要求帳號違常使用時回報管理者。閒置帳號管理適用於等級「中」及「高」的機關。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 19,
+                question: "關於「遠端存取」控制措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["所有安全等級的機關，其使用者權限檢查作業都應在伺服器端完成。", "等級「高」的遠端存取應將來源限制在已預先定義的存取控制點。", "所有等級機關都應對遠端存取內部網段的連線進行監控。", "遠端存取應採用加密機制。"],
+                correct: [0, 1, 2, 3],
+                explanation: "權限檢查在伺服器端完成，連線監控和加密都是高中普皆需遵循的。等級高需管制存取點來源。",
+                page: "資通安全概論 2-3, 2-4"
+            },
+            {
+                id: 20,
+                question: "關於存取控制的授權原則，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["最小權限原則要求盡量開放使用者權限以利業務執行。", "業務僅知原則要求只提供執行業務上所需知道的資訊。", "職務區隔旨在避免利益衝突或監督工作由同一人進行。", "最小權限原則適用於使用者或代表使用者行為之程序。"],
+                correct: [1, 2, 3],
+                explanation: "最小權限原則是限制權限，選項(A)錯誤。其他選項描述皆正確。",
+                page: "資通安全概論 2-4"
+            },
+            {
+                id: 21,
+                question: "「事件日誌與可歸責性」安全控制措施的主要目的為何？",
+                type: "single",
+                options: ["限制網路頻寬使用", "記錄及保存資通系統及網路活動的日誌", "對資料進行多重加密", "定期盤點資訊資產"],
+                correct: [1],
+                explanation: "目的為記錄及保存資通系統及網路活動的日誌，以追蹤系統及使用者的操作。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 22,
+                question: "根據資通安全責任等級「普」的要求，日誌（Log）應保留至少多久的時間？",
+                type: "single",
+                options: ["三個月", "六個月", "一年", "三年"],
+                correct: [1],
+                explanation: "日誌應保留至少6個月。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 23,
+                question: "關於資通系統應使用的時戳要求，無論資通安全等級「高」、「中」或「普」，下列敘述何者正確？",
+                type: "single",
+                options: ["資通系統必須使用外部時間源", "只需使用系統內部時鐘產生日誌時戳", "產生的時戳應可以對應到UTC或GMT", "時戳只需要精確到小時"],
+                correct: [2],
+                explanation: "資通系統應使用系統內部時鐘產生日誌所需時戳，並可以對應到世界協調時間(UTC)或格林威治標準時間(GMT)。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 24,
+                question: "等級「中」的機關在「日誌處理失效之回應」方面，相較於等級「普」，其要求是？",
+                type: "single",
+                options: ["無需採取行動", "只需定期備份日誌", "應採取適當之行動", "發生失效事件時，資通系統應提出警告"],
+                correct: [2],
+                explanation: "等級「普」和「中」共同要求資通系統於日誌處理失效時，應採取適當之行動。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 25,
+                question: "針對「日誌資訊之保護」，資通安全等級「普」的機關要求是什麼？",
+                type: "single",
+                options: ["必須運用雜湊機制", "只需定期備份到原系統外", "對日誌之存取管理，僅限於有權限之使用者", "日誌內容必須加密儲存"],
+                correct: [2],
+                explanation: "等級「普」要求對日誌之存取管理，僅限於有權限之使用者。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 26,
+                question: "針對日誌的「完整性」確保機制，等級「中」或「高」的機關應運用下列哪種方式？",
+                type: "single",
+                options: ["採用對稱式加密", "運用雜湊或其他適當方式", "僅限於實體存取控管", "僅需將日誌備份到其他系統"],
+                correct: [1],
+                explanation: "等級「中」要求應運用雜湊或其他適當方式之完整性確保機制。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 27,
+                question: "關於「時戳及校時」的控制措施，等級「高」的機關在校時方面除了普級要求外，還必須滿足哪項條件？",
+                type: "single",
+                options: ["系統內部時鐘應定期與基準時間源進行同步", "時戳必須使用GPS時間", "時戳只需能對應到GMT即可", "不需要進行校時"],
+                correct: [0],
+                explanation: "等級「高」要求系統內部時鐘應定期與基準時間源進行同步。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 28,
+                question: "「記錄事件」措施中，建議保留的日誌保存項目不包含下列哪一項？",
+                type: "single",
+                options: ["作業系統日誌", "網站日誌", "系統組態設定檔", "日誌儲存容量配置"],
+                correct: [3],
+                explanation: "日誌保存項目包括作業系統日誌、網站日誌等，日誌儲存容量配置是「日誌儲存容量」的控制措施，而不是記錄事件的內容項目。",
+                page: "資通安全概論 2-5, 2-6"
+            },
+            {
+                id: 29,
+                question: "關於「日誌處理失效之回應」，資通安全等級「高」的機關在發生需要即時通報的失效事件時，資通系統應執行的動作為何？",
+                type: "single",
+                options: ["立即中斷所有連線", "於機關規定之時效內對特定人員提出警告", "自動將日誌備份到異地", "禁用所有閒置帳號"],
+                correct: [1],
+                explanation: "等級「高」要求規定需要即時通報之日誌處理失效事件發生時，資通系統應於機關規定之時效內，對特定人員提出警告。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 30,
+                question: "「日誌資訊之保護」中，資通安全等級「高」的機關額外要求（不包含在中級要求中）是什麼？",
+                type: "single",
+                options: ["運用雜湊機制", "僅限有權限者存取", "定期備份日誌至原系統外之其他實體系統", "應使用加密演算法"],
+                correct: [2],
+                explanation: "等級「高」要求定期備份日誌至原系統外之其他實體系統。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 31,
+                question: "「雜湊」（Hash）技術的主要特性是什麼？",
+                type: "single",
+                options: ["具有可逆性，可以從雜湊值回推原始訊息", "將任何長度的資料轉成固定長度的訊息摘要", "主要用於確保資料的機密性", "屬於非對稱式加密演算法"],
+                correct: [1],
+                explanation: "雜湊是一種從任何資料中建立「數位指紋」（訊息摘要），固定長度，具備單向性（不可回推），用於驗證資料完整性。",
+                page: "資通安全概論 2-6, 2-24"
+            },
+            {
+                id: 32,
+                question: "雜湊（Hash）技術在資安上的應用不包含下列哪一項？",
+                type: "single",
+                options: ["驗證檔案完整性", "儲存使用者密碼", "為日誌資訊提供完整性確保機制", "對傳輸中的敏感資料進行解密"],
+                correct: [3],
+                explanation: "雜湊具有單向性，無法解密，主要用於驗證完整性和儲存密碼。",
+                page: "資通安全概論 2-6"
+            },
+            {
+                id: 33,
+                question: "關於雜湊（Hash）演算法的敘述，下列何者正確？",
+                type: "single",
+                options: ["如果兩個雜湊值不相同，那麼這兩個原始輸入必定相同", "SHA-256是一種雜湊函式", "雜湊具有可逆性", "雜湊主要用來確保資訊的機密性"],
+                correct: [1],
+                explanation: "SHA-256是雜湊函式。兩個雜湊值不相同，則原始輸入也不相同。雜湊不具可逆性，主要確保完整性。",
+                page: "資通安全概論 2-6"
+            },
+            {
+                id: 34,
+                question: "等級「高」機關在「日誌處理失效之回應」時，除了應採取適當行動外，還必須在機關規定之時效內對特定人員提出什麼？",
+                type: "single",
+                options: ["復原計畫", "警告", "實體保護措施", "年度稽核報告"],
+                correct: [1],
+                explanation: "等級「高」要求在機關規定之時效內，對特定人員提出警告。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 35,
+                question: "關於資通系統的事件日誌與可歸責性，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["系統日誌應保留至少6個月。", "日誌處理失效時，等級「中」機關應採取適當行動。", "所有安全等級的機關都需要讓日誌時戳對應到UTC或GMT。", "對於日誌資訊的保護，等級「中」機關要求運用雜湊等完整性確保機制。"],
+                correct: [0, 1, 2, 3],
+                explanation: "日誌應保留至少6個月。中級日誌失效時應採取適當行動。時戳對應UTC/GMT是普級要求。中級要求運用雜湊等完整性機制。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 36,
+                question: "關於日誌資訊之保護，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["確保日誌完整性的機制，如雜湊，是等級「中」和「高」的要求。", "等級「高」要求定期將日誌備份至原系統外的其他實體系統。", "所有安全等級的機關對日誌的存取管理，皆僅限於有權限之使用者。", "日誌保護的主要目標是確保資料的機密性，而不是完整性。"],
+                correct: [0, 1, 2],
+                explanation: "完整性確保機制是中級要求。高級要求異地備份日誌。所有等級機關都要求存取控制。日誌保護同時包含機密性和完整性，但選項(D)將完整性排除，故錯誤。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 37,
+                question: "營運持續計畫的主要目的為何？",
+                type: "single",
+                options: ["確保資通系統達到最高的安全等級", "確保在突發事件或災難情況下，機關的關鍵業務能夠持續運作", "定期進行系統漏洞掃描", "強化使用者身分鑑別機制"],
+                correct: [1],
+                explanation: "營運持續計畫的目的是確保在突發事件或災難情況下，機關的關鍵業務能夠持續運作。",
+                page: "資通安全概論 2-7"
+            },
+            {
+                id: 38,
+                question: "哪一種備份方式是備份上次「完整備份」後，內容有變更或新增的檔案？",
+                type: "single",
+                options: ["增量備份", "差異備份", "完整備份", "即時備份"],
+                correct: [1],
+                explanation: "差異備份是備份上次完整備份後，內容有變更或新增的檔案。",
+                page: "資通安全概論 2-7"
+            },
+            {
+                id: 39,
+                question: "哪一種備份方式在復原資料時，需要還原「上次完整備份」與「從上次完整備份之後的所有差異備份」？",
+                type: "single",
+                options: ["差異備份", "增量備份", "完整備份", "僅需還原最新增量備份"],
+                correct: [0],
+                explanation: "差異備份的復原需要完整備份與上次完整備份後的所有差異備份。",
+                page: "資通安全概論 2-8"
+            },
+            {
+                id: 40,
+                question: "假設星期一進行完整備份，星期二至星期五進行增量備份。若星期五資料毀損，需要復原到星期四的資料狀態，則需要還原哪些備份？",
+                type: "single",
+                options: ["星期一完整備份與星期四增量備份", "星期一完整備份與星期二至星期四的所有增量備份", "只需要星期四增量備份", "只需要星期一完整備份"],
+                correct: [1],
+                explanation: "增量備份的復原需要完整備份與從完整備份之後的所有增量備份。",
+                page: "資通安全概論 2-7, 2-9"
+            },
+            {
+                id: 41,
+                question: "關於「本地備份」模式，下列哪一項風險是其最簡便的備份程序無法避免的？",
+                type: "single",
+                options: ["備份媒體使用光碟片不易讀取", "當電腦硬碟故障時，備份資料同時受損", "異地備份地點相距不夠遠", "資料格式不相容"],
+                correct: [1],
+                explanation: "如果備份媒體存在於同一部電腦的硬碟中（本地備份的一種），當電腦硬碟故障時，備份資料亦同時受損。",
+                page: "資通安全概論 2-8"
+            },
+            {
+                id: 42,
+                question: "為了確保備份資料在機房發生火警時仍安全無虞，機關應採取下列哪一種備份模式？",
+                type: "single",
+                options: ["本地備份", "鏡射備份", "異地備份", "雲端備份"],
+                correct: [2],
+                explanation: "異地備份能避免機房發生火警時，備份資料同時毀損的風險。",
+                page: "資通安全概論 2-8"
+            },
+            {
+                id: 43,
+                question: "等級「高」的機關在「系統備份」方面，除了等級「普」和「中」的要求外，還必須將備份還原作業作為下列哪一項活動的一部分？",
+                type: "single",
+                options: ["日常維運檢查", "營運持續計畫測試", "每週安全稽核", "年度資訊資產盤點"],
+                correct: [1],
+                explanation: "等級「高」要求應將備份還原，作為營運持續計畫測試之一部分。",
+                page: "資通安全概論 2-7"
+            },
+            {
+                id: 44,
+                question: "關於「異地備份」模式，下列敘述何者錯誤？",
+                type: "single",
+                options: ["其備份程序與成本通常較高", "異地備份地點相距愈遠，其防護效果愈佳", "應考慮地震帶、颱風等因素，規避同時受災可能性", "相距10公里內的距離通常可視為絕對安全距離"],
+                correct: [3],
+                explanation: "教材提醒相距10公里內的距離可能遭受同樣程度的毀損。",
+                page: "資通安全概論 2-8"
+            },
+            {
+                id: 45,
+                question: "關於資料備份的「注意事項」，機關應該在何處執行測試備份資料的回復？",
+                type: "single",
+                options: ["在正式作業環境的夜間時段", "在專屬媒體上執行，以防止復原過程失敗造成資料毀損", "只需在開發環境進行", "無需進行回復演練"],
+                correct: [1],
+                explanation: "測試備份資料回復，應先於專屬媒體上執行，以防止復原過程失敗，造成資料毀損。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 46,
+                question: "在資料備份注意事項中，除了備份範圍和回復演練外，還需要定期檢驗下列哪一項問題？",
+                type: "single",
+                options: ["備份媒體是否仍有合適的存取設備", "應用程式開發人員的資安意識", "防火牆規則是否設置正確", "作業系統的效能"],
+                correct: [0],
+                explanation: "應定期檢驗備份媒體是否仍有合適的存取設備。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 47,
+                question: "在備份資料回復演練中，相關計畫應列入下列哪一項文件中辦理？",
+                type: "single",
+                options: ["資訊資產清冊", "營運持續計畫", "資安事件應變計畫", "系統存取控管程序"],
+                correct: [1],
+                explanation: "測試備份資料回復的相關計畫應列入營運持續計畫中辦理。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 48,
+                question: "關於「系統備份」的控制措施，資通安全等級「中」的機關要求是？",
+                type: "single",
+                options: ["應將備份還原作為營運持續計畫測試的一部分", "應在與運作系統不同地點儲存重要系統軟體備份", "應確保機關提供足夠之備份設施，確保發生災害後可復原", "備份資料的回復演練不需定期進行"],
+                correct: [2],
+                explanation: "等級「中」要求應確保機關提供足夠之備份設施，確保發生災害後可復原。",
+                page: "資通安全概論 2-7"
+            },
+            {
+                id: 49,
+                question: "下列哪種備份方式所需的復原時間通常最短？",
+                type: "single",
+                options: ["完整備份", "差異備份", "增量備份", "本地備份"],
+                correct: [0],
+                explanation: "雖然教材沒有直接比較三者的復原時間，但完整備份只需還原最新一次備份，復原所需時間最短，增量備份最長（需要所有增量）。",
+                page: "資通安全概論 2-7"
+            },
+            {
+                id: 50,
+                question: "關於營運持續計畫中的資料備份，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["完整備份是指備份所有資料。", "差異備份是指備份上次完整備份後，內容有變更或新增的檔案。", "增量備份是指備份上次完整備份或增量備份後，內容有變更或新增的檔案。", "異地備份是為了規避如地震、火災等自然災害造成備份資料同時受損的風險。"],
+                correct: [0, 1, 2, 3],
+                explanation: "選項(A)為完整備份的定義，選項(B)為差異備份的定義，選項(C)為增量備份的定義，選項(D)為異地備份的目的。",
+                page: "資通安全概論 2-7, 2-8"
+            },
+            {
+                id: 51,
+                question: "關於營運持續計畫中的資料備份注意事項，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["應將備份資料的回復演練列入營運持續計畫中辦理。", "測試備份資料回復時，應先於專屬媒體上執行。", "應定期檢查備份檔案，確認仍有合適的應用軟體或工具可開啟。", "等級「中」的機關應在與運作系統不同地點之獨立設施儲存重要系統軟體備份。"],
+                correct: [0, 1, 2],
+                explanation: "選項(A)、(B)、(C)皆為備份注意事項。選項(D)是等級「高」的要求。",
+                page: "資通安全概論 2-7, 2-9"
+            },
+            {
+                id: 52,
+                question: "「識別與鑑別」安全控制措施的主要目的為何？",
+                type: "single",
+                options: ["確保資料傳輸的完整性", "確保只有經過授權的使用者才能存取系統", "定期修復系統漏洞", "管理系統的備份流程"],
+                correct: [1],
+                explanation: "目的在於確保只有經過授權的使用者才能存取系統，保障資通系統的安全。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 53,
+                question: "關於「內部使用者之識別與鑑別」，資通系統應具備的功能中，下列哪一項是等級「普」、「中」與「高」共同必須禁止的？",
+                type: "single",
+                options: ["禁止使用多重認證", "禁止使用唯一識別符", "禁止使用共用帳號", "禁止使用生物特徵鑑別"],
+                correct: [2],
+                explanation: "資通系統應具備唯一識別及鑑別機關使用者之功能， 禁止使用共用帳號 。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 54,
+                question: "針對資通系統的存取，等級「高」的機關必須採取哪一項身分鑑別技術？",
+                type: "single",
+                options: ["單一因子認證", "通行碼驗證", "多重認證技術", "僅需使用晶片卡"],
+                correct: [2],
+                explanation: "等級「高」要求對資通系統之存取採取多重認證技術。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 55,
+                question: "關於「身分驗證管理」，當使用預設密碼登入系統時，無論資通安全等級「普」、「中」或「高」，系統都應要求使用者立即執行哪一項動作？",
+                type: "single",
+                options: ["立即登出", "立即變更密碼", "立即鎖定帳號", "發送一次性符記"],
+                correct: [1],
+                explanation: "使用預設密碼登入系統時，應於登入後要求立即變更。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 56,
+                question: "根據「身分驗證管理」，當帳號登入進行身分驗證失敗達幾次後，應具備帳戶鎖定機制，並至少在十五分鐘內不允許繼續嘗試登入？",
+                type: "single",
+                options: ["3次", "5次", "7次", "10次"],
+                correct: [1],
+                explanation: "具備帳戶鎖定機制，帳號登入進行身分驗證失敗達五次後，至少十五分鐘內不允許該帳號繼續嘗試登入。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 57,
+                question: "在「身分驗證管理」的密碼歷程要求中，變更密碼時，至少不可以與前幾次使用過之密碼相同？",
+                type: "single",
+                options: ["前1次", "前3次", "前5次", "前7次"],
+                correct: [1],
+                explanation: "密碼變更時，至少不可以與前三次使用過之密碼相同。",
+                page: "資通安全概論 2-10, 2-11"
+            },
+            {
+                id: 58,
+                question: "關於「鑑別資訊回饋」的要求，資通系統在鑑別過程中應採取何種措施？",
+                type: "single",
+                options: ["完整顯示錯誤訊息", "遮蔽鑑別過程中之資訊", "不作任何處理", "使用非對稱式加密"],
+                correct: [1],
+                explanation: "資通系統應遮蔽鑑別過程中之資訊。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 59,
+                question: "等級「高」的機關在「身分驗證管理」方面，針對密碼重設機制，除了重新身分確認外，還必須發送具有何種特性的符記（Token）？",
+                type: "single",
+                options: ["具備高強度且永久有效的符記", "加密後儲存在伺服器端的符記", "一次性及具有時效性的符記", "使用者自行設定的符記"],
+                correct: [2],
+                explanation: "密碼重設機制對使用者重新身分確認後，發送一次性及具有時效性符記。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 60,
+                question: "關於使用者識別符（Identifier）的要求，下列敘述何者錯誤？",
+                type: "single",
+                options: ["必須唯一，以確保人員的可歸責性", "不能有多人共用帳號的情形", "必須代表其在機關中的角色或職位", "應發展命名方式並遵循"],
+                correct: [2],
+                explanation: "識別符應 不代表 其在機關中的角色或職位。",
+                page: "資通安全概論 2-12"
+            },
+            {
+                id: 61,
+                question: "關於使用者識別符的管理，下列哪一項是必須採取的程序？",
+                type: "single",
+                options: ["識別符刪除後應立即開放相同名稱新增", "應定期盤查使用者識別符", "一段時間沒使用的識別符應自動刪除", "識別符不需與使用者真實身分連結"],
+                correct: [1],
+                explanation: "應定期盤查使用者識別符，以發現已離職或非授權識別符。",
+                page: "資通安全概論 2-12"
+            },
+            {
+                id: 62,
+                question: "在身分鑑別技術中，「基於所知」（Something You Know）的鑑別因素通常指的是什麼？",
+                type: "single",
+                options: ["晶片卡", "通行碼", "指紋", "虹膜"],
+                correct: [1],
+                explanation: "基於所知（Something You Know）通常是通行碼。",
+                page: "資通安全概論 2-13"
+            },
+            {
+                id: 63,
+                question: "「晶片卡」（Smart Card）屬於身分鑑別技術中的哪一種鑑別因素？",
+                type: "single",
+                options: ["基於所知", "基於所有", "與生具備", "基於行為"],
+                correct: [1],
+                explanation: "晶片卡屬於基於所有（Something You Have）。",
+                page: "資通安全概論 2-13"
+            },
+            {
+                id: 64,
+                question: "關於生物特徵鑑別技術（Biometrics），下列敘述何者正確？",
+                type: "single",
+                options: ["是目前最簡便且最便宜的技術", "人類社會對其接受性普遍最高", "採用人類具備的屬性進行識別與鑑別", "只能用於識別，不能用於鑑別"],
+                correct: [2],
+                explanation: "生物特徵鑑別是採用人類具備的屬性進行識別與鑑別。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 65,
+                question: "根據教材，哪一種身分鑑別技術是目前使用「最廣泛」也「最簡便」的？",
+                type: "single",
+                options: ["生物特徵鑑別", "通行碼身分鑑別", "多重認證", "數位憑證"],
+                correct: [1],
+                explanation: "通行碼身分鑑別技術是目前使用「最廣泛」也「最簡便」的。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 66,
+                question: "哪一項是通行碼身分鑑別技術最不安全的行為之一？",
+                type: "single",
+                options: ["系統強制要求密碼長度至少8碼", "系統判斷通行碼不重覆使用", "將通行碼貼在螢幕上", "使用通行碼檢測工具"],
+                correct: [2],
+                explanation: "將通行碼貼在螢幕上是最不安全的行為之一。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 67,
+                question: "為了避免通行碼被暴力式猜測，系統可以採取的防護措施是？",
+                type: "single",
+                options: ["定期更換電腦硬體", "限制通行碼容許登入失敗的次數", "使用明碼方式儲存通行碼", "讓密碼長度不超過6碼"],
+                correct: [1],
+                explanation: "限制通行碼容許登入失敗的次數可避免暴力式猜測。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 68,
+                question: "強固鑑別技術（Strong Authentication）的定義是什麼？",
+                type: "single",
+                options: ["使用單一的生物特徵鑑別", "同時採用兩種鑑別因素的鑑別技術", "密碼長度超過15碼", "使用非對稱式加解密演算法"],
+                correct: [1],
+                explanation: "同時採用兩種鑑別因素的鑑別技術即可稱為強固鑑別技術。",
+                page: "資通安全概論 2-13"
+            },
+            {
+                id: 69,
+                question: "資通系統在儲存使用者密碼時，應採取何種措施？",
+                type: "single",
+                options: ["以明碼方式儲存", "加密或經雜湊處理後儲存", "無需儲存，只在鑑別時使用", "僅需將密碼長度設為8碼"],
+                correct: [1],
+                explanation: "資通系統如以密碼進行鑑別時，該密碼應加密或經雜湊處理後儲存。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 70,
+                question: "等級「高」的機關在「加密模組鑑別」方面，與等級「中」的要求一致，是必須確保密碼應採取何種方式儲存？",
+                type: "single",
+                options: ["加密或經雜湊處理後儲存", "儲人在公開金鑰伺服器", "以明碼傳輸", "僅進行編碼處理"],
+                correct: [0],
+                explanation: "等級「高」與「中」要求密碼應加密或經雜湊處理後儲存。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 71,
+                question: "哪一項是確保所有存取行為都可歸責到使用者真實身分的機制條件之一？",
+                type: "single",
+                options: ["系統所有存取路徑應開放", "所有存取行為不論成功或失敗都被詳實記錄", "只需使用通行碼鑑別", "系統存取紀錄可被刪除"],
+                correct: [1],
+                explanation: "可歸責性條件之一是所有存取行為不論成功或失敗都被詳實記錄。",
+                page: "資通安全概論 2-13"
+            },
+            {
+                id: 72,
+                question: "在鑑別技術中，下列哪一項屬於「與生具備」（Something You Are）的鑑別因素？",
+                type: "single",
+                options: ["PIN碼", "動態通行碼產生器", "數位憑證", "虹膜掃描"],
+                correct: [3],
+                explanation: "虹膜屬於生物特徵，是與生具備的鑑別因素。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 73,
+                question: "關於使用者識別符的管理，下列哪一項程序必須獲得授權主管的核准？",
+                type: "single",
+                options: ["識別符的申請、異動及刪除", "定期盤查識別符", "閒置識別符的停用", "發展識別符命名方式"],
+                correct: [0],
+                explanation: "識別符的申請、異動及刪除必須獲得授權主管的核准。",
+                page: "資通安全概論 2-12"
+            },
+            {
+                id: 74,
+                question: "針對「非內部使用者」的身分鑑別管理，機關對於密碼複雜度、效期及密碼歷程可以依據下列哪一項原則辦理？",
+                type: "single",
+                options: ["必須強制遵循與內部使用者相同規範", "可依機關自行規範辦理", "無需設置任何複雜度限制", "密碼效期必須設定為90天"],
+                correct: [1],
+                explanation: "對非內部使用者，可依機關自行規範辦理密碼複雜度、效期及密碼歷程。",
+                page: "資通安全概論 2-11"
+            },
+            {
+                id: 75,
+                question: "關於「通行碼身分鑑別技術」，下列哪一項不是其常見的攻擊方式？",
+                type: "single",
+                options: ["字典猜測法", "暴力式通行碼猜測", "通行碼監聽", "異地備份復原"],
+                correct: [3],
+                explanation: "字典猜測法、暴力式通行碼猜測和通行碼監聽都是針對通行碼的攻擊。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 76,
+                question: "關於「識別與鑑別」的安全控制措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["所有等級的機關都必須確保身分驗證相關資訊不以明文傳輸。", "帳號登入失敗達5次後，應至少鎖定15分鐘內不允許繼續登入。", "等級「高」機關需對存取資通系統採取多重認證技術。", "密碼重設機制必須發送一次性及具有時效性符記給使用者。"],
+                correct: [0, 1, 2, 3],
+                explanation: "禁止明文傳輸、帳號鎖定機制、多重認證、密碼重設符記 皆為教材中明確要求的控制措施。",
+                page: "資通安全概論 2-9, 2-10"
+            },
+            {
+                id: 77,
+                question: "為了實現識別符及鑑別符的「可歸責性」，資通系統至少需要滿足哪些條件？（複選）",
+                type: "multiple",
+                options: ["必須具備唯一識別符可代表使用者真實身分。", "系統所有存取路徑都必須被強制控管。", "系統存取紀錄必須被妥善保護，無法被修改或刪除。", "只需要求密碼長度超過8碼，即可視為足夠強固的鑑別技術。"],
+                correct: [0, 1, 2],
+                explanation: "可歸責性需要唯一識別符、強制控管所有存取路徑，以及對紀錄的妥善保護（無法修改或刪除）。密碼長度只是強固鑑別的一部分，不能完全滿足條件。",
+                page: "資通安全概論 2-13"
+            },
+            {
+                id: 78,
+                question: "關於通行碼的防護措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["系統應強制要求通行碼長度至少8碼，且包含文字、數字及符號等。", "系統應強制要求使用者定期更換通行碼。", "通行碼在儲存時，應以明碼方式儲存。", "簽入成功或失敗的事件都應被記錄。"],
+                correct: [0, 1, 3],
+                explanation: "通行碼長度、定期更換、記錄登入事件都是防護措施。通行碼應以雜湊方式儲存，不應以明碼方式儲存。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 79,
+                question: "關於使用者鑑別符的管理，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["應為初始鑑別符的配發、遺失鑑別符及註銷鑑別符建立與實作管理程序。", "應確保鑑別符具備足夠的強度。", "在資通系統安裝時必須保留預設的鑑別符。", "應定期變更鑑別符。"],
+                correct: [0, 1, 3],
+                explanation: "必須確保鑑別符強度、建立管理程序、定期變更。在安裝時應變更預設的鑑別符。",
+                page: "資通安全概論 2-12"
+            },
+            {
+                id: 80,
+                question: "安全系統發展生命週期（SSDLC）的主要強調點是什麼？",
+                type: "single",
+                options: ["只在系統上線後進行安全檢測", "在專案各階段及早加入安全思維", "確保系統開發成本最低", "完全依賴外部廠商進行安全開發"],
+                correct: [1],
+                explanation: "SSDLC強調於專案各階段及早加入安全思維，以打造具備安全體質的資通系統。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 81,
+                question: "根據SSDLC，在「需求階段」應執行的安全工作是什麼？",
+                type: "single",
+                options: ["組態強化", "源碼掃描", "發展安全需求", "滲透測試"],
+                correct: [2],
+                explanation: "需求階段的安全工作包括發展安全需求。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 82,
+                question: "在SSDLC的哪個階段，應實作安全控制措施並避免常見弱點？",
+                type: "single",
+                options: ["需求階段", "設計階段", "開發階段", "測試階段"],
+                correct: [2],
+                explanation: "開發階段的安全工作是實作安全控制措施並避免常見弱點。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 83,
+                question: "針對資通系統開發如委外辦理，應將SSDLC各階段的安全需求（含機密性、可用性、完整性）納入下列哪一項文件？",
+                type: "single",
+                options: ["機房門禁紀錄", "委外契約", "年度稽核報告", "資訊資產清冊"],
+                correct: [1],
+                explanation: "委外階段要求將系統發展生命週期各階段依等級將安全需求納入委外契約。",
+                page: "資通安全概論 2-17"
+            },
+            {
+                id: 84,
+                question: "在SSDLC的「測試階段」，資通安全等級「普」、「中」與「高」的機關共同必須執行的安全檢測活動是什麼？",
+                type: "single",
+                options: ["滲透測試", "源碼掃描", "弱點掃描", "組態強化"],
+                correct: [2],
+                explanation: "測試階段要求執行「弱點掃描」安全檢測。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 85,
+                question: "在SSDLC的「測試階段」，等級「高」的機關除了弱點掃描外，還必須執行哪一項安全檢測？",
+                type: "single",
+                options: ["單元測試", "源碼掃描", "滲透測試", "壓力測試"],
+                correct: [2],
+                explanation: "等級「高」要求執行「滲透測試」安全檢測。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 86,
+                question: "在SSDLC的「開發階段」，對於錯誤訊息的處理，下列敘述何者正確？",
+                type: "single",
+                options: ["應顯示詳細之錯誤訊息", "使用者頁面僅顯示簡短錯誤訊息與代碼", "應顯示錯誤程式碼的位置與內容", "只需將錯誤訊息記錄在後台"],
+                correct: [1],
+                explanation: "發生錯誤時，使用者頁面僅顯示簡短錯誤訊息與代碼，不包含詳細之錯誤訊息。",
+                page: "資通安全概論 2-16"
+            },
+            {
+                id: 87,
+                question: "哪一種安全檢測活動通常由資安專家手動進行，且效果取決於人員經驗與技術？",
+                type: "single",
+                options: ["單元測試", "弱點掃描", "源碼掃描", "滲透測試"],
+                correct: [3],
+                explanation: "滲透測試一般由資安專家手動進行，效果取決於人員經驗與技術。",
+                page: "資通安全概論 2-16"
+            },
+            {
+                id: 88,
+                question: "在SSDLC的「部署與維運階段」，所有等級機關共同必須執行的安全措施是？",
+                type: "single",
+                options: ["執行版本控制", "資通系統不使用預設密碼", "執行變更管理", "定期執行滲透測試"],
+                correct: [1],
+                explanation: "資通系統不使用預設密碼是部署與維運階段中，高中普共同要求的措施。",
+                page: "資通安全概論 2-17"
+            },
+            {
+                id: 89,
+                question: "根據SSDLC，等級「高」與「中」的機關在「獲得程序」上，必須區隔哪些作業環境？",
+                type: "single",
+                options: ["內部網路與外部網路", "開發、測試及正式作業環境", "使用者電腦與伺服器", "實體機房與虛擬化平台"],
+                correct: [1],
+                explanation: "等級「高」與「中」要求開發、測試及正式作業環境應為區隔。",
+                page: "資通安全概論 2-17"
+            },
+            {
+                id: 90,
+                question: "在SSDLC的「部署與維運階段」，除了不使用預設密碼外，還必須針對威脅進行更新與修補，並關閉下列哪一項？",
+                type: "single",
+                options: ["所有網路連線", "資安設備", "不必要服務及埠口", "所有應用程式"],
+                correct: [2],
+                explanation: "應針對威脅，更新與修補、關閉不必要服務及埠口。",
+                page: "資通安全概論 2-16"
+            },
+            {
+                id: 91,
+                question: "在SSDLC的「開發階段」，等級「高」的機關必須執行哪一種安全檢測？",
+                type: "single",
+                options: ["網站弱點掃描", "系統滲透測試", "源碼掃描", "負載平衡測試"],
+                correct: [2],
+                explanation: "等級「高」要求執行「源碼掃描」安全檢測。",
+                page: "資通安全概論 2-16"
+            },
+            {
+                id: 92,
+                question: "在SSDLC的「部署與維運階段」，等級「高」與「中」的機關必須執行的管理活動是什麼？",
+                type: "single",
+                options: ["每週進行一次滲透測試", "執行版本控制與變更管理", "僅使用預設密碼", "確保系統文件不被儲存"],
+                correct: [1],
+                explanation: "等級「高」與「中」要求於系統發展生命週期之維運階段，應執行版本控制與變更管理。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 93,
+                question: "關於SSDLC的「設計階段」應執行的安全工作是？",
+                type: "single",
+                options: ["發展安全需求", "識別威脅與分析風險", "實作安全控制措施", "執行弱點掃描"],
+                correct: [1],
+                explanation: "設計階段的安全工作是識別威脅與分析風險。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 94,
+                question: "為了確保正式作業環境之系統與資料受到保護，等級「高」和「中」機關要求開發、測試及正式作業環境之間必須實施什麼？",
+                type: "single",
+                options: ["版本控制", "存取控制", "遠端存取連線", "自動化錯誤通知"],
+                correct: [1],
+                explanation: "應實作必要之存取控制，以保護正式作業環境之系統與資料。",
+                page: "資通安全概論 2-17"
+            },
+            {
+                id: 95,
+                question: "在SSDLC中，下列哪一項描述是「測試階段」應執行的工作？",
+                type: "single",
+                options: ["識別威脅", "驗證安全需求實作有效性", "執行版本控制", "發展安全需求"],
+                correct: [1],
+                explanation: "測試階段包括驗證安全需求實作有效性。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 96,
+                question: "等級「高」的資通系統在「開發階段」中，除了源碼掃描外，還必須具備哪種機制來避免無人發覺與處理的嚴重錯誤？",
+                type: "single",
+                options: ["定期進行備份", "嚴重錯誤通知機制", "禁止使用預設密碼", "強制最低密碼複雜度"],
+                correct: [1],
+                explanation: "等級「高」要求系統應具備發生嚴重錯誤時之通知機制。",
+                page: "資通安全概論 2-16"
+            },
+            {
+                id: 97,
+                question: "關於「系統文件」，無論資通安全等級「普」、「中」或「高」，都必須採取哪一項措施？",
+                type: "single",
+                options: ["儲存與管理系統發展生命週期之相關文件", "文件必須以電子化形式儲存", "文件不需納入管理程序", "僅需儲存測試階段的文件"],
+                correct: [0],
+                explanation: "所有等級機關都要求應儲存與管理系統發展生命週期之相關文件。",
+                page: "資通安全概論 2-17"
+            },
+            {
+                id: 98,
+                question: "關於SSDLC的敘述，下列何者正確？（複選）",
+                type: "multiple",
+                options: ["SSDLC旨在確保資通系統具備安全體質。", "設計階段的工作包括識別威脅與分析風險。", "開發階段應實作安全控制措施並避免常見弱點。", "測試階段應執行組態強化。"],
+                correct: [0, 1, 2],
+                explanation: "SSDLC強調於專案各階段及早加入安全思維。設計階段識別威脅與分析風險。開發階段實作安全控制措施。組態強化屬於部署與維運階段。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 99,
+                question: "關於「系統與服務獲得」的控制措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["等級「高」要求在測試階段必須進行滲透測試。", "等級「中」與「高」要求開發、測試及正式作業環境應區隔。", "等級「高」要求在開發階段必須進行源碼掃描。", "委外辦理資通系統開發時，安全需求必須納入委外契約。"],
+                correct: [0, 1, 2, 3],
+                explanation: "滲透測試是高級測試階段要求。環境區隔是中高級要求。源碼掃描是高級開發階段要求。委外安全需求納入契約是所有等級共同要求。",
+                page: "資通安全概論 2-15, 2-16, 2-17"
+            },
+            {
+                id: 100,
+                question: "關於SSDLC「部署與維運階段」的安全措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["應關閉不必要服務及埠口。", "相關軟體（如資料庫、Web伺服器）應避免使用預設密碼。", "等級「中」與「高」要求執行版本控制與變更管理。", "部署與維運階段的安全工作包含識別威脅與分析風險。"],
+                correct: [0, 1, 2],
+                explanation: "關閉不必要服務與埠口、禁用預設密碼，以及中高級要求版本控制與變更管理 皆正確。識別威脅與分析風險屬於設計階段。",
+                page: "資通安全概論 2-15, 2-16, 2-17"
+            },
+            {
+                id: 101,
+                question: "「系統與通訊保護」安全控制措施的主要目的為何？",
+                type: "single",
+                options: ["確保資料庫的可用性", "確保資通系統和資料傳輸的機密性、完整性和可用性", "確保只有內部使用者才能存取系統", "對系統進行實體存取控制"],
+                correct: [1],
+                explanation: "目的在於確保資通系統和資料傳輸的機密性、完整性和可用性。",
+                page: "資通安全概論 2-18"
+            },
+            {
+                id: 102,
+                question: "等級「高」的機關在「傳輸之機密性與完整性」方面，除了必須採用加密機制外，還要求應使用哪一類演算法？",
+                type: "single",
+                options: ["專屬的內部演算法", "未遭破解且使用公開、國際機構驗證之演算法", "只使用SHA-1演算法", "只使用對稱式加密演算法"],
+                correct: [1],
+                explanation: "等級「高」要求使用公開、國際機構驗證且未遭破解之演算法。",
+                page: "資通安全概論 2-18"
+            },
+            {
+                id: 103,
+                question: "等級「高」的機關在「資料儲存之安全」方面，下列哪一項資訊必須加密或以其他適當方式儲存？",
+                type: "single",
+                options: ["機房溫度紀錄", "資通系統重要組態設定檔案及其他具保護需求之資訊", "員工午餐訂單", "組織架構圖"],
+                correct: [1],
+                explanation: "等級「高」要求資通系統重要組態設定檔案及其他具保護需求之資訊應加密或以其他適當方式儲存。",
+                page: "資通安全概論 2-18"
+            },
+            {
+                id: 104,
+                question: "關於加密技術強度，下列哪一項因素通常不直接牽涉其中？",
+                type: "single",
+                options: ["演算法強度", "金鑰的長度", "亂數產生器的不可預測性", "硬體設備的採購價格"],
+                correct: [3],
+                explanation: "加密技術強度牽涉演算法強度、金鑰保護機制、金鑰的長度、亂數產生器的不可預測性。",
+                page: "資通安全概論 2-20"
+            },
+            {
+                id: 105,
+                question: "對稱式加密演算法（Symmetric Cryptography）又稱作什麼？",
+                type: "single",
+                options: ["公開金鑰密碼學", "私密金鑰密碼學", "橢圓曲線密碼學", "量子密碼學"],
+                correct: [1],
+                explanation: "對稱式密碼學又稱作「秘密金鑰密碼學」（Secret Key Cryptography）。",
+                page: "資通安全概論 2-21"
+            },
+            {
+                id: 106,
+                question: "在對稱式加密演算法中，加密與解密使用的是什麼？",
+                type: "single",
+                options: ["一對不同的金鑰", "同一把金鑰", "接收方的公開金鑰", "傳送方的私密金鑰"],
+                correct: [1],
+                explanation: "加密與解密用的是「同一把金鑰」。",
+                page: "資通安全概論 2-21"
+            },
+            {
+                id: 107,
+                question: "下列哪一項是美國密碼演算法標準，但金鑰長度相對較短（56位元）？",
+                type: "single",
+                options: ["AES", "DES", "Triple-DES", "RSA"],
+                correct: [1],
+                explanation: "DES是美國密碼演算法標準，有效金鑰長度56位元。",
+                page: "資通安全概論 2-21"
+            },
+            {
+                id: 108,
+                question: "哪一種對稱式加密演算法於2000年獲選為新一代密碼演算法標準？",
+                type: "single",
+                options: ["RC4", "Triple-DES", "AES", "ElGamal"],
+                correct: [2],
+                explanation: "AES於2000年AES計畫中，獲選為新一代密碼演算法標準。",
+                page: "資通安全概論 2-21"
+            },
+            {
+                id: 109,
+                question: "對稱式加密演算法的主要優點是什麼？",
+                type: "single",
+                options: ["金鑰管理較容易", "可以提供不可否認性功能", "加解密速度較非對稱式演算法快", "金鑰數量與使用者數量成正比"],
+                correct: [2],
+                explanation: "對稱式加密的優點是加解密速度較非對稱式加解密演算法快。",
+                page: "資通安全概論 2-22"
+            },
+            {
+                id: 110,
+                question: "非對稱式加解密演算法（Asymmetric Cryptography）的安全性導因於解因數分解的困難度，且使用最廣泛的演算法是什麼？",
+                type: "single",
+                options: ["AES", "DES", "RSA", "SHA-256"],
+                correct: [2],
+                explanation: "RSA是使用最廣泛且最有名的非對稱式演算法，其安全性導因於解因數分解的困難度。",
+                page: "資通安全概論 2-22"
+            },
+            {
+                id: 111,
+                question: "非對稱式加解密演算法的主要缺點是什麼？",
+                type: "single",
+                options: ["金鑰數量過多難以管理", "加解密速度比對稱式演算法慢", "只能提供機密性保護", "無法將公開金鑰任意公開傳送"],
+                correct: [1],
+                explanation: "非對稱式演算法的缺點是加解密速度比對稱式加解密演算法慢。",
+                page: "資通安全概論 2-23"
+            },
+            {
+                id: 112,
+                question: "數位信封（Digital Envelope）技術結合了對稱式和非對稱式加密演算法的優點，其核心機制是什麼？",
+                type: "single",
+                options: ["使用單一雜湊值進行加密", "使用公開金鑰加密大量資料", "使用對稱式加密資料，再用非對稱式加密對稱金鑰", "使用私密金鑰加密資料"],
+                correct: [2],
+                explanation: "數位信封使用對稱式金鑰加密大量資料，然後使用非對稱式加密演算法（接收方公鑰）加密該對稱金鑰。",
+                page: "資通安全概論 2-23"
+            },
+            {
+                id: 113,
+                question: "雜湊函數（Hash Function）的主要用途不包含下列哪一項？",
+                type: "single",
+                options: ["將資料轉成固定長度的訊息摘要", "用來驗證資料完整性", "確保傳輸資料的機密性", "用來儲存使用者密碼"],
+                correct: [2],
+                explanation: "雜湊函數主要用於完整性、鑑別和儲存密碼，不直接提供機密性保護。",
+                page: "資通安全概論 2-24"
+            },
+            {
+                id: 114,
+                question: "關於雜湊函數的特性，下列敘述何者正確？",
+                type: "single",
+                options: ["具有可逆性", "將任何長度的資料轉成固定長度的訊息摘要", "如果兩個雜湊值不相同，則其原始輸入可能相同", "MD5是公開金鑰演算法"],
+                correct: [1],
+                explanation: "雜湊函數將任何長度的資料轉成固定長度的訊息摘要。",
+                page: "資通安全概論 2-24"
+            },
+            {
+                id: 115,
+                question: "數位簽章（Digital Signature）技術同時提供了訊息的哪些安全屬性？",
+                type: "single",
+                options: ["機密性、可靠性、可用性", "機密性、完整性、不可否認性", "完整性、鑑別性、不可否認性", "可用性、合法性、機密性"],
+                correct: [2],
+                explanation: "數位簽章技術同時提供了訊息的「完整性」、「鑑別性」及「不可否認性」。",
+                page: "資通安全概論 2-24"
+            },
+            {
+                id: 116,
+                question: "在數位簽章的流程中，傳送方（甲方）是使用哪一把金鑰對電子檔案作簽章？",
+                type: "single",
+                options: ["甲方的公開金鑰", "甲方的私密金鑰", "乙方的公開金鑰", "乙方的私密金鑰"],
+                correct: [1],
+                explanation: "甲方用自己的私密金鑰對電子檔案作簽章。",
+                page: "資通安全概論 2-24"
+            },
+            {
+                id: 117,
+                question: "在數位簽章的流程中，接收方（乙方）是使用哪一把金鑰來驗證簽章，以確認檔案沒有被竄改且來自甲方？",
+                type: "single",
+                options: ["甲方的公開金鑰", "甲方的私密金鑰", "乙方的公開金鑰", "乙方的私密金鑰"],
+                correct: [0],
+                explanation: "乙方用甲方的公開金鑰驗證簽章。",
+                page: "資通安全概論 2-24"
+            },
+            {
+                id: 118,
+                question: "等級「高」機關在「傳輸之機密性與完整性」方面，要求加密金鑰或憑證應採取的措施是什麼？",
+                type: "single",
+                options: ["永久不變更", "定期更換", "使用單一金鑰", "僅限於內部網路傳輸"],
+                correct: [1],
+                explanation: "等級「高」要求加密金鑰或憑證應定期更換。",
+                page: "資通安全概論 2-18"
+            },
+            {
+                id: 119,
+                question: "對稱式加解密演算法的一個主要缺點是？",
+                type: "single",
+                options: ["無法提供機密性保護", "當加密對象多時，金鑰的保護與交換變得很麻煩", "加解密速度慢", "無法用於硬碟加密"],
+                correct: [1],
+                explanation: "對稱式演算法的金鑰必須雙方保護且交換，當人數多時，金鑰數量巨大，管理麻煩。",
+                page: "資通安全概論 2-22, 2-23"
+            },
+            {
+                id: 120,
+                question: "非對稱式演算法 ElGamal 的安全性導因於解下列哪一項的困難度？",
+                type: "single",
+                options: ["因數分解", "離散對數", "碰撞抵抗", "窮舉攻擊"],
+                correct: [1],
+                explanation: "ElGamal的安全性導因於解離散對數的困難度。",
+                page: "資通安全概論 2-22"
+            },
+            {
+                id: 121,
+                question: "關於等級「高」機關對於伺服器端金鑰保管的要求，下列敘述何者錯誤？",
+                type: "single",
+                options: ["應訂定管理規範", "應實施應有之安全防護措施", "加密金鑰與加密資料應分開存放", "金鑰無需定期更換"],
+                correct: [3],
+                explanation: "等級「高」要求金鑰或憑證應定期更換。",
+                page: "資通安全概論 2-18, 2-19"
+            },
+            {
+                id: 122,
+                question: "在「系統與通訊保護」中，下列哪一項技術的應用旨在為資料通訊提供安全保護，例如SSL或SSH？",
+                type: "single",
+                options: ["雜湊函數", "數位簽章", "加密技術", "最小權限原則"],
+                correct: [2],
+                explanation: "加密技術運用在資料通訊的安全（VPN、SSL或SSH等）。",
+                page: "資通安全概論 2-19"
+            },
+            {
+                id: 123,
+                question: "關於對稱式加密演算法的優點，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["加解密速度比非對稱式演算法快。", "如果金鑰長度夠長，將難以被破解。", "提供了訊息的完整性與不可否認性。", "對稱金鑰可以任意公開傳送，不需額外的保護機制。"],
+                correct: [0, 1],
+                explanation: "對稱式加密速度快且金鑰長度足夠則難以破解。對稱式加密只提供機密性保護，無法提供不可否認性。對稱金鑰是秘密金鑰，需要保護與安全交換。",
+                page: "資通安全概論 2-21, 2-22"
+            },
+            {
+                id: 124,
+                question: "關於非對稱式加解密演算法的特性，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["金鑰管理比對稱式加密容易。", "每個使用者需要兩把金鑰（公開金鑰和私密金鑰）。", "公開金鑰可以任意公開傳送。", "缺點是加解密速度較慢。"],
+                correct: [0, 1, 2, 3],
+                explanation: "非對稱式金鑰管理容易，每個使用者兩把金鑰，公開金鑰可任意公開，但加解密速度慢。",
+                page: "資通安全概論 2-23"
+            },
+            {
+                id: 125,
+                question: "關於數位簽章所提供的安全屬性，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["數位簽章能證明電子檔案來自於特定的簽章者。", "數位簽章提供訊息的機密性。", "數位簽章提供訊息的完整性。", "數位簽章提供訊息的鑑別性及不可否認性。"],
+                correct: [0, 2, 3],
+                explanation: "數位簽章的主要目的是證明來源、完整性、鑑別性及不可否認性。機密性通常由加密提供。",
+                page: "資通安全概論 2-24"
+            },
+            {
+                id: 126,
+                question: "根據教材內容，下列哪些演算法屬於雜湊函數？（複選）",
+                type: "multiple",
+                options: ["SHA-256", "RSA", "MD5", "AES"],
+                correct: [0, 2],
+                explanation: "SHA-256和MD5是雜湊演算法。RSA是非對稱式演算法。AES是對稱式演算法。",
+                page: "資通安全概論 2-21, 2-22, 2-24"
+            },
+            {
+                id: 127,
+                question: "「系統與資訊完整性」安全控制措施的主要目的為何？",
+                type: "single",
+                options: ["確保機房不會斷電", "確保資通系統及其儲存和處理的資訊不被非法篡改或破壞", "強制實施多重認證", "管理備份媒體的銷毀程序"],
+                correct: [1],
+                explanation: "目的在於確保資通系統及其儲存和處理的資訊不被非法篡改或破壞。",
+                page: "資通安全概論 2-24"
+            },
+            {
+                id: 128,
+                question: "關於「漏洞修復」，無論資通安全等級「普」、「中」或「高」，都必須採取哪一項措施？",
+                type: "single",
+                options: ["系統之漏洞修復應僅在正式環境進行", "系統之漏洞修復應測試有效性及潛在影響，並定期更新", "無需定期確認漏洞修復狀態", "只需進行弱點掃描，不需修復"],
+                correct: [1],
+                explanation: "系統之漏洞修復應測試有效性及潛在影響，並定期更新。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 129,
+                question: "關於「軟體及資訊完整性」的控制措施，資通安全等級「中」的機關要求是下列哪一項？",
+                type: "single",
+                options: ["使用者輸入資料合法性檢查應置放於應用系統伺服器端", "應定期執行軟體與資訊完整性檢查", "系統應採用自動化工具監控進出通信流量", "發現入侵跡象應通報機關特定人員"],
+                correct: [0],
+                explanation: "等級「中」要求使用者輸入資料合法性檢查應置放於應用系統伺服器端。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 130,
+                question: "針對「資通系統監控」，資通安全等級「普」的機關要求是什麼？",
+                type: "single",
+                options: ["發現資通系統有被入侵跡象時，應通報機關特定人員", "應採用自動化工具監控進出之通信流量", "系統不需監控", "監控軟體及資訊完整性檢查"],
+                correct: [0],
+                explanation: "等級「普」要求發現資通系統有被入侵跡象時，應通報機關特定人員。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 131,
+                question: "等級「中」的機關在「資通系統監控」方面，除了普級要求外，還必須採取的措施是？",
+                type: "single",
+                options: ["監控資通系統，以偵測攻擊與未授權之連線", "每週執行一次滲透測試", "對所有流量進行解密分析", "定期備份日誌至原系統外"],
+                correct: [0],
+                explanation: "等級「中」要求監控資通系統，以偵測攻擊與未授權之連線。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 132,
+                question: "關於「漏洞修復」，機關應定期確認漏洞修復狀態，其資訊來源宜透過下列哪一項管道？",
+                type: "single",
+                options: ["人事異動紀錄", "CVE相關訊息網站或廠商安全通告", "機房空調紀錄", "財務報表"],
+                correct: [1],
+                explanation: "機關宜注意相關之安全漏洞訊息（如透過CVE相關訊息網站、廠商安全通告等）。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 133,
+                question: "在「軟體及資訊完整性」中，當發現有違反完整性時，資通系統應採取的措施是？",
+                type: "single",
+                options: ["立即自動進行完整備份", "實施機關指定的安全保護措施", "自動修復所有系統漏洞", "向使用者隱藏所有錯誤訊息"],
+                correct: [1],
+                explanation: "等級「中」要求發現違反完整性時，資通系統應實施機關指定之安全保護措施。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 134,
+                question: "在「資通系統監控」方面，等級「高」的機關必須採用哪一種工具，並在發現不尋常或未授權之活動時進行分析？",
+                type: "single",
+                options: ["人工每日巡檢", "紙本記錄", "自動化工具監控進出之通信流量", "應用程式原始碼分析"],
+                correct: [2],
+                explanation: "等級「高」要求資通系統應採用自動化工具監控進出之通信流量。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 135,
+                question: "關於資通系統的漏洞修復流程，下列哪一項是建議在正式環境進行更新前必須先完成的步驟？",
+                type: "single",
+                options: ["進行軟體更新的可行性評估並通過測試", "取得新的公開金鑰", "將舊系統停機三天", "修復所有中級以下的漏洞"],
+                correct: [0],
+                explanation: "應先於測試用主機上完成更新可行性評估並通過測試後，始於正式環境進行更新。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 136,
+                question: "在「軟體及資訊完整性」的控制措施中，哪一項是等級「高」的額外要求（不包含在中級要求中）？",
+                type: "single",
+                options: ["使用完整性驗證工具", "定期執行軟體與資訊完整性檢查", "使用者輸入資料合法性檢查置放於伺服器端", "發現違反完整性時實施指定安全措施"],
+                correct: [1],
+                explanation: "等級「高」要求應定期執行軟體與資訊完整性檢查。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 137,
+                question: "關於「系統與資訊完整性」的控制措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["所有等級的機關在漏洞修復時，都必須測試其有效性。", "等級「中」要求監控資通系統，以偵測攻擊與未授權連線。", "等級「中」要求使用者輸入資料合法性檢查應置放於應用系統伺服器端。", "等級「高」要求採用自動化工具監控進出之通信流量。"],
+                correct: [0, 1, 2, 3],
+                explanation: "漏洞修復測試有效性是普級要求。中級要求監控系統偵測攻擊。中級要求資料合法性檢查置於伺服器端。高級要求採用自動化工具監控流量。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 138,
+                question: "關於「軟體及資訊完整性」的控制措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["等級「中」要求使用完整性驗證工具，以偵測未授權變更特定軟體及資訊。", "當發現違反完整性時，所有等級機關都必須立即實施機關指定的安全保護措施。", "等級「高」要求應定期執行軟體與資訊完整性檢查。", "軟體更新應先在測試用主機上完成評估並通過測試後，才能在正式環境進行。"],
+                correct: [0, 2, 3],
+                explanation: "使用完整性驗證工具是中級要求。完整性檢查是高級要求。軟體更新應先測試是建議作法。只有等級「中」要求發現違反完整性時實施指定安全措施。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 139,
+                question: "媒體控管（Media Control）的目的為何？",
+                type: "single",
+                options: ["限制網路存取", "避免儲存在媒體中的機敏資料外洩", "對網路流量進行加密", "定期修補作業系統漏洞"],
+                correct: [1],
+                explanation: "媒體控管的目的在於避免儲存在其中的機敏資料外洩。",
+                page: "資通安全概論 2-26"
+            },
+            {
+                id: 140,
+                question: "教材中提到的「媒體」包含下列哪一項？",
+                type: "single",
+                options: ["路由器", "防火牆", "紙張", "應用程式原始碼"],
+                correct: [2],
+                explanation: "媒體包含磁碟、磁帶、光碟及紙張。",
+                page: "資通安全概論 2-26"
+            },
+            {
+                id: 141,
+                question: "下列哪一項不屬於「媒體控管的工作」範疇？",
+                type: "single",
+                options: ["銷毀與丟棄", "重用安全", "實體存取保護", "軟體發展生命週期"],
+                correct: [3],
+                explanation: "媒體控管工作包括標示、使用紀錄、完整性檢查、實體存取保護、存放環境保護、運送保護、重用安全，以及銷毀與丟棄。",
+                page: "資通安全概論 2-26"
+            },
+            {
+                id: 142,
+                question: "針對「可攜式設備」，機關應該建立哪一項政策來規範其使用？",
+                type: "single",
+                options: ["多重認證技術", "使用限制與範圍", "異地備份程序", "加密金鑰定期更換"],
+                correct: [1],
+                explanation: "應建立可攜式設備的使用限制與範圍政策。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 143,
+                question: "為了避免病毒傳染，針對可攜式設備的存取控制，機關應採取下列哪一項措施？",
+                type: "single",
+                options: ["禁止連接所有可攜式設備", "將設備格式化", "關閉或避免觸發自動執行可攜式媒體中的程式", "只允許讀取，不允許寫入"],
+                correct: [2],
+                explanation: "應關閉或避免觸發自動執行可攜式媒體中的程式，以避免病毒的傳染。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 144,
+                question: "安裝或啟用可攜式媒體控管程式的主要目的之一是什麼？",
+                type: "single",
+                options: ["僅限於防止資料外洩", "管制、偵測及記錄各種可攜式媒體與設備的存取行為", "取代傳統的防毒軟體", "對可攜式設備進行遠端加密"],
+                correct: [1],
+                explanation: "控管程式可以「管制」、「偵測」及「記錄」各種可攜式媒體與設備的存取行為。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 145,
+                question: "可攜式設備的稽核紀錄內容中，應包含下列哪一項資訊？",
+                type: "single",
+                options: ["設備名稱", "使用者密碼", "使用者薪資", "資通系統的公開金鑰"],
+                correct: [0],
+                explanation: "稽核紀錄應包含設備名稱（如USB, CD/DVD, iPhone）。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 146,
+                question: "關於「媒體控管的工作」，下列敘述何者錯誤？",
+                type: "single",
+                options: ["媒體需要進行重用安全處理", "媒體的運送需要受到保護", "媒體銷毀後無需留下紀錄", "媒體需要定期進行完整性檢查"],
+                correct: [2],
+                explanation: "媒體銷毀與丟棄屬於媒體控管的工作之一，通常需要有紀錄或程序。",
+                page: "資通安全概論 2-26"
+            },
+            {
+                id: 147,
+                question: "關於「可攜式設備」的安全控管，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["應建立可攜式設備的使用限制與範圍政策。", "應對可攜式設備對資通系統的非授權存取進行監視。", "可攜式設備控管程式能記錄設備存取行為。", "應避免觸發自動執行可攜式媒體中的程式，以避免病毒傳染。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆是教材中對可攜式設備的存取控制和稽核要求。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 148,
+                question: "可攜式設備的稽核紀錄應包含哪些欄位資訊？（複選）",
+                type: "multiple",
+                options: ["事件發生時間。", "使用者名稱。", "設備名稱（例如：USB）。", "程序名稱與ID（例如：Explorer.exe）。"],
+                correct: [0, 1, 2, 3],
+                explanation: "稽核紀錄應包含事件發生時間、使用者名稱、設備名稱、電腦名稱或IP位址以及程序名稱與ID。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 149,
+                question: "在「帳號管理」中，建立帳號、修改、啟用、停用及刪除之程序，是所有安全等級（高中普）都必須遵循的哪一項措施？",
+                type: "single",
+                options: ["最小權限原則", "帳號定期審核", "建立帳號管理機制", "系統帳號監控"],
+                correct: [2],
+                explanation: "等級「普」的帳號管理要求是建立帳號管理機制，包含帳號之申請、建立、修改、啟用、停用及刪除之程序。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 150,
+                question: "等級「高」機關對於帳號的使用，除了需監控是否違常使用並回報管理者外，還要求應依據機關定義的哪一項條件使用資通系統？",
+                type: "single",
+                options: ["系統硬體配置", "機關規定之情況及條件", "使用者個人偏好", "網路頻寬狀況"],
+                correct: [1],
+                explanation: "等級「高」要求機關應定義各系統之閒置時間或可使用期限與資通系統之使用情況及條件。",
+                page: "資通安全概論 2-4"
+            },
+            {
+                id: 151,
+                question: "針對遠端存取連線，等級「高」的額外要求（相較於普級）中，哪一項旨在限制連線的起始點？",
+                type: "single",
+                options: ["必須採用加密機制", "遠端存取之來源應為已預先定義及管理的存取控制點", "必須在伺服器端完成權限檢查", "應監控遠端存取連線"],
+                correct: [1],
+                explanation: "等級「高」要求遠端存取之來源應為已預先定義及管理的存取控制點。",
+                page: "資通安全概論 2-3"
+            },
+            {
+                id: 152,
+                question: "關於資通系統的最小權限原則，以下哪種情況違反了此原則？",
+                type: "single",
+                options: ["程式僅能存取其業務所需的資料庫表格", "使用者帳號被賦予系統管理員權限，即使其工作僅需讀取資料", "所有使用者被要求定期修改密碼", "系統自動將閒置帳號登出"],
+                correct: [1],
+                explanation: "最小權限原則要求僅允許使用者完成指派任務所需之授權存取。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 153,
+                question: "為了確保資通系統的帳號安全性，等級「中」與「高」機關必須「定期審核」帳號管理的哪個方面？",
+                type: "single",
+                options: ["帳號命名規範", "帳號申請、建立、修改、啟用、停用及刪除", "閒置時間設定", "遠端存取來源清單"],
+                correct: [1],
+                explanation: "等級「中」及「高」要求定期審核資通系統帳號之申請、建立、修改、啟用、停用及刪除。",
+                page: "資通安全概論 2-2"
+            },
+            {
+                id: 154,
+                question: "為了確保日誌資訊的保護，等級「高」機關應定期將日誌備份到哪裡？",
+                type: "single",
+                options: ["雲端儲存空間", "原系統外之其他實體系統", "同一機房的不同硬碟", "實體防火牆設備中"],
+                correct: [1],
+                explanation: "等級「高」要求定期備份日誌至原系統外之其他實體系統。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 155,
+                question: "等級「中」與「高」機關在日誌保護上，必須運用雜湊或其他適當方式，主要目的是為了確保日誌的哪個特性？",
+                type: "single",
+                options: ["機密性", "可用性", "完整性", "不可否認性"],
+                correct: [2],
+                explanation: "等級「中」要求應運用雜湊或其他適當方式之完整性確保機制。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 156,
+                question: "關於時戳和校時，等級「中」與「高」機關要求系統內部時鐘必須定期與下列何者進行同步？",
+                type: "single",
+                options: ["網際網路上的隨機時間源", "基準時間源", "使用者手機時間", "作業系統預設時間"],
+                correct: [1],
+                explanation: "等級「中」及「高」要求系統內部時鐘應定期與基準時間源進行同步。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 157,
+                question: "如果雜湊函數計算出兩個不相同的雜湊值（使用同一個雜湊函式），則對應的原始輸入資料具有什麼特性？",
+                type: "single",
+                options: ["這兩個原始輸入是相同的", "這兩個原始輸入也是不相同的", "無法判斷原始輸入的關係", "原始輸入極可能未被變更"],
+                correct: [1],
+                explanation: "兩個雜湊值不相同，則原始輸入也不相同。",
+                page: "資通安全概論 2-6"
+            },
+            {
+                id: 158,
+                question: "下列哪一項不是事件日誌應記錄的內容（保存項目）？",
+                type: "single",
+                options: ["網站日誌", "作業系統日誌", "應用系統原始碼", "所有網路活動日誌"],
+                correct: [2],
+                explanation: "日誌保存項目包括作業系統日誌、網站日誌等，不包含應用系統原始碼。",
+                page: "資通安全概論 2-5, 2-6"
+            },
+            {
+                id: 159,
+                question: "關於日誌的保護，下列何者正確？（複選）",
+                type: "multiple",
+                options: ["等級「普」要求日誌存取僅限於有權限之使用者。", "為了確保日誌的完整性，應採用加密技術而非雜湊。", "所有資通系統日誌應保留至少6個月。", "等級「高」要求在日誌處理失效時，需於規定時效內提出警告。"],
+                correct: [0, 2, 3],
+                explanation: "等級「普」要求對日誌之存取管理，僅限於有權限之使用者。日誌應保留至少6個月。等級「高」要求日誌處理失效時，需於規定時效內提出警告。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 160,
+                question: "在「差異備份」模式下，若星期一完整備份，星期二、三、四差異備份。若資料於星期五損毀，復原時需要哪幾份資料？",
+                type: "single",
+                options: ["星期一完整備份與星期五差異備份", "星期一完整備份與星期四差異備份", "星期二、三、四的差異備份", "只需星期四的差異備份"],
+                correct: [1],
+                explanation: "差異備份的復原需要完整備份與上次完整備份後的所有差異備份。",
+                page: "資通安全概論 2-8"
+            },
+            {
+                id: 161,
+                question: "哪一種備份方式的復原過程最為複雜且耗時（需要還原完整備份與之後的所有增量/差異備份）？",
+                type: "single",
+                options: ["僅完整備份", "僅差異備份", "完整備份搭配增量備份", "完整備份搭配本地備份"],
+                correct: [2],
+                explanation: "增量備份的復原需要完整備份與從完整備份之後的所有增量備份，復原過程最為複雜且耗時。",
+                page: "資通安全概論 2-7, 2-9"
+            },
+            {
+                id: 162,
+                question: "等級「高」的機關除了在不同地點儲存備份外，在「系統備份」方面還需要將備份還原作為哪一項活動的一部分？",
+                type: "single",
+                options: ["年度資安健診", "營運持續計畫測試", "變更管理程序", "日誌分析作業"],
+                correct: [1],
+                explanation: "等級「高」要求應將備份還原，作為營運持續計畫測試之一部分。",
+                page: "資通安全概論 2-7"
+            },
+            {
+                id: 163,
+                question: "關於資料備份的「檔案格式」問題，機關應該定期做什麼檢查？",
+                type: "single",
+                options: ["檢查備份檔案格式是否為純文字檔", "確認仍有合適的應用軟體或工具可開啟備份檔案", "確認檔案是否加密", "檢查檔案是否超過容量限制"],
+                correct: [1],
+                explanation: "應定期檢驗備份媒體是否仍有合適的存取設備。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 164,
+                question: "關於異地備份，若機關的備份地點相距不夠遠，其主要風險是什麼？",
+                type: "single",
+                options: ["金鑰交換困難", "備份程序成本過高", "可能遭受同樣程度的災害毀損", "備份媒體存取設備遺失"],
+                correct: [2],
+                explanation: "教材提醒相距10公里內的距離可能遭受同樣程度的毀損。",
+                page: "資通安全概論 2-8"
+            },
+            {
+                id: 165,
+                question: "關於資料備份模式，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["本地備份在電腦硬碟故障時，備份資料可能同時受損。", "異地備份程序與成本較高，但能避免區域性大災難。", "等級「中」機關要求應提供足夠之備份設施，確保災害後可復原。", "備份範圍應該事先評估，避免有漏失。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆正確描述了備份模式的特性及要求。",
+                page: "資通安全概論 2-7, 2-8, 2-9"
+            },
+            {
+                id: 166,
+                question: "哪一種鑑別技術在人類社會中接受性較低（因隱私、侵入性及傳染病等因素），但最能識別人員身分？",
+                type: "single",
+                options: ["通行碼", "晶片卡", "生物特徵鑑別", "多重認證"],
+                correct: [2],
+                explanation: "生物特徵鑑別是採用人類具備的屬性進行識別與鑑別，但人類社會對其接受性較低。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 167,
+                question: "為了實現強固鑑別技術，下列哪一組組合符合要求？",
+                type: "single",
+                options: ["通行碼（Know）與通行碼（Know）", "指紋（Are）與晶片卡（Have）", "晶片卡（Have）與晶片卡（Have）", "通行碼（Know）與通行碼長度（Know）"],
+                correct: [1],
+                explanation: "同時採用兩種鑑別因素的鑑別技術即可稱為強固鑑別技術。",
+                page: "資通安全概論 2-13"
+            },
+            {
+                id: 168,
+                question: "關於身分鑑別管理，下列何者不屬於「通行碼被破解的防護措施」？",
+                type: "single",
+                options: ["限制通行碼容許登入失敗的次數", "使用公開金鑰加密通行碼", "由系統判斷通行碼不重覆使用", "系統強制要求使用者定期更換通行碼"],
+                correct: [1],
+                explanation: "使用公開金鑰加密通行碼屬於傳輸加密，非防止密碼被猜測或破解的直接措施。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 169,
+                question: "等級「高」與「中」的機關在「加密模組鑑別」方面的共同要求是？",
+                type: "single",
+                options: ["資通系統使用密碼進行鑑別時，該密碼應加密或經雜湊處理後儲存", "必須採取多重認證", "定期變更密碼", "使用專屬的加密模組"],
+                correct: [0],
+                explanation: "等級「高」與「中」要求密碼應加密或經雜湊處理後儲存。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 170,
+                question: "關於使用者識別符的管理程序，下列哪一項是必須獲得授權主管核准的？",
+                type: "single",
+                options: ["識別符命名方式的發展", "識別符的申請、異動及刪除", "定期盤查識別符", "將識別符與使用者真實身分連結"],
+                correct: [1],
+                explanation: "識別符的申請、異動及刪除必須獲得授權主管的核准。",
+                page: "資通安全概論 2-12"
+            },
+            {
+                id: 171,
+                question: "關於「身分驗證管理」，下列針對帳戶鎖定機制的敘述，哪一項正確？",
+                type: "single",
+                options: ["登入失敗達3次應立即鎖定帳號", "鎖定時間應由使用者自行設定", "鎖定機制必須在登入失敗達5次後啟動", "鎖定機制只適用於外部使用者"],
+                correct: [2],
+                explanation: "具備帳戶鎖定機制，帳號登入進行身分驗證失敗達五次後，至少十五分鐘內不允許該帳號繼續嘗試登入。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 172,
+                question: "關於使用者識別符（Identifier）的要求，下列哪一項是確保人員可歸責性的關鍵？",
+                type: "single",
+                options: ["識別符必須是公開的", "識別符必須是唯一的", "識別符長度不限", "識別符可以代表其職位"],
+                correct: [1],
+                explanation: "識別符必須唯一，以確保人員的可歸責性。",
+                page: "資通安全概論 2-12"
+            },
+            {
+                id: 173,
+                question: "哪一項是確保存取行為可歸責性的必要條件，涉及到日誌紀錄的保護？",
+                type: "single",
+                options: ["系統存取紀錄的時戳必須是格林威治時間", "系統存取紀錄可由管理者隨時修改", "系統存取紀錄應被妥善保護，任何人均無法修改或刪除", "只需記錄成功的存取行為"],
+                correct: [2],
+                explanation: "系統存取紀錄應被妥善保護，任何人均無法修改或刪除。",
+                page: "資通安全概論 2-13"
+            },
+            {
+                id: 174,
+                question: "等級「高」機關在身分驗證管理中，除了防範自動化程式登入外，還特別針對密碼重設機制，要求發送的符記需具備哪些特性？",
+                type: "single",
+                options: ["重複使用性", "持久性", "一次性及時效性", "公開性"],
+                correct: [2],
+                explanation: "密碼重設機制對使用者重新身分確認後，發送一次性及具有時效性符記。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 175,
+                question: "關於密碼的儲存安全，下列敘述何者正確？",
+                type: "single",
+                options: ["密碼應以明文儲存", "密碼在傳輸時應加密或編碼保護", "只有等級「高」的機關需要儲存密碼", "儲存密碼應使用可逆的加密演算法"],
+                correct: [1],
+                explanation: "密碼在傳輸時應加密或編碼保護。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 176,
+                question: "關於識別符及鑑別符，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["識別符不應代表其在機關中的角色或職位。", "鑑別符可能是通行碼、晶片卡或指紋等佐證資訊。", "識別符刪除後，應暫停一段時間才可新增相同名稱的識別符。", "應建立鑑別符最長壽命的限制。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆正確描述了識別符及鑑別符的管理要求。",
+                page: "資通安全概論 2-12"
+            },
+            {
+                id: 177,
+                question: "關於「通行碼身分鑑別技術」的防護措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["通行碼在字典中應查不到。", "通行碼不以明碼方式儲存（雜湊）。", "簽入成功或失敗都應被記錄。", "為了安全，通行碼應由系統隨機產生，且長度不得超過6碼。"],
+                correct: [0, 1, 2],
+                explanation: "通行碼長度、定期更換、記錄登入事件都是防護措施。通行碼應以雜湊方式儲存，不應以明碼方式儲存。",
+                page: "資通安全概論 2-14"
+            },
+            {
+                id: 178,
+                question: "在SSDLC的「測試階段」，執行弱點掃描的目的通常是為了什麼？",
+                type: "single",
+                options: ["執行版本控制", "驗證安全需求實作的有效性", "發展安全需求", "識別威脅與分析風險"],
+                correct: [1],
+                explanation: "測試階段包括驗證安全需求實作有效性。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 179,
+                question: "關於開發階段「處理錯誤訊息」的要求，系統應採取的作法是什麼？",
+                type: "single",
+                options: ["隱藏錯誤程式碼位置與內容等機敏訊息", "在使用者頁面顯示詳細錯誤日誌", "只在後台記錄錯誤代碼", "立即通知所有使用者系統發生錯誤"],
+                correct: [0],
+                explanation: "發生錯誤時，使用者頁面僅顯示簡短錯誤訊息與代碼，不包含詳細之錯誤訊息。",
+                page: "資通安全概論 2-16"
+            },
+            {
+                id: 180,
+                question: "在SSDLC的哪個階段，應進行「組態強化」？",
+                type: "single",
+                options: ["開發階段", "設計階段", "部署與維運階段", "測試階段"],
+                correct: [2],
+                explanation: "組態強化屬於部署與維運階段。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 181,
+                question: "關於「系統與服務獲得」的控制措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["等級「高」與「中」皆應執行版本控制與變更管理。", "開發環境、測試環境及正式作業環境之間應實作存取控制。", "等級「高」要求在測試階段必須執行源碼掃描。", "在部署與維運階段，資通系統不應使用預設密碼。"],
+                correct: [0, 1, 3],
+                explanation: "源碼掃描是高級開發階段要求，非測試階段。",
+                page: "資通安全概論 2-15, 2-17"
+            },
+            {
+                id: 182,
+                question: "關於SSDLC各階段的安全檢測，下列何者正確？",
+                type: "single",
+                options: ["源碼掃描應在測試階段執行", "滲透測試只適用於等級「中」機關", "弱點掃描是普級機關在測試階段的最低要求", "所有等級機關在部署時都無需考慮關閉不必要埠口"],
+                correct: [2],
+                explanation: "測試階段要求執行「弱點掃描」安全檢測。",
+                page: "資通安全概論 2-15, 2-16"
+            },
+            {
+                id: 183,
+                question: "在非對稱式加解密演算法中，若要確保傳送訊息的機密性，傳送方應該使用接收方的哪一把金鑰進行加密？",
+                type: "single",
+                options: ["私密金鑰", "公開金鑰", "秘密金鑰", "對稱金鑰"],
+                correct: [1],
+                explanation: "非對稱式加密中，公開金鑰用於加密，私密金鑰用於解密。",
+                page: "資通安全概論 2-22"
+            },
+            {
+                id: 184,
+                question: "關於加密技術的強度，下列哪一項是已被證明為安全的判斷原則？",
+                type: "single",
+                options: ["演算法是專屬且保密的", "演算法經得起挑戰", "金鑰長度最短", "只使用對稱式加密"],
+                correct: [1],
+                explanation: "加密技術強度牽涉演算法強度，演算法經得起挑戰是判斷原則之一。",
+                page: "資通安全概論 2-20"
+            },
+            {
+                id: 185,
+                question: "在數位信封的流程中，用以加密大量「明文」資料的是哪一種金鑰？",
+                type: "single",
+                options: ["公開金鑰", "私密金鑰", "對稱式秘密金鑰", "數位簽章"],
+                correct: [2],
+                explanation: "數位信封使用對稱式金鑰加密大量資料。",
+                page: "資通安全概論 2-23"
+            },
+            {
+                id: 186,
+                question: "下列哪一項不是加密技術的主要用途？",
+                type: "single",
+                options: ["資料通訊的安全", "資料儲存的安全", "時戳與校時的同步", "身分鑑別的安全"],
+                correct: [2],
+                explanation: "加密技術主要用於通訊安全、儲存安全及身分鑑別。",
+                page: "資通安全概論 2-19"
+            },
+            {
+                id: 187,
+                question: "關於資通系統傳輸加密，等級「高」要求應採用哪些加密傳輸協定或措施？（複選）",
+                type: "multiple",
+                options: ["HTTPS 1.2/1.3。", "SSH。", "VPN。", "使用公開、國際機構驗證且未遭破解之演算法。"],
+                correct: [0, 1, 2, 3],
+                explanation: "等級「高」要求使用公開、國際機構驗證且未遭破解之演算法，如HTTPS, SSH, VPN等。",
+                page: "資通安全概論 2-18, 2-19"
+            },
+            {
+                id: 188,
+                question: "關於雜湊函數的特性，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["雜湊因具有單向性，無法從雜湊值計算回推原始訊息。", "雜湊函數用於驗證資料的完整性。", "雜湊函數能將任何長度的資料轉成固定長度的訊息摘要。", "如果原始訊息不變，則雜湊值會相同且唯一。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆正確描述了雜湊函數的特性及用途。",
+                page: "資通安全概論 2-6, 2-24"
+            },
+            {
+                id: 189,
+                question: "關於「數位信封」的流程，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["數位信封結合了對稱式與非對稱式演算法的優點。", "接收方使用自己的私鑰來解密加密後的秘密金鑰。", "傳送方使用接收方的公開金鑰來加密秘密金鑰。", "數位信封主要用來解決非對稱式加密速度慢的問題。"],
+                correct: [0, 1, 2, 3],
+                explanation: "數位信封結合了對稱式加密速度快和非對稱式金鑰管理容易的優點。",
+                page: "資通安全概論 2-23"
+            },
+            {
+                id: 190,
+                question: "關於「資通系統監控」，等級「高」機關除了採用自動化工具監控流量外，還要求在發現不尋常或未授權之活動時，應對該事件進行什麼動作？",
+                type: "single",
+                options: ["自動阻擋連線", "立即通報主管機關", "針對該事件進行分析", "修改系統組態"],
+                correct: [2],
+                explanation: "等級「高」要求在發現不尋常或未授權之活動時，應針對該事件進行分析。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 191,
+                question: "等級「中」機關在「軟體及資訊完整性」方面，要求當發現有違反完整性時，資通系統應採取何種措施？",
+                type: "single",
+                options: ["實施機關指定的安全保護措施", "自動將日誌刪除", "自動禁用所有帳號", "只發出警告訊息"],
+                correct: [0],
+                explanation: "等級「中」要求發現違反完整性時，資通系統應實施機關指定之安全保護措施。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 192,
+                question: "關於「漏洞修復」，下列哪一項是稽核驗證時宜檢視的項目？",
+                type: "single",
+                options: ["網路架構圖", "機關弱點修補追蹤管理機制", "使用者電腦規格", "備份資料的儲存地點"],
+                correct: [1],
+                explanation: "應檢視機關弱點修補追蹤管理機制。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 193,
+                question: "關於「資通系統監控」，等級「中」和「普」的共同要求是？",
+                type: "single",
+                options: ["監控資通系統", "採用自動化工具監控通信流量", "發現入侵跡象時通報特定人員", "定期執行滲透測試"],
+                correct: [2],
+                explanation: "等級「普」要求發現資通系統有被入侵跡象時，應通報機關特定人員。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 194,
+                question: "關於「系統與資訊完整性」中的使用者輸入資料合法性檢查，應置放於何處？",
+                type: "single",
+                options: ["客戶端瀏覽器", "應用系統伺服器端", "網路防火牆", "入侵偵測系統"],
+                correct: [1],
+                explanation: "等級「中」要求使用者輸入資料合法性檢查應置放於應用系統伺服器端。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 195,
+                question: "關於「漏洞修復」的敘述，下列何者正確？（複選）",
+                type: "multiple",
+                options: ["所有等級的漏洞修復都應測試有效性。", "機關宜透過CVE相關訊息網站注意安全漏洞。", "漏洞修復工作應配合定期的安全檢測作業確認複測。", "等級「高」機關無需定期確認修復狀態。"],
+                correct: [0, 1, 2],
+                explanation: "漏洞修復應測試有效性。機關宜注意安全漏洞訊息。漏洞修復應配合安全檢測確認複測。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 196,
+                question: "媒體控管工作中，哪一項旨在防止非授權人員存取儲存媒體？",
+                type: "single",
+                options: ["運送保護", "實體存取保護", "重用安全", "銷毀與丟棄"],
+                correct: [1],
+                explanation: "實體存取保護旨在防止非授權人員存取儲存媒體。",
+                page: "資通安全概論 2-26"
+            },
+            {
+                id: 197,
+                question: "關於可攜式設備控管程式，其主要功能不包含下列哪一項？",
+                type: "single",
+                options: ["管制", "偵測", "記錄", "永久禁用所有USB設備"],
+                correct: [3],
+                explanation: "控管程式可以「管制」、「偵測」及「記錄」各種可攜式媒體與設備的存取行為。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 198,
+                question: "可攜式設備控管中的「存取控制」措施，目的在確保設備對機關資通系統的存取符合下列哪一項規定？",
+                type: "single",
+                options: ["加密金鑰長度", "機關使用限制與範圍", "最小權限原則", "雜湊演算法"],
+                correct: [1],
+                explanation: "應建立可攜式設備的使用限制與範圍政策。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 199,
+                question: "可攜式設備的稽核紀錄中，哪一項資料可以用來確定事件發生的順序？",
+                type: "single",
+                options: ["使用者名稱", "電腦IP位址", "事件發生時間", "設備類型"],
+                correct: [2],
+                explanation: "稽核紀錄應包含事件發生時間。",
+                page: "資通安全概論 2-27"
+            },
+            {
+                id: 200,
+                question: "下列哪一項屬於媒體控管的工作內容？（複選）",
+                type: "multiple",
+                options: ["存放環境保護。", "媒體標示。", "使用紀錄。", "重用安全。"],
+                correct: [0, 1, 2, 3],
+                explanation: "媒體控管工作包括標示、使用紀錄、完整性檢查、實體存取保護、存放環境保護、運送保護、重用安全，以及銷毀與丟棄。",
+                page: "資通安全概論 2-26"
+            },
+            {
+                id: 201,
+                question: "在「存取控制」的授權原則中，若要同時降低利益衝突和防止單人掌握過多權限，應主要應用哪兩項原則？",
+                type: "single",
+                options: ["業務僅知與遠端存取", "最小權限與職務區隔", "職務區隔與加密機制", "遠端存取與連線監控"],
+                correct: [1],
+                explanation: "職務區隔旨在避免某些衝突或監督工作職務由同一個人來進行。",
+                page: "資通安全概論 2-4"
+            },
+            {
+                id: 202,
+                question: "在實作資通系統防護基準時，等級「普」的機關必須遵循下列哪三項控制措施中最低的要求？",
+                type: "single",
+                options: ["帳號管理、弱點掃描、傳輸加密", "身分驗證管理、日誌留存、系統備份", "遠端存取、最小權限、滲透測試", "源碼掃描、加密模組鑑別、系統監控"],
+                correct: [1],
+                explanation: "系統備份 (普級：提供足夠設施)；日誌留存 (普級：至少6個月)；身分驗證管理 (普級：密碼複雜度/效期限制/帳戶鎖定)。",
+                page: "資通安全概論 2-7, 2-5, 2-10"
+            },
+            {
+                id: 203,
+                question: "如果機關僅使用對稱式加密演算法來進行大量資料的網路傳輸，主要的挑戰或缺點是什麼？",
+                type: "single",
+                options: ["加解密速度太慢", "金鑰的保護與交換會很麻煩", "無法提供機密性保護", "資料在網路上容易被竄改"],
+                correct: [1],
+                explanation: "對稱式演算法的金鑰必須雙方保護且交換，當人數多時，金鑰數量巨大，管理麻煩。",
+                page: "資通安全概論 2-22"
+            },
+            {
+                id: 204,
+                question: "關於SSDLC中的安全檢測活動，下列哪一項檢查最適用於發現應用程式原始碼層級的安全弱點？",
+                type: "single",
+                options: ["滲透測試", "源碼掃描", "連線監控", "硬體組態檢查"],
+                correct: [1],
+                explanation: "源碼掃描最適用於發現應用程式原始碼層級的安全弱點。",
+                page: "資通安全概論 2-16"
+            },
+            {
+                id: 205,
+                question: "當機關在資料備份時，必須考慮到「資訊設備變化甚快，應定期檢驗備份媒體是否仍有合適的存取設備」的問題，這主要影響了資料的哪個安全屬性？",
+                type: "single",
+                options: ["機密性", "完整性", "可用性", "不可否認性"],
+                correct: [2],
+                explanation: "影響資料的可用性。",
+                page: "資通安全概論 2-9"
+            },
+            {
+                id: 206,
+                question: "針對非內部使用者（例如外部客戶或合作夥伴），機關在「識別與鑑別」上，下列何者為強制要求？",
+                type: "single",
+                options: ["必須強制遵循與內部使用者相同的密碼複雜度", "資通系統應識別及鑑別非機關使用者", "必須採用多重認證技術", "不需設有帳戶鎖定機制"],
+                correct: [1],
+                explanation: "資通系統應識別及鑑別非機關使用者。",
+                page: "資通安全概論 2-10"
+            },
+            {
+                id: 207,
+                question: "在「數位簽章」流程中，雜湊函數將原始檔案轉換成訊息摘要，此步驟主要目的在於確保哪個安全特性？",
+                type: "single",
+                options: ["機密性", "鑑別性", "單向性", "可逆性"],
+                correct: [2],
+                explanation: "雜湊函數將原始檔案轉換成訊息摘要，確保完整性。",
+                page: "資通安全概論 2-24"
+            },
+            {
+                id: 208,
+                question: "關於存取控制，若系統設置閒置時間限制，逾時自動登出，這是哪個等級的機關要求？",
+                type: "single",
+                options: ["普級", "中級", "高級", "不限等級"],
+                correct: [2],
+                explanation: "等級「高」要求逾越機關所許可之閒置時間或可使用期限時，系統應自動將使用者登出。",
+                page: "資通安全概論 2-4"
+            },
+            {
+                id: 209,
+                question: "關於密碼的身分鑑別技術，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["密碼重設機制必須在重新身分確認後，發送一次性符記。", "密碼複雜度與效期限制僅適用於內部使用者，非內部使用者不須遵循。", "密碼變更時，至少不可以與前三次使用過的密碼相同。", "密碼儲存應加密或經雜湊處理。"],
+                correct: [0, 2, 3],
+                explanation: "密碼重設機制必須發送一次性符記。密碼變更時不可與前三次相同。密碼儲存應加密或雜湊。",
+                page: "資通安全概論 2-9, 2-10"
+            },
+            {
+                id: 210,
+                question: "關於「系統備份」的控制措施，等級「高」的額外要求（不包含在中級要求中）有哪些？（複選）",
+                type: "multiple",
+                options: ["應將備份還原，作為營運持續計畫測試之一部分。", "應在與運作系統不同地點儲存重要資通系統軟體備份。", "應確保機關提供足夠之備份設施。", "應定期執行備份資料的回復演練。"],
+                correct: [0, 1],
+                explanation: "等級「高」要求將備份還原作為營運持續計畫測試的一部分。",
+                page: "資通安全概論 2-7"
+            },
+            {
+                id: 211,
+                question: "關於「系統與資訊完整性」的控制措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["漏洞修復應透過軟體更新，且須測試有效性及潛在影響。", "等級「高」要求定期執行軟體與資訊完整性檢查。", "軟體及資訊完整性控制中，要求發現違反完整性時，應實施指定的安全保護措施。", "等級「普」機關只需在發現入侵跡象時通報特定人員。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆正確描述了系統與資訊完整性的控制措施。",
+                page: "資通安全概論 2-25"
+            },
+            {
+                id: 212,
+                question: "在SSDLC的生命週期中，下列哪些屬於「部署與維運階段」的工作？（複選）",
+                type: "multiple",
+                options: ["組態強化。", "元件修補更新。", "執行版本控制。", "弱點掃描或滲透測試。"],
+                correct: [0, 1, 2],
+                explanation: "組態強化、元件修補更新、執行版本控制皆屬於部署與維運階段。",
+                page: "資通安全概論 2-15"
+            },
+            {
+                id: 213,
+                question: "關於資通系統的存取控制，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["遠端存取連線必須採用加密機制。", "應依據業務需求採最小權限原則進行授權存取。", "臨時或緊急帳號於逾期後，等級「普」機關無需刪除或禁用。", "閒置帳號應禁用是等級「中」與「高」的要求。"],
+                correct: [0, 1, 3],
+                explanation: "遠端存取必須採用加密。最小權限原則。閒置帳號應禁用是中級要求。",
+                page: "資通安全概論 2-2, 2-3"
+            },
+            {
+                id: 214,
+                question: "關於日誌資訊的保護，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["日誌的存取管理僅限於有權限之使用者。", "等級「高」要求將日誌備份到原系統外之其他實體系統。", "運用雜湊機制來確保日誌完整性是所有等級的共同要求。", "等級「高」要求日誌處理失效時，須對特定人員提出警告。"],
+                correct: [0, 1, 3],
+                explanation: "日誌存取限制。高級要求異地備份。高級要求日誌失效警告。",
+                page: "資通安全概論 2-5"
+            },
+            {
+                id: 215,
+                question: "關於SSDLC的安全控制措施，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["「獲得程序」要求開發、測試及正式作業環境應為區隔。", "委外契約中應納入機密性、可用性、完整性等安全需求。", "等級「高」機關必須在測試階段執行滲透測試。", "所有等級機關都必須儲存與管理SSDLC的相關文件。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆正確描述了SSDLC的安全控制措施。",
+                page: "資通安全概論 2-15, 2-17"
+            },
+            {
+                id: 216,
+                question: "關於非對稱式加解密演算法的特性與應用，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["具有資料加密與數位簽章功能。", "私密金鑰必須嚴密保護。", "RSA演算法的安全性導因於解離散對數的困難度。", "加解密速度比對稱式加密慢。"],
+                correct: [0, 1, 3],
+                explanation: "非對稱式具有加密與簽章功能。私鑰需保護。速度較慢。RSA安全性導因於因數分解。",
+                page: "資通安全概論 2-22, 2-23"
+            },
+            {
+                id: 217,
+                question: "在「系統與通訊保護」方面，等級「高」機關對金鑰及憑證的管理有哪些要求？（複選）",
+                type: "multiple",
+                options: ["加密金鑰或憑證應定期更換。", "伺服器端之金鑰保管應訂定管理規範。", "強化存取控制，將加密金鑰與加密資料分開存放。", "必須支援演算法最大長度金鑰。"],
+                correct: [0, 1, 2, 3],
+                explanation: "等級「高」要求定期更換金鑰、訂定管理規範、金鑰與資料分開存放。",
+                page: "資通安全概論 2-18, 2-19"
+            },
+            {
+                id: 218,
+                question: "關於「媒體控管及可攜式設備」的稽核與控制，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["應建立可攜式設備的使用限制與範圍。", "應對可攜式設備對資通系統的非授權存取進行監視。", "應避免觸發可攜式媒體的自動執行程式，防止病毒傳染。", "媒體控管的工作包含標示、重用安全及銷毀與丟棄。"],
+                correct: [0, 1, 2, 3],
+                explanation: "所有選項皆正確描述了媒體控管及可攜式設備的控制措施。",
+                page: "資通安全概論 2-26, 2-27"
+            },
+            {
+                id: 219,
+                question: "關於「日誌的時戳及校時」機制，下列敘述何者正確？（複選）",
+                type: "multiple",
+                options: ["資通系統應使用內部時鐘產生時戳。", "時戳可以對應到世界協調時間（UTC）。", "等級「高」要求系統內部時鐘應定期與基準時間源進行同步。", "等級「普」機關無需考慮時戳準確性。"],
+                correct: [0, 1, 2],
+                explanation: "資通系統應使用內部時鐘產生時戳，並對應到UTC。等級「高」要求定期同步。",
+                page: "資通安全概論 2-5"
+            }
+        ];
+
+        // 全域變數
+        let currentQuestion = 0;
+        let userAnswers = {}; // 儲存使用者答案
+        let showingExplanation = false;
+
+        // 初始化測驗
+        function initQuiz() {
+            document.getElementById('totalNum').textContent = questions.length;
+            loadQuestion();
+            updateStats();
+            generateHistoryGrid();
+        }
+
+        // 載入題目
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            const quizCard = document.getElementById('quizCard');
+            
+            // 判斷題目類型
+            const typeLabel = question.type === 'single' ? '單選題' : '複選題';
+            const inputType = question.type === 'single' ? 'radio' : 'checkbox';
+            
+            // 生成選項HTML
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestion] && userAnswers[currentQuestion].includes(index);
+                optionsHTML += `
+                    <div class="option" onclick="selectOption(${index})">
+                        <input type="${inputType}" name="q${currentQuestion}" value="${index}" ${isSelected ? 'checked' : ''} onchange="handleOptionChange(${index})">
+                        <label>(${String.fromCharCode(65 + index)}) ${option}</label>
+                    </div>
+                `;
+            });
+
+            quizCard.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">第 ${currentQuestion + 1} 題</span>
+                    <span class="question-type">${typeLabel}</span>
+                </div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">${optionsHTML}</div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="submitAnswer()">提交答案</button>
+                    <button class="btn btn-secondary" onclick="showExplanation()" id="explanationBtn" style="display: none;">查看解答</button>
+                </div>
+                <div class="explanation" id="explanation">
+                    <h4>📝 解答說明</h4>
+                    <p><strong>正確答案：</strong>${question.correct.map(i => String.fromCharCode(65 + i)).join(', ')}</p>
+                    <p>${question.explanation}</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;"><strong>📖 出處頁碼：</strong>${question.page}</p>
+                </div>
+            `;
+
+            // 更新進度
+            document.getElementById('currentNum').textContent = currentQuestion + 1;
+            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // 更新按鈕狀態
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = currentQuestion === questions.length - 1;
+            
+            showingExplanation = false;
+        }
+
+        // 選擇選項
+        function selectOption(index) {
+            const question = questions[currentQuestion];
+            const checkbox = document.querySelector(`input[value="${index}"]`);
+            
+            if (question.type === 'single') {
+                // 單選題：取消所有選項，只選中當前項
+                document.querySelectorAll(`input[name="q${currentQuestion}"]`).forEach(input => {
+                    input.checked = false;
+                });
+                checkbox.checked = true;
+                userAnswers[currentQuestion] = [index];
+            } else {
+                // 複選題：切換選中狀態
+                checkbox.checked = !checkbox.checked;
+                if (!userAnswers[currentQuestion]) {
+                    userAnswers[currentQuestion] = [];
+                }
+                
+                if (checkbox.checked) {
+                    if (!userAnswers[currentQuestion].includes(index)) {
+                        userAnswers[currentQuestion].push(index);
+                    }
+                } else {
+                    userAnswers[currentQuestion] = userAnswers[currentQuestion].filter(i => i !== index);
+                }
+            }
+            
+            updateHistoryGrid();
+        }
+
+        // 處理選項變化
+        function handleOptionChange(index) {
+            // 這個函數由於selectOption已經處理了邏輯，可以保持空白
+        }
+
+        // 提交答案
+        function submitAnswer() {
+            const question = questions[currentQuestion];
+            const userAnswer = userAnswers[currentQuestion];
+            
+            if (!userAnswer || userAnswer.length === 0) {
+                showToast('請選擇答案！', 'error');
+                return;
+            }
+
+            // 檢查答案正確性
+            const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+            
+            // 顯示結果
+            highlightOptions(isCorrect);
+            
+            // 播放音效（模擬）
+            if (isCorrect) {
+                showToast('答對了！', 'success');
+            } else {
+                showToast('答錯了，請查看解答', 'error');
+            }
+            
+            // 顯示解答按鈕
+            document.getElementById('explanationBtn').style.display = 'inline-block';
+            
+            updateStats();
+            updateHistoryGrid();
+        }
+
+        // 比較陣列相等
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        // 標示選項正確性
+        function highlightOptions(isCorrect) {
+            const question = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, index) => {
+                const input = option.querySelector('input');
+                option.classList.remove('correct', 'incorrect', 'user-selected');
+                
+                if (question.correct.includes(index)) {
+                    option.classList.add('correct');
+                } else if (input.checked) {
+                    option.classList.add('incorrect');
+                }
+                
+                if (input.checked) {
+                    option.classList.add('user-selected');
+                }
+            });
+        }
+
+        // 顯示解答
+        function showExplanation() {
+            const explanation = document.getElementById('explanation');
+            explanation.classList.add('show');
+            showingExplanation = true;
+        }
+
+        // 上一題
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // 下一題
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        // 跳到指定題目
+        function goToQuestion(questionIndex) {
+            currentQuestion = questionIndex;
+            loadQuestion();
+            toggleHistory(); // 關閉歷史面板
+        }
+
+        // 切換歷史記錄面板
+        function toggleHistory() {
+            const historyPanel = document.getElementById('historyPanel');
+            historyPanel.classList.toggle('show');
+        }
+
+        // 生成歷史記錄網格
+        function generateHistoryGrid() {
+            const historyGrid = document.getElementById('historyGrid');
+            let gridHTML = '';
+            
+            for (let i = 0; i < questions.length; i++) {
+                let status = 'unanswered';
+                if (userAnswers[i]) {
+                    const isCorrect = arraysEqual(userAnswers[i].sort(), questions[i].correct.sort());
+                    status = isCorrect ? 'correct' : 'incorrect';
+                }
+                
+                gridHTML += `
+                    <div class="history-item ${status}" onclick="goToQuestion(${i})">
+                        ${i + 1}
+                    </div>
+                `;
+            }
+            
+            historyGrid.innerHTML = gridHTML;
+        }
+
+        // 更新歷史記錄網格
+        function updateHistoryGrid() {
+            generateHistoryGrid();
+        }
+
+        // 更新統計資料
+        function updateStats() {
+            let correctCount = 0;
+            let incorrectCount = 0;
+            
+            Object.keys(userAnswers).forEach(questionIndex => {
+                const question = questions[parseInt(questionIndex)];
+                const userAnswer = userAnswers[questionIndex];
+                
+                if (userAnswer && userAnswer.length > 0) {
+                    const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+                    if (isCorrect) {
+                        correctCount++;
+                    } else {
+                        incorrectCount++;
+                    }
+                }
+            });
+            
+            const totalAnswered = correctCount + incorrectCount;
+            const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('accuracy').textContent = `${accuracy}%`;
+        }
+
+        // 顯示提示訊息
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 重新開始測驗
+        function restartQuiz() {
+            if (confirm('確定要重新開始測驗嗎？所有答案將被清除。')) {
+                userAnswers = {};
+                currentQuestion = 0;
+                showingExplanation = false;
+                initQuiz();
+                showToast('測驗已重新開始', 'success');
+            }
+        }
+
+        // 頁面載入完成後初始化
+        window.addEventListener('load', initQuiz);
+    </script>
+</body>
+</html>

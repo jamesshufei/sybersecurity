@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資通安全概論第4單元自我評量測驗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .question-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-1px);
+        }
+
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .option.user-selected {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .explanation h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation p {
+            color: #533d03;
+            line-height: 1.6;
+        }
+
+        .history-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .history-panel.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .history-item.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .history-item.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .history-item.unanswered {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 2px solid #d6d8db;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #f44336, #ff7043);
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 30px;
+            background: #4763fa;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 22px;
+            cursor: pointer;
+            margin: 0 6px 8px 0;
+            box-shadow: 0 2px 8px rgba(70,90,160,0.09);
+            transition: background 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+        .action-btn:hover,
+        .action-btn:focus {
+            background: #253095;
+            color: #fff;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>資通安全概論 第4單元自我評量測驗</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats">
+                <span>題目 <span id="currentNum">1</span> / <span id="totalNum">88</span></span>
+                <span>答對：<span id="correctCount">0</span></span>
+                <span>答錯：<span id="incorrectCount">0</span></span>
+                <span>準確率：<span id="accuracy">0%</span></span>
+            </div>
+        </div>
+
+        <div class="quiz-card" id="quizCard">
+            <!-- 題目將由 JS 動態插入 -->
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <h3>答題記錄</h3>
+            <div class="history-grid" id="historyGrid">
+                <!-- 歷史記錄將由 JS 動態插入 -->
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="toggleHistory()">查看記錄</button>
+            <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">上一題</button>
+            <button class="btn btn-secondary" onclick="nextQuestion()" id="nextBtn">下一題</button>
+            <button class="btn btn-success" onclick="restartQuiz()">重新開始</button>
+            <button class="action-btn" id="backHome" onclick="window.location.href='index.html'">回主頁</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // 所有題目數據 (第4單元)
+        const questions = [
+            {
+                id: 1,
+                question: "根據《資通安全責任等級分級辦法》，公務機關 A 級應在初次受核定或等級變更後多久內，完成附表十之控制措施？",
+                type: "single",
+                options: ["6個月內", "1年內", "2年內", "3年內"],
+                correct: [1],
+                explanation: "A級公務機關應於初次受核定或等級變更後之 1 年內，完成附表十之控制措施。",
+                page: "資通安全概論 1-77 (約)"
+            },
+            {
+                id: 2,
+                question: "公務機關資通系統之性質若為共用性系統，則由下列何者判斷該系統是否屬於核心資通系統？",
+                type: "single",
+                options: ["該資通系統之主責設置、維護或開發機關", "該機關之資安長", "行政院", "數位發展部"],
+                correct: [0],
+                explanation: "資通系統之性質為共用性系統者，由該資通系統之主責設置、維護或開發機關判斷是否屬於核心資通系統。",
+                page: "資通安全概論 1-77 (約)"
+            },
+            {
+                id: 3,
+                question: "根據附表九之資通系統防護需求分級原則，若資通系統受資安事件影響，可能造成未經授權之資訊揭露，對機關營運產生 非常嚴重或災難性影響 時，其防護需求等級應為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [2],
+                explanation: "發生資通安全事件致資通系統受影響時，可能造成未經授權之資訊揭露，對機關之營運、資產或信譽等方面將產生非常嚴重或災難性之影響，其機密性防護需求等級為 高 。",
+                page: "資通安全概論 1-78 (約)"
+            },
+            {
+                id: 4,
+                question: "公務機關 C 級應於初次受核定或等級變更後多久內，完成附表十之控制措施？",
+                type: "single",
+                options: ["6個月內", "1年內", "2年內", "3年內"],
+                correct: [2],
+                explanation: "C級公務機關應於初次受核定或等級變更後之 二年內 ，完成附表十之控制措施。",
+                page: "資通安全概論 1-77 (約)"
+            },
+            {
+                id: 5,
+                question: "對於資通安全責任等級為 D 級或 E 級的機關，對資通系統分級與防護基準有何要求？",
+                type: "single",
+                options: ["必須每年完成一次分級", "必須在六個月內完成附表十之控制措施", "無要求", "每年需接受稽核"],
+                correct: [2],
+                explanation: "D 級、E 級公務機關及特定非公務機關，對資通系統分級與防護基準無要求。",
+                page: "資通安全概論 1-77 (約)"
+            },
+            {
+                id: 6,
+                question: "公務機關 A 級應每年至少檢視資通系統分級妥適性幾次？",
+                type: "single",
+                options: ["一次", "兩次", "三次", "四次"],
+                correct: [0],
+                explanation: "A 級公務機關應每年至少檢視一次資通系統分級妥適性。",
+                page: "資通安全概論 1-77 (約)"
+            },
+            {
+                id: 7,
+                question: "關於公務機關 B 級的資通系統分級與防護基準，下列哪一項敘述正確？",
+                type: "single",
+                options: ["需在 2 年內完成附表九分級", "需在 1 年內完成附表十控制措施", "每年至少檢視一次分級妥適性", "對附表十無要求"],
+                correct: [2],
+                explanation: "B 級公務機關應於初次受核定或等級變更後之 1 年內，依附表九完成資通系統分級，並完成附表十之控制措施；其後應 每年至少檢視一次 分級妥適性。",
+                page: "資通安全概論 1-77 (約)"
+            },
+            {
+                id: 8,
+                question: "CNS 27002：2023 資訊安全控制措施中，控制措施的總項數為幾項？",
+                type: "single",
+                options: ["93項", "114項", "37項", "8項"],
+                correct: [0],
+                explanation: "CNS 27002：2023 總共包含 4 個主類別，共計  93 項 控制措施。",
+                page: "資通安全概論 1-80 (約)"
+            },
+            {
+                id: 9,
+                question: "CNS 27002：2023 的四個主類別控制措施中，數量最多的是？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [2],
+                explanation: " 組織控制措施 有  37 項 ，數量最多。",
+                page: "資通安全概論 1-80 (約)"
+            },
+            {
+                id: 10,
+                question: "CNS 27001：2023 資訊安全管理系統要求事項中，第 8 章節的名稱是？",
+                type: "single",
+                options: ["支援", "規劃", "運作", "改善"],
+                correct: [2],
+                explanation: "CNS 27001：2023 的第 8 章節名稱是 運作 。",
+                page: "資通安全概論 1-80 (約)"
+            },
+            {
+                id: 11,
+                question: "CNS 27002：2023 的四個主類別中，關於「資產之歸還」屬於哪一類控制措施？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [2],
+                explanation: "組織控制措施 (5.11) 包含資產之歸還。",
+                page: "資通安全概論 1-81 (約)"
+            },
+            {
+                id: 12,
+                question: "CNS 27002：2023 的四個主類別控制措施中，哪一類控制措施的數量最少？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [0],
+                explanation: " 人員控制措施 僅有  8 項 。",
+                page: "資通安全概論 1-80 (約)"
+            },
+            {
+                id: 13,
+                question: "CNS 27002：2023 控制措施中，「資訊傳送」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [2],
+                explanation: "組織控制措施 (5.14) 包含資訊傳送。",
+                page: "資通安全概論 1-81 (約)"
+            },
+            {
+                id: 14,
+                question: "在 CNS 27002：2023 中，有關「資訊安全認知及教育訓練」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [0],
+                explanation: "人員控制措施 (6.3) 包含資訊安全認知及教育訓練。",
+                page: "資通安全概論 1-82 (約)"
+            },
+            {
+                id: 15,
+                question: "CNS 27002：2023 控制措施中，「場所外資產之安全」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [1],
+                explanation: "實體控制措施 (7.9) 包含場所外資產之安全。",
+                page: "資通安全概論 1-82 (約)"
+            },
+            {
+                id: 16,
+                question: "CNS 27002：2023 控制措施中，關於「安全開發生命週期」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [3],
+                explanation: "技術控制措施 (8.25) 包含安全開發生命週期。",
+                page: "資通安全概論 1-83 (約)"
+            },
+            {
+                id: 17,
+                question: "CNS 27001：2023 資訊安全管理系統要求事項的章節結構中，下列哪一章節的名稱是「規劃」？",
+                type: "single",
+                options: ["第 4 章", "第 5 章", "第 6 章", "第 7 章"],
+                correct: [2],
+                explanation: "CNS 27001：2023 第 6 章節名稱為「規劃」。",
+                page: "資通安全概論 1-80 (約)"
+            },
+            {
+                id: 18,
+                question: "關於 CNS 27002：2023 資訊安全控制措施的主類別數量與項目數量，下列哪一組敘述是正確的？",
+                type: "single",
+                options: ["4個主類別，共 93 項", "3個主類別，共 114 項", "4個主類別，共 37 項", "5個主類別，共 93 項"],
+                correct: [0],
+                explanation: "CNS 27002：2023 總共包含 4 個主類別，共計 93 項控制措施。",
+                page: "資通安全概論 1-80 (約)"
+            },
+            {
+                id: 19,
+                question: "CNS 27002：2023 控制措施中，「資料遮蔽」和「資料洩露預防」屬於哪個主類別？",
+                type: "single",
+                options: ["組織控制措施", "實體控制措施", "技術控制措施", "人員控制措施"],
+                correct: [2],
+                explanation: "技術控制措施 (8.11, 8.12) 包含資料遮蔽和資料洩露預防。",
+                page: "資通安全概論 1-83 (約)"
+            },
+            {
+                id: 20,
+                question: "CNS 27002：2023 控制措施中，「資訊備份」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [3],
+                explanation: "技術控制措施 (8.13) 包含資訊備份。",
+                page: "資通安全概論 1-83 (約)"
+            },
+            {
+                id: 21,
+                question: "CNS 27002：2023 控制措施中，「存錄」（Logging）屬於哪個主類別？",
+                type: "single",
+                options: ["組織控制措施", "實體控制措施", "技術控制措施", "人員控制措施"],
+                correct: [2],
+                explanation: "技術控制措施 (8.15) 包含存錄。",
+                page: "資通安全概論 1-83 (約)"
+            },
+            {
+                id: 22,
+                question: "CNS 27002：2023 控制措施中，「設備汰除或重新使用之保全」屬於哪個主類別？",
+                type: "single",
+                options: ["組織控制措施", "實體控制措施", "技術控制措施", "人員控制措施"],
+                correct: [1],
+                explanation: "實體控制措施 (7.14) 包含設備汰除或重新使用之保全。",
+                page: "資通安全概論 1-82 (約)"
+            },
+            {
+                id: 23,
+                question: "CNS 27002：2023 控制措施中，「遠端工作」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [0],
+                explanation: "人員控制措施 (6.7) 包含遠端工作。",
+                page: "資通安全概論 1-82 (約)"
+            },
+            {
+                id: 24,
+                question: "CNS 27002：2023 控制措施中，「資訊安全事故管理規劃及準備」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [2],
+                explanation: "組織控制措施 (5.24) 包含資訊安全事故管理規劃及準備。",
+                page: "資通安全概論 1-81 (約)"
+            },
+            {
+                id: 25,
+                question: "CNS 27002：2023 控制措施中，「組態管理」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [3],
+                explanation: "技術控制措施 (8.9) 包含組態管理。",
+                page: "資通安全概論 1-83 (約)"
+            },
+            {
+                id: 26,
+                question: "CNS 27002：2023 控制措施中，關於「鑑別資訊」屬於哪個主類別？",
+                type: "single",
+                options: ["人員控制措施", "實體控制措施", "組織控制措施", "技術控制措施"],
+                correct: [2],
+                explanation: "組織控制措施 (5.17) 包含鑑別資訊。",
+                page: "資通安全概論 1-81 (約)"
+            },
+            {
+                id: 27,
+                question: "根據《資通安全責任等級分級辦法》，公務機關 A 級應配置幾名資通安全專職人員？",
+                type: "single",
+                options: ["1人", "2人", "3人", "4人"],
+                correct: [3],
+                explanation: "公務機關 A 級應配置  4 人 專職人員。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 28,
+                question: "公務機關 A 級應配置的 4 名資通安全專職人員，其配置時程要求是？",
+                type: "single",
+                options: ["6個月內", "1年內", "2年內", "3年內"],
+                correct: [1],
+                explanation: "初次受核定或等級變更後之  1 年內 須完成配置。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 29,
+                question: "關於公務機關 C 級的資通安全專責人員配置，下列敘述何者正確？",
+                type: "single",
+                options: ["需配置 2 人", "需配置 1 人，且須以專職人員配置", "無要求", "需配置 1 人，但可為兼職"],
+                correct: [1],
+                explanation: "公務機關 C 級應配置 1 人，且須以 專職人員 配置之。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 30,
+                question: "根據《資通安全責任等級分級辦法》，下列哪一等級的公務機關對資通安全專責人員的配置無要求？",
+                type: "single",
+                options: ["A級", "B級", "C級", "D級"],
+                correct: [3],
+                explanation: "D 級、E 級公務機關及特定非公務機關對專責人員配置無要求。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 31,
+                question: "關於特定非公務機關 B 級的資通安全專責人員配置，下列敘述何者正確？",
+                type: "single",
+                options: ["需配置 4 人", "需配置  2 人 ", "需配置 1 人", "無要求"],
+                correct: [1],
+                explanation: "特定非公務機關 B 級應配置 2 人。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 32,
+                question: "關於資通安全專責人員的配置性質，下列敘述何者正確？",
+                type: "single",
+                options: ["公務機關 B 級必須以專職人員配置", "特定非公務機關 A 級必須以專職人員配置", "公務機關 D 級無要求，但建議專職", "公務機關 C 級可為兼職人員"],
+                correct: [0],
+                explanation: "公務機關 A、B、C 級的專責人員須以 專職人員 配置之。特定非公務機關無要求專職。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 33,
+                question: "關於資通安全專責人員的配置，下列哪個等級的公務機關與特定非公務機關要求的配置人數相同？",
+                type: "single",
+                options: ["僅 A 級相同", "僅 B 級相同", "A、B、C 級皆相同", "A、B 級相同，C 級不同"],
+                correct: [2],
+                explanation: "A 級 (4人)、B 級 (2人)、C 級 (1人) 的公務機關與特定非公務機關要求人數皆相同。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 34,
+                question: "關於資通安全專責人員的配置時程要求，下列敘述何者正確？",
+                type: "single",
+                options: ["A 級和 B 級皆要求 2 年內完成", "A 級、B 級和 C 級皆要求  1 年內 完成", "C 級要求 2 年內完成", "僅 A 級有配置時程要求"],
+                correct: [1],
+                explanation: "A、B、C 級公務機關及特定非公務機關皆要求在初次受核定或等級變更後之  1 年內 完成配置。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 35,
+                question: "特定非公務機關 C 級應配置幾名資通安全專責人員？",
+                type: "single",
+                options: ["4人", "2人", "1人", "無要求"],
+                correct: [2],
+                explanation: "特定非公務機關 C 級應配置 1 人。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 36,
+                question: "關於資通安全專責人員配置，公務機關 B 級需在多久內完成配置？",
+                type: "single",
+                options: ["6個月", "1年", "2年", "無時間要求"],
+                correct: [1],
+                explanation: "B 級公務機關需在初次受核定或等級變更後之  1 年內 完成配置。",
+                page: "資通安全概論 1-84 (約)"
+            },
+            {
+                id: 37,
+                question: "根據《資通安全責任等級分級辦法》，公務機關 A 級應辦理內部稽核的次數是？",
+                type: "single",
+                options: ["每年 1 次", "每年 2 次", "每 2 年 1 次", "無要求"],
+                correct: [1],
+                explanation: "公務機關 A 級應 每年辦理 2 次 內部稽核。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 38,
+                question: "關於內部資通安全稽核，公務機關 B 級應辦理的頻率是？",
+                type: "single",
+                options: ["每年 2 次", "每年 1 次", "每 2 年 1 次", "無要求"],
+                correct: [1],
+                explanation: "公務機關 B 級應 每年辦理 1 次 內部稽核。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 39,
+                question: "關於內部資通安全稽核，公務機關 C 級應辦理的頻率是？",
+                type: "single",
+                options: ["每年 1 次", "每 2 年 1 次", "每 2 年 2 次", "無要求"],
+                correct: [1],
+                explanation: "公務機關 C 級應 每 2 年辦理 1 次 內部稽核。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 40,
+                question: "稽核類別中，「上級機關稽核下級機關，或機關稽核委外廠商」屬於哪一類稽核？",
+                type: "single",
+                options: ["第一方稽核", "第二方稽核", "第三方稽核", "內部稽核"],
+                correct: [1],
+                explanation: "第二方稽核是上級機關稽核下級機關，或機關稽核委外廠商。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 41,
+                question: "稽核類別中，「導入及通過公正第三方 ISMS 驗證」屬於哪一類稽核？",
+                type: "single",
+                options: ["第一方稽核", "第二方稽核", "第三方稽核", "外部稽核"],
+                correct: [2],
+                explanation: "第三方稽核是導入及通過公正第三方 ISMS 驗證。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 42,
+                question: "根據《資通安全責任等級分級辦法》，下列哪個等級的機關對於辦理內部稽核 無要求 ？",
+                type: "single",
+                options: ["A 級", "B 級", "C 級", "D 級"],
+                correct: [3],
+                explanation: "D 級、E 級公務機關及特定非公務機關對內部稽核無要求。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 43,
+                question: "稽核類別中，「內部資通安全稽核」屬於哪一類稽核？",
+                type: "single",
+                options: ["第一方稽核", "第二方稽核", "第三方稽核", "外部稽核"],
+                correct: [0],
+                explanation: "第一方稽核是內部資通安全稽核。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 44,
+                question: "根據《特定非公務機關資通安全維護計畫實施情形稽核辦法》第 3 條規定，主管機關稽核特定非公務機關資安實施情形，應以何種方式進行？",
+                type: "single",
+                options: ["遠端視訊稽核", "書面審查", "現場實地稽核", "稽核小組自行判斷"],
+                correct: [2],
+                explanation: "主管機關除因不可抗力因素外，應以 現場實地稽核之方式 ，稽核其實施情形。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 45,
+                question: "關於特定非公務機關的稽核時程，受稽機關最遲應在稽核報告交付後多久內提出改善報告？",
+                type: "single",
+                options: ["1週內", "1個月內", "3個月內", "6個月內"],
+                correct: [1],
+                explanation: "受稽機關應在稽核報告交付後  1 個月內 提出改善報告。",
+                page: "資通安全概論 1-87 (約)"
+            },
+            {
+                id: 46,
+                question: "根據 CNS 27001：2023 內部稽核計畫，稽核範圍應涵蓋下列哪一項？",
+                type: "single",
+                options: ["驗證範圍", "全機關", "核心資通系統", "技術控制措施"],
+                correct: [1],
+                explanation: "內部稽核（第一方稽核）的稽核範圍為 全機關 。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 47,
+                question: "關於內部稽核的頻率，公務機關 A 級與 B 級在兩年內合計應辦理幾次內部稽核？",
+                type: "single",
+                options: ["2次", "3次", "4次", "6次"],
+                correct: [3],
+                explanation: "A 級每年 2 次 (2年共 4 次)，B 級每年 1 次 (2年共 2 次)。合計 4 + 2 =  6 次 。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 48,
+                question: "根據《特定非公務機關資通安全維護計畫實施情形稽核辦法》，主管機關應於稽核日多久前以書面通知受稽機關？",
+                type: "single",
+                options: ["1週前", "1個月前", "2個月前", "3個月前"],
+                correct: [1],
+                explanation: "主管機關應於稽核日  1 個月前 以書面通知受稽機關。",
+                page: "資通安全概論 1-87 (約)"
+            },
+            {
+                id: 49,
+                question: "關於內部稽核的稽核項目，CNS 27001：2023 指出應包含下列哪一項？",
+                type: "single",
+                options: ["資通安全控制措施", "僅稽核範圍", "核心資通系統 RPO", "外部委外合約"],
+                correct: [0],
+                explanation: "內部稽核的稽核項目應包含資通安全控制措施。",
+                page: "資通安全概論 1-85 (約)"
+            },
+            {
+                id: 50,
+                question: "關於業務持續運作演練，公務機關 A 級應辦理的頻率是？",
+                type: "single",
+                options: ["每 2 年 1 次", " 每年 1 次 ", "每半年 1 次", "無要求"],
+                correct: [1],
+                explanation: "A 級公務機關應對全部核心資通系統 每年辦理 1 次 。",
+                page: "資通安全概論 1-86 (約)"
+            },
+            {
+                id: 51,
+                question: "關於業務持續運作演練，公務機關 B 級應辦理的頻率是？",
+                type: "single",
+                options: ["每年 1 次", " 每 2 年 1 次 ", "每 3 年 1 次", "無要求"],
+                correct: [1],
+                explanation: "B 級公務機關應對全部核心資通系統 每 2 年辦理 1 次 。",
+                page: "資通安全概論 1-86 (約)"
+            },
+            {
+                id: 52,
+                question: "關於業務持續運作演練，公務機關 C 級對此項的要求是？",
+                type: "single",
+                options: ["每年 1 次", "每 2 年 1 次", "每 3 年 1 次", " 無要求"],
+                correct: [3],
+                explanation: "C 級、D 級、E 級公務機關對業務持續運作演練無要求。",
+                page: "資通安全概論 1-86 (約)"
+            },
+            {
+                id: 53,
+                question: "業務持續運作規劃中，系統備份所訂定的「可容忍資料損失之時間要求」稱之為？",
+                type: "single",
+                options: ["RTO (Recovery Time Objective)", " RPO (Recovery Point Objective) ", "MTPD (Maximum Tolerable Period of Disruption)", "BIA (Business Impact Analysis)"],
+                correct: [1],
+                explanation: "RPO (復原點目標) 是指系統可容忍資料損失之時間要求。",
+                page: "資通安全概論 1-86 (約)"
+            },
+            {
+                id: 54,
+                question: "關於業務持續運作演練的對象，下列敘述何者正確？",
+                type: "single",
+                options: ["A 級機關僅需針對 核心系統 辦理", "B 級機關需針對所有資通系統辦理", "C 級機關需每年辦理一次", "D 級機關需每兩年辦理一次"],
+                correct: [0],
+                explanation: "A 級機關僅需針對 全部核心資通系統 辦理演練。",
+                page: "資通安全概論 1-86 (約)"
+            },
+            {
+                id: 55,
+                question: "業務持續運作演練的主要目的是確保在災害發生時，機關能夠符合哪個安全目標？",
+                type: "single",
+                options: ["機密性", "完整性", " 可用性 ", "法律遵循性"],
+                correct: [2],
+                explanation: "業務持續運作演練旨在維持系統的可用性。",
+                page: "資通安全概論 1-86 (約)"
+            },
+            {
+                id: 56,
+                question: "業務持續運作規劃中，復原點目標（RPO）的訂定與下列哪一項因素最相關？",
+                type: "single",
+                options: ["系統可容忍離線的最長時間", " 系統備份的頻率 ", "系統復原所需的時間", "系統的網路傳輸速度"],
+                correct: [1],
+                explanation: "RPO 是指可容忍資料損失的時間，直接決定了系統備份的頻率。",
+                page: "資通安全概論 1-86 (約)"
+            },
+            {
+                id: 57,
+                question: "關於業務持續運作演練的規定，下列哪一等級的機關要求每 2 年辦理 1 次？",
+                type: "single",
+                options: ["A 級", " B 級 ", "C 級", "D 級"],
+                correct: [1],
+                explanation: "B 級公務機關應對全部核心資通系統每 2 年辦理 1 次。",
+                page: "資通安全概論 1-86 (約)"
+            },
+            {
+                id: 58,
+                question: "資安治理成熟度評估是依據哪個國際標準來定義成熟度等級？",
+                type: "single",
+                options: ["ISO/IEC 27001", " ISO/IEC 33004 ", "ISO/IEC 27005", "ISO/IEC 27002"],
+                correct: [1],
+                explanation: "依 ISO/IEC 33004：2015 定義成熟度等級。",
+                page: "資通安全概論 1-90 (約)"
+            },
+            {
+                id: 59,
+                question: "資安治理成熟度等級中，Level 0 的定義是？",
+                type: "single",
+                options: ["相關流程構面已進行管理", " 尚未有效執行相關之基本流程 ", "有效定義與部署標準化流程", "達成預先設定的執行結果"],
+                correct: [1],
+                explanation: "Level 0 (未成熟型) 係指組織尚未有效執行相關之基本流程。",
+                page: "資通安全概論 1-90 (約)"
+            },
+            {
+                id: 60,
+                question: "資安治理成熟度等級中，Level 2 的定義是？",
+                type: "single",
+                options: ["未成熟型", "基礎型", " 管理型 ", "制度化型"],
+                correct: [2],
+                explanation: "Level 2 是管理型 (Managed)。",
+                page: "資通安全概論 1-90 (約)"
+            },
+            {
+                id: 61,
+                question: "Level 3 (制度化型) 的組織，其特徵是？",
+                type: "single",
+                options: ["相關流程構面已進行管理", " 有效定義與部署標準化流程，使其成為常規作業 ", "僅達成預先設定的執行結果", "相關流程構面皆達能力度等級 4"],
+                correct: [1],
+                explanation: "Level 3 (制度化型) 有效定義與部署標準化流程，使其成為常規作業。",
+                page: "資通安全概論 1-90 (約)"
+            },
+            {
+                id: 62,
+                question: "在資安治理成熟度流程構面中，屬於「策略 (S)」層面的是？",
+                type: "single",
+                options: ["資產管理與風險評鑑", "資訊委外安全管理", " 資安政策與組織健全 ", "存取控制管理"],
+                correct: [2],
+                explanation: "策略面向的流程構面包括 S1 (資安政策與組織健全)。",
+                page: "資通安全概論 1-89 (約)"
+            },
+            {
+                id: 63,
+                question: "在資安治理成熟度流程構面中，M2 (資訊委外安全管理) 對應於哪個成熟度等級？",
+                type: "single",
+                options: ["Level 1", " Level 2 ", "Level 3", "Level 4"],
+                correct: [1],
+                explanation: "M2 資訊委外安全管理對應於成熟度等級  Level 2 。",
+                page: "資通安全概論 1-91 (約)"
+            },
+            {
+                id: 64,
+                question: "S4 (資安管理監督) 對應於哪個成熟度等級？",
+                type: "single",
+                options: ["Level 1", "Level 2", "Level 3", " Level 4"],
+                correct: [3],
+                explanation: "S4 資安管理監督對應於成熟度等級  Level 4 。",
+                page: "資通安全概論 1-91 (約)"
+            },
+            {
+                id: 65,
+                question: "根據成熟度等級定義，若 Level 1 至 Level 3 的流程構面皆達能力度等級 3 以上，則組織的成熟度等級將達到？",
+                type: "single",
+                options: ["Level 2", " Level 3 ", "Level 4", "Level 5"],
+                correct: [1],
+                explanation: "Level 3 (制度化型) 的要求是 Level 1 至 Level 3 的流程構面皆達能力度等級 3。",
+                page: "資通安全概論 1-90 (約)"
+            },
+            {
+                id: 66,
+                question: "關於資安治理的權責範圍，下列哪一項不屬於主要角色？",
+                type: "single",
+                options: ["資安長", "資安管理推動小組", "使用者", " 外部顧問"],
+                correct: [3],
+                explanation: "資安治理的權責範圍包含資安長、資安管理推動小組、及使用者。",
+                page: "資通安全概論 1-88 (約)"
+            },
+            {
+                id: 67,
+                question: "資安治理架構的頂層（策略面）流程構面 S1 至 S4 中，哪個流程構面特別負責「內部資通安全稽核」？",
+                type: "single",
+                options: ["S1 資安政策與組織健全", "S2 資安治理架構", "S3 資安資源管理", " S4 資安管理監督"],
+                correct: [3],
+                explanation: "S4 (資安管理監督) 的目標範圍包含內部資通安全稽核。",
+                page: "資通安全概論 1-89 (約)"
+            },
+            {
+                id: 68,
+                question: "Level 1 (基礎型) 成熟度的要求是？",
+                type: "single",
+                options: ["Level 1 至 Level 5 流程構面皆達能力度等級 4", " 相關流程構面執行結果已達成預先設定，且可支持組織之業務 ", "流程構面皆達能力度等級 2", "尚未有效執行相關之基本流程"],
+                correct: [1],
+                explanation: "Level 1 (基礎型) 是指相關流程構面執行結果已達成預先設定，且可支持組織之業務。",
+                page: "資通安全概論 1-90 (約)"
+            },
+            {
+                id: 69,
+                question: "在資安治理成熟度等級中，哪個等級要求 Level 1 至 Level 4 的流程構面皆達能力度等級 4？",
+                type: "single",
+                options: ["Level 3", " Level 4 ", "Level 5", "Level 6"],
+                correct: [1],
+                explanation: "Level 4 (可預測型/定量型) 要求 Level 1 至 Level 4 流程構面皆達能力度等級 4。",
+                page: "資通安全概論 1-90 (約)"
+            },
+            {
+                id: 70,
+                question: "根據資安治理成熟度評估推動方式，主管機關會決定流程構面最低能力等級，並制定公務機關的哪一項目標，以供改善？",
+                type: "single",
+                options: ["RPO", " TIR (Targeted Improvement Roadmap) ", "CMDB", "RTO"],
+                correct: [1],
+                explanation: "數位發展部資安署會制定公務機關之防護能力目標對象改善藍圖 (TIR)。",
+                page: "資通安全概論 1-92 (約)"
+            },
+            {
+                id: 71,
+                question: "根據《資通安全責任等級分級辦法》，公務機關 A 級的資通安全專職人員，每人每年至少須接受多少小時以上的專業課程訓練？",
+                type: "single",
+                options: ["3小時", "6小時", " 12小時 ", "18小時"],
+                correct: [2],
+                explanation: "資通安全專職人員每人每年至少接受  12 小時 以上之資通安全專業課程訓練或資通安全職能訓練。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 72,
+                question: "關於公務機關 B 級的資通安全專職人員，其訓練時數要求與 A 級是否相同？",
+                type: "single",
+                options: [" 相同 ", "B 級要求 6 小時", "B 級無要求", "僅 C 級相同"],
+                correct: [0],
+                explanation: "A 級、B 級、C 級的專職人員訓練時數要求均為每人每年至少 12 小時。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 73,
+                question: "公務機關 D 級及 E 級機關的資通安全專職人員，對於專業課程訓練是否有要求？",
+                type: "single",
+                options: ["每年 12 小時", "每年 6 小時", "每 2 年 3 小時", " 無要求"],
+                correct: [3],
+                explanation: "D 級及 E 級機關的專職人員對此項訓練無要求。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 74,
+                question: "關於公務機關 A 級的 一般使用者及主管 ，每人每年至少須接受多少小時以上的資通安全通識教育訓練？",
+                type: "single",
+                options: ["1小時", "2小時", " 3小時 ", "6小時"],
+                correct: [2],
+                explanation: "一般使用者及主管每人每年接受  3 小時 以上之資通安全通識教育訓練。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 75,
+                question: "關於公務機關 A 級的「資通安全專職人員以外之資訊人員」，其訓練要求包含下列哪兩項？",
+                type: "single",
+                options: [" 每 2 年 3 小時專業訓練，且每年 3 小時通識訓練 ", "每年 12 小時專業訓練，且每年 3 小時通識訓練", "每年 3 小時專業訓練，且每 2 年 3 小時通識訓練", "每 2 年 6 小時通識訓練"],
+                correct: [0],
+                explanation: "每 2 年至少接受 3 小時以上之資通安全專業課程訓練或資通安全職能訓練，且每年接受 3 小時以上之資通安全通識教育訓練。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 76,
+                question: "公務機關 A 級應在初次受核定或等級變更後的 1 年內，至少有幾名資通安全專職人員需持有相關證照及證書？",
+                type: "single",
+                options: ["1名", "2名", "3名", " 4名"],
+                correct: [3],
+                explanation: "A 級機關至少  4 名 資通安全專職人員需持有相關證照及證書各 1 張以上。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 77,
+                question: "關於公務機關 C 級的資通安全專業證照與職能訓練證書要求，下列敘述何者正確？",
+                type: "single",
+                options: ["至少 4 名專職人員需持有證書", "至少 2 名專職人員需持有證書", " 至少 1 名 專職人員需持有證書", "無要求"],
+                correct: [2],
+                explanation: "C 級機關至少  1 名 資通安全專職人員需持有相關證照及證書各 1 張以上。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 78,
+                question: "關於資通安全專業證照與職能訓練證書的要求，下列哪一等級的機關 無要求 ？",
+                type: "single",
+                options: ["A 級", "B 級", "C 級", " D 級"],
+                correct: [3],
+                explanation: "D 級及 E 級機關無要求。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 79,
+                question: "職能訓練證書是指參與由誰認可之資安訓練機構所開設的職能課程，並經評量合格取得的證書？",
+                type: "single",
+                options: ["行政院", " 數位發展部 (主管機關) ", "中央目的事業主管機關", "國家安全會議"],
+                correct: [1],
+                explanation: "職能訓練證書指參與由 主管機關認可 之資安訓練機構所開設的職能課程。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 80,
+                question: "關於資通安全專職人員以外的資訊人員訓練時數，下列哪一等級的機關對此 無要求 ？",
+                type: "single",
+                options: ["A 級", "B 級", "C 級", " D 級"],
+                correct: [3],
+                explanation: "D 級及 E 級機關對此項訓練無要求。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 81,
+                question: "關於公務機關 B 級的資安管理面應辦事項中，何者要求每 2 年辦理 1 次？",
+                type: "single",
+                options: ["內部稽核", "資通安全專業課程訓練", " 業務持續運作演練 ", "資通安全通識教育訓練"],
+                correct: [2],
+                explanation: "B 級機關的內部稽核是每年 1 次，但業務持續運作演練為每 2 年 1 次。",
+                page: "資通安全概論 1-85, 1-86 (約)"
+            },
+            {
+                id: 82,
+                question: "公務機關 B 級的「資通安全專職人員以外之資訊人員」每年需接受多少小時通識訓練？",
+                type: "single",
+                options: ["12 小時", "6 小時", " 3 小時 ", "無要求"],
+                correct: [2],
+                explanation: "專職人員以外之資訊人員每年需接受  3 小時以上 之資通安全通識教育訓練。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 83,
+                question: "關於資通安全專業證照與職能訓練證書的要求，下列哪些敘述正確？(複選)",
+                type: "multiple",
+                options: ["A 級機關專職人員需在 1 年內完成證照及證書要求。", "B 級機關要求至少 2 名專職人員持有。", "C 級機關要求至少 1 名專職人員持有。", "證照指由主管機關認可之國內外發證機關(構)所核發。"],
+                correct: [0, 1, 2, 3],
+                explanation: "皆為證照與證書的相關規定。",
+                page: "資通安全概論 1-93 (約)"
+            },
+            {
+                id: 84,
+                question: "關於公務機關 B 級的資安管理面應辦事項，下列哪些敘述正確？(複選)",
+                type: "multiple",
+                options: ["資通安全專職人員配置要求 2 名。", "內部稽核頻率為每年 1 次。", "業務持續運作演練頻率為每 2 年 1 次。", "資通安全專業證照與職能訓練證書要求為至少 2 名。"],
+                correct: [0, 1, 2, 3],
+                explanation: "皆符合 B 級機關的應辦事項。",
+                page: "資通安全概論 1-84, 1-85, 1-86, 1-93 (約)"
+            },
+            {
+                id: 85,
+                question: "根據資安治理成熟度評估中，屬於 Level 2 的流程構面有哪些？(複選)",
+                type: "multiple",
+                options: ["T1 存取控制管理。", "M1 資產管理與風險評鑑。", "M2 資訊委外安全管理。", "S3 資安資源管理。"],
+                correct: [0, 1, 2],
+                explanation: "T1、M1、M2 屬於 Level 2。S3 屬於 Level 3。",
+                page: "資通安全概論 1-91 (約)"
+            },
+            {
+                id: 86,
+                question: "根據資安治理成熟度評估中，屬於「技術面 (T)」的流程構面有哪些？(複選)",
+                type: "multiple",
+                options: ["T1 存取控制管理。", "T2 通訊與作業安全管理。", "T3 資安事件通報與處理。", "T4 資通系統開發與維護安全管理。"],
+                correct: [0, 1, 2, 3],
+                explanation: "T1、T2、T3、T4 皆屬於技術面。",
+                page: "資通安全概論 1-89, 1-91 (約)"
+            },
+            {
+                id: 87,
+                question: "關於 CNS 27002：2023 資訊安全控制措施，下列哪些屬於「實體控制措施」？(複選)",
+                type: "multiple",
+                options: ["實體安全周界。", "設備維護。", "支援之公用服務事業。", "資訊安全事故管理規劃及準備。"],
+                correct: [0, 1, 2],
+                explanation: "實體控制措施包含實體安全周界 (7.1)、設備維護 (7.13)、支援之公用服務事業 (7.11)。資訊安全事故管理規劃及準備 (5.24) 屬於組織控制措施。",
+                page: "資通安全概論 1-82 (約)"
+            },
+            {
+                id: 88,
+                question: "關於資通系統分級與防護基準的要求，下列哪些敘述正確？(複選)",
+                type: "multiple",
+                options: ["B 級機關須在 1 年內完成附表十控制措施。", "C 級機關須在 2 年內完成附表十控制措施。", "D 級機關無須完成附表九分級。", "A 級機關每年至少檢視一次分級妥適性。"],
+                correct: [0, 1, 2, 3],
+                explanation: "B 級 1 年內完成附表十；C 級 2 年內完成附表十；D 級無要求；A 級每年至少檢視一次分級妥適性。",
+                page: "資通安全概論 1-77 (約)"
+            }
+        ];
+
+        // 全域變數
+        let currentQuestion = 0;
+        let userAnswers = {}; // 儲存使用者答案
+        let showingExplanation = false;
+
+        // 初始化測驗
+        function initQuiz() {
+            document.getElementById('totalNum').textContent = questions.length;
+            loadQuestion();
+            updateStats();
+            generateHistoryGrid();
+        }
+
+        // 載入題目
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            const quizCard = document.getElementById('quizCard');
+            
+            // 判斷題目類型
+            const typeLabel = question.type === 'single' ? '單選題' : '複選題';
+            const inputType = question.type === 'single' ? 'radio' : 'checkbox';
+            
+            // 生成選項HTML
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestion] && userAnswers[currentQuestion].includes(index);
+                optionsHTML += `
+                    <div class="option" onclick="selectOption(${index})">
+                        <input type="${inputType}" name="q${currentQuestion}" value="${index}" ${isSelected ? 'checked' : ''} onchange="handleOptionChange(${index})">
+                        <label>(${String.fromCharCode(65 + index)}) ${option}</label>
+                    </div>
+                `;
+            });
+
+            quizCard.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">第 ${currentQuestion + 1} 題</span>
+                    <span class="question-type">${typeLabel}</span>
+                </div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">${optionsHTML}</div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="submitAnswer()">提交答案</button>
+                    <button class="btn btn-secondary" onclick="showExplanation()" id="explanationBtn" style="display: none;">查看解答</button>
+                </div>
+                <div class="explanation" id="explanation">
+                    <h4>📝 解答說明</h4>
+                    <p><strong>正確答案：</strong>${question.correct.map(i => String.fromCharCode(65 + i)).join(', ')}</p>
+                    <p>${question.explanation}</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;"><strong>📖 出處頁碼：</strong>${question.page}</p>
+                </div>
+            `;
+
+            // 更新進度
+            document.getElementById('currentNum').textContent = currentQuestion + 1;
+            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // 更新按鈕狀態
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = currentQuestion === questions.length - 1;
+            
+            showingExplanation = false;
+        }
+
+        // 選擇選項
+        function selectOption(index) {
+            const question = questions[currentQuestion];
+            const checkbox = document.querySelector(`input[value="${index}"]`);
+            
+            if (question.type === 'single') {
+                // 單選題：取消所有選項，只選中當前項
+                document.querySelectorAll(`input[name="q${currentQuestion}"]`).forEach(input => {
+                    input.checked = false;
+                });
+                checkbox.checked = true;
+                userAnswers[currentQuestion] = [index];
+            } else {
+                // 複選題：切換選中狀態
+                checkbox.checked = !checkbox.checked;
+                if (!userAnswers[currentQuestion]) {
+                    userAnswers[currentQuestion] = [];
+                }
+                
+                if (checkbox.checked) {
+                    if (!userAnswers[currentQuestion].includes(index)) {
+                        userAnswers[currentQuestion].push(index);
+                    }
+                } else {
+                    userAnswers[currentQuestion] = userAnswers[currentQuestion].filter(i => i !== index);
+                }
+            }
+            
+            updateHistoryGrid();
+        }
+
+        // 處理選項變化
+        function handleOptionChange(index) {
+            // 這個函數由於selectOption已經處理了邏輯，可以保持空白
+        }
+
+        // 提交答案
+        function submitAnswer() {
+            const question = questions[currentQuestion];
+            const userAnswer = userAnswers[currentQuestion];
+            
+            if (!userAnswer || userAnswer.length === 0) {
+                showToast('請選擇答案！', 'error');
+                return;
+            }
+
+            // 檢查答案正確性
+            const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+            
+            // 顯示結果
+            highlightOptions(isCorrect);
+            
+            // 播放音效（模擬）
+            if (isCorrect) {
+                showToast('答對了！', 'success');
+            } else {
+                showToast('答錯了，請查看解答', 'error');
+            }
+            
+            // 顯示解答按鈕
+            document.getElementById('explanationBtn').style.display = 'inline-block';
+            
+            updateStats();
+            updateHistoryGrid();
+        }
+
+        // 比較陣列相等
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        // 標示選項正確性
+        function highlightOptions(isCorrect) {
+            const question = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, index) => {
+                const input = option.querySelector('input');
+                option.classList.remove('correct', 'incorrect', 'user-selected');
+                
+                if (question.correct.includes(index)) {
+                    option.classList.add('correct');
+                } else if (input.checked) {
+                    option.classList.add('incorrect');
+                }
+                
+                if (input.checked) {
+                    option.classList.add('user-selected');
+                }
+            });
+        }
+
+        // 顯示解答
+        function showExplanation() {
+            const explanation = document.getElementById('explanation');
+            explanation.classList.add('show');
+            showingExplanation = true;
+        }
+
+        // 上一題
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // 下一題
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        // 跳到指定題目
+        function goToQuestion(questionIndex) {
+            currentQuestion = questionIndex;
+            loadQuestion();
+            toggleHistory(); // 關閉歷史面板
+        }
+
+        // 切換歷史記錄面板
+        function toggleHistory() {
+            const historyPanel = document.getElementById('historyPanel');
+            historyPanel.classList.toggle('show');
+        }
+
+        // 生成歷史記錄網格
+        function generateHistoryGrid() {
+            const historyGrid = document.getElementById('historyGrid');
+            let gridHTML = '';
+            
+            for (let i = 0; i < questions.length; i++) {
+                let status = 'unanswered';
+                if (userAnswers[i]) {
+                    const isCorrect = arraysEqual(userAnswers[i].sort(), questions[i].correct.sort());
+                    status = isCorrect ? 'correct' : 'incorrect';
+                }
+                
+                gridHTML += `
+                    <div class="history-item ${status}" onclick="goToQuestion(${i})">
+                        ${i + 1}
+                    </div>
+                `;
+            }
+            
+            historyGrid.innerHTML = gridHTML;
+        }
+
+        // 更新歷史記錄網格
+        function updateHistoryGrid() {
+            generateHistoryGrid();
+        }
+
+        // 更新統計資料
+        function updateStats() {
+            let correctCount = 0;
+            let incorrectCount = 0;
+            
+            Object.keys(userAnswers).forEach(questionIndex => {
+                const question = questions[parseInt(questionIndex)];
+                const userAnswer = userAnswers[questionIndex];
+                
+                if (userAnswer && userAnswer.length > 0) {
+                    const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+                    if (isCorrect) {
+                        correctCount++;
+                    } else {
+                        incorrectCount++;
+                    }
+                }
+            });
+            
+            const totalAnswered = correctCount + incorrectCount;
+            const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('accuracy').textContent = `${accuracy}%`;
+        }
+
+        // 顯示提示訊息
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 重新開始測驗
+        function restartQuiz() {
+            if (confirm('確定要重新開始測驗嗎？所有答案將被清除。')) {
+                userAnswers = {};
+                currentQuestion = 0;
+                showingExplanation = false;
+                initQuiz();
+                showToast('測驗已重新開始', 'success');
+            }
+        }
+
+        // 頁面載入完成後初始化
+        window.addEventListener('load', initQuiz);
+    </script>
+</body>
+</html>

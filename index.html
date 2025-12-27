@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>資通安全概論-主選單</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      min-height: 50vh;
+      background: #e3f2fd;
+      margin: 0;
+      font-family: 'Noto Sans TC', 'Microsoft JhengHei', Arial, sans-serif;
+      color: #24304a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      /* 取消漸層，改為淺藍一致 */
+    }
+    .container {
+      width: 96vw;
+      max-width: 720px;
+      margin: 36px auto;
+      background: rgba(255,255,255,0.96);
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(33,115,177,0.13);
+      padding: 32px 20px 34px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      font-size: 2.2em;
+      font-weight: 700;
+      text-align: center;
+      margin: 0 0 34px 0;
+      letter-spacing: 2px;
+      color: #2676b9; /* 深藍標題 */
+      text-shadow: 0 1px 10px #d7edfa;
+    }
+    .menu-row {
+      width: 100%;
+      display: flex;
+      gap: 18px;
+      margin-bottom: 18px;
+      justify-content: center;
+    }
+    .menu-btn, .desc-btn {
+      width: 120px;
+      min-width: 120px;
+      box-sizing: border-box;
+      background: linear-gradient(180deg, #64a7e6 0%, #5d9cec 100%);
+      border: none;
+      border-radius: 10px;
+      padding: 17px 0;
+      font-size: 1.08em;
+      font-weight: 500;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #e1eafb;
+      transition: background 0.17s, color 0.2s, transform 0.12s;
+      outline: none;
+      text-align: center;
+    }
+    .desc-btn {
+      background: linear-gradient(180deg, #0479c1 0%, #64a7e6 100%);
+      color: #fff;
+      font-weight: 700;
+    }
+    .menu-btn:hover, .desc-btn:hover {
+      background: linear-gradient(180deg, #2676b9 0%, #5d9cec 100%);
+      color: #fff;
+      transform: scale(1.04);
+    }
+    .main-img {
+      display: block;
+      margin: 30px auto 0 auto;
+      width: 98%;
+      max-width: 420px;
+      border-radius: 14px;
+      filter: drop-shadow(0 2px 14px #91c8f080);
+      box-shadow: 0 1px 7px #dbeffd;
+      object-fit: cover;
+    }
+    @media (max-width:600px) {
+      .container { padding: 12vw 2vw 8vw 2vw; max-width: 99vw; }
+      h1 { font-size: 1.28em; margin-bottom: 22px; }
+      .menu-row { flex-wrap: wrap; gap: 10px; margin-bottom: 14px; }
+      .menu-btn, .desc-btn { width: 85px; min-width: 85px; font-size: 0.98em; padding: 12px 0; }
+      .main-img { max-width: 98vw; margin-top: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>資通安全概論 - 自我評量</h1>
+    <div class="menu-row">
+      <a href="Unit-0.html"><button class="desc-btn">單元說明</button></a>
+      <a href="Unit-1.html"><button class="menu-btn">第1單元</button></a>
+      <a href="Unit-2.html"><button class="menu-btn">第2單元</button></a>
+      <a href="Unit-3.html"><button class="menu-btn">第3單元</button></a>
+      <a href="Unit-4.html"><button class="menu-btn">第4單元</button></a>
+    </div>
+    <div class="menu-row">
+      <a href="Unit-5.html"><button class="menu-btn">第5單元</button></a>
+      <a href="Unit-6.html"><button class="menu-btn">第6單元</button></a>
+      <a href="Unit-7.html"><button class="menu-btn">第7單元</button></a>
+      <a href="Unit-8.html"><button class="menu-btn">第8單元</button></a>
+      <a href="Unit-9.html"><button class="menu-btn">第9單元</button></a>
+    </div>
+    <img class="main-img" src="cybersecurity-cover.jpg" alt="資通安全概論主題圖片">
+  </div>
+</body>
+</html>

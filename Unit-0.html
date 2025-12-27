@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>資通安全概論 - 單元說明</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f6fbff;
+      color: #215ca0;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 900px;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 2px 24px #b3d6f7;
+      margin: 32px auto 0 auto;
+      padding: 24px 36px 48px 36px;
+    }
+    h1 {
+      text-align: center;
+      font-size: 1.9rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+      color: #215ca0;
+      margin-bottom: 22px;
+    }
+    .back-btn {
+      display: block;
+      margin: 0 auto 22px auto;
+      background: linear-gradient(135deg,#004d91,#3383e8);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 36px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      box-shadow: 0 2px 14px #c1dafb;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .back-btn:hover {
+      background: linear-gradient(135deg,#3383e8,#004d91);
+      transform: scale(1.04);
+    }
+    .accordion-item {
+      border-bottom: 1px solid #e1e4f0;
+    }
+    .accordion-header {
+      font-size: 1.16rem;
+      font-weight: bold;
+      color: #247be7;
+      padding: 18px 14px;
+      margin: 0;
+      cursor: pointer;
+      background: linear-gradient(90deg,#f1f7ff,#e1eaff);
+      border-radius: 10px;
+      transition: background 0.2s;
+    }
+    .accordion-header:hover {
+      background: linear-gradient(90deg,#c1dafb,#e1eaff);
+    }
+    .accordion-panel {
+      padding: 13px 28px 20px 23px;
+      font-size: 1.05rem;
+      display: none;
+      background: #f6fbff;
+      border-radius: 0 0 10px 10px;
+      animation: fadein 0.3s;
+      line-height: 1.6;
+    }
+    .accordion-panel b {
+      color: #004d91;
+      display: block;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+    .accordion-panel ul {
+      margin: 0;
+      padding-left: 20px;
+      list-style-type: disc;
+    }
+    .accordion-panel li {
+      margin-bottom: 5px;
+    }
+    @keyframes fadein {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    @media (max-width: 700px) {
+      .container {
+        padding: 10px 2vw 18px 2vw;
+        margin-top: 10px;
+      }
+      h1 {
+        font-size: 1.1rem;
+      }
+      .back-btn {
+        width: 100%;
+        font-size: 1rem;
+        padding: 11px 0;
+      }
+      .accordion-header {
+        font-size: 1rem;
+        padding: 13px 6px;
+      }
+      .accordion-panel {
+        font-size: 0.98rem;
+        padding: 11px 11px 14px 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <button class="back-btn" onclick="location.href='index.html'">回主選單</button>
+    <h1>資通安全概論單元說明</h1>
+
+    <div class="accordion">
+      <!-- 第 1 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 1 單元：資通安全基本概念</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>了解資通系統的組成元素，包括其定義與構成要素。</li>
+            <li>建立對資通安全威脅的危機意識，認識潛在的危害與廣泛影響。</li>
+            <li>了解資通安全的核心防護目標，掌握其在實務中的重要性。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>資通系統的組成元素包括：資訊/資料、軟體、硬體、網路、以及人員。</li>
+            <li>資通安全的核心防護目標是 CIA 三原則（機密性、完整性、可用性）。</li>
+            <li>對於政府機關或特定非公務機關而言，法律遵循性同樣是資安防護的重要目標。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第 2 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 2 單元：資通安全相關法規</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>了解我國資通安全管理體系的組織架構與主要角色。</li>
+            <li>深入理解《資通安全管理法》及其相關子法的核心內容。</li>
+            <li>認識其他與資通安全議題相關的重要法規（如《個人資料保護法》）。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>我國資安管理體系中，行政院為決策機關，數位發展部為規劃機關。</li>
+            <li>《資通安全管理法》是我國資安管理的核心法律，適用對象為公務機關及特定非公務機關。</li>
+            <li>資安法子法包括《資通安全責任等級分級辦法》、《資通安全事件通報及應變辦法》等，用於細化與落實母法規範。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第 3 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 3 單元：資通安全風險管理</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>了解風險管理的整體流程，從建立全景、風險評鑑，到處理及接受。</li>
+            <li>了解風險處理的四種策略，包括風險修改、留存、避免、分擔。</li>
+            <li>介紹國際上廣泛採用的資通安全防護框架與風險管理標準。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>風險的定義為：威脅利用其相對應的脆弱性，造成資訊資產受到衝擊的可能性。</li>
+            <li>資通安全風險管理是一個系統化的循環過程，包括風險評鑑、風險處理和風險監控與審查。</li>
+            <li>風險處理的四種主要策略為風險修改、風險留存、風險避免或風險分擔。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第 4 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 4 單元：資通安全管理面暨認知與訓練應辦事項</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>了解資通系統分級與防護基準的規定。</li>
+            <li>掌握 ISMS（資訊安全管理系統）之導入及通過公正第三方之驗證。</li>
+            <li>認識資通安全專責人員的配置規定及認知與訓練的要求。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>資通系統的防護需求分級原則，是依據 CIA L（機密性、完整性、可用性、法律遵循性）四個影響構面來評估。</li>
+            <li>導入 ISMS（例如 ISO/IEC 27001 或 CNS 27001 標準）並通過驗證，是組織展現資安管理能力的重要里程碑。</li>
+            <li>不同資通安全責任等級的機關（A、B、C 級）須配置不同人數的專責人員，並要求所有人員（包含一般使用者）接受定期的資通安全教育訓練。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第 5 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 5 單元：資通系統防護控制措施</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>認識「存取控制」之安全控制措施，如帳號管理、最小權限等。</li>
+            <li>了解「營運持續計畫」之安全控制措施，包括系統備份、系統備援等。</li>
+            <li>掌握「識別與鑑別」之安全控制措施，如多因子鑑別、密碼管理等。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>資通系統防護基準的控制措施涵蓋七大構面，包括存取控制、事件日誌與可歸責性、營運持續計畫等。</li>
+            <li>營運持續計畫（BCP）的關鍵時間指標包括 RPO（復原點目標）與 RTO（復原時間目標）。</li>
+            <li>識別與鑑別技術包括通行碼、晶片卡、數位憑證與生物特徵鑑別，以確保只有授權使用者才能存取系統。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第 6 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 6 單元：資通安全技術面應辦事項－技術防護與偵測</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>了解防毒軟體、網路防火牆與應用程式防火牆（WAF）的用途與部署。</li>
+            <li>掌握入侵偵測系統（IDS）與入侵防禦系統（IPS）的技術類型與管理策略。</li>
+            <li>認識 GCB（政府組態基準）與 VANS（資安弱點通報機制）之目的與服務。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>網路防火牆作為網路邊界守門員，負責區隔不同安全等級網段，並建議建置高可靠度（HA）運作模式。</li>
+            <li>IDS 主要負責監測與警示，IPS 則可主動執行阻擋等防禦措施，以遏制攻擊。</li>
+            <li>GCB 規範資通訊設備（如個人電腦與伺服器）一致性的安全設定；VANS 協助機關維護資訊資產盤點資料並進行系統化弱點比對通報。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第 7 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 7 單元：資通安全技術面應辦事項－安全性檢測及資通安全健診</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>了解安全性檢測（弱點掃描、滲透測試）的法規規定與檢測頻率。</li>
+            <li>掌握應用程式安全，包括 SSDLC、變更控制等概念。</li>
+            <li>了解網路區域規劃原則與實體安全的威脅類型及防護措施。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>依《資通安全責任等級分級辦法》，A 級機關需每年 2 次弱點掃描及 1 次滲透測試。</li>
+            <li>軟體開發應遵循 SSDLC（安全系統發展生命週期），將安全思維融入需求、設計、開發、測試與維運各階段。</li>
+            <li>實體安全防護措施應採多層次縱深防禦策略，其目標為嚇阻、延遲、偵測、評估、處理。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第 8 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 8 單元：資訊委外安全管理</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>了解資訊委外相關法規，掌握其核心規範與要求。</li>
+            <li>理解資訊委外潛在風險，特別是遠端維運的安全挑戰。</li>
+            <li>掌握資訊委外的生命週期，了解各階段（計畫、招標、決標、履約管理、驗收、保固）的資安重點。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>依《資通安全管理法》，委託機關有責任評估廠商專業能力，並持續監督其資通安全維護情形。</li>
+            <li>遠端維運應採「原則禁止、例外允許」方式，並至少辦理雙因子鑑別、限制來源 IP 等防護措施。</li>
+            <li>在委外招標階段，招標文件（RFP）中應依資通系統等級，納入資通系統防護基準之要求。</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 第 9 單元 -->
+      <div class="accordion-item">
+        <div class="accordion-header" onclick="togglePanel(this)">第 9 單元：資通安全事件通報及應變</div>
+        <div class="accordion-panel">
+          <b>學習重點：</b>
+          <ul>
+            <li>掌握資通安全事件處理的六個程序：準備、識別、封鎖、根除、復原、經驗學習。</li>
+            <li>了解資通安全事件等級評估的原則與方法。</li>
+            <li>了解數位證據與數位鑑識的原則，以及社交工程的防範觀念。</li>
+          </ul>
+          <b>主要內容：</b>
+          <ul>
+            <li>公務機關及特定非公務機關必須在知悉資安事件後黃金 1 小時內啟動通報程序。</li>
+            <li>資安事件依對機密性、完整性、可用性（CIA）的衝擊程度，分為第 1 級到第 4 級，並以三者中最高影響等級作為綜合分級結果。</li>
+            <li>資安事件處理六程序為：準備、識別、封鎖、根除、復原、經驗學習，其中經驗學習是持續改進的關鍵。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function togglePanel(header) {
+      var panel = header.nextElementSibling;
+      var showing = panel.style.display === 'block';
+      document.querySelectorAll('.accordion-panel').forEach(function(p) { p.style.display = 'none'; });
+      if (!showing) {
+        panel.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>

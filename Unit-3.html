@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資通安全概論第3單元自我評量測驗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .question-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-1px);
+        }
+
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .option.user-selected {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .explanation h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation p {
+            color: #533d03;
+            line-height: 1.6;
+        }
+
+        .history-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .history-panel.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .history-item.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .history-item.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .history-item.unanswered {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 2px solid #d6d8db;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #f44336, #ff7043);
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 30px;
+            background: #4763fa;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 22px;
+            cursor: pointer;
+            margin: 0 6px 8px 0;
+            box-shadow: 0 2px 8px rgba(70,90,160,0.09);
+            transition: background 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+        .action-btn:hover,
+        .action-btn:focus {
+            background: #253095;
+            color: #fff;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>資通安全概論 第3單元自我評量測驗</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats">
+                <span>題目 <span id="currentNum">1</span> / <span id="totalNum">78</span></span>
+                <span>答對：<span id="correctCount">0</span></span>
+                <span>答錯：<span id="incorrectCount">0</span></span>
+                <span>準確率：<span id="accuracy">0%</span></span>
+            </div>
+        </div>
+
+        <div class="quiz-card" id="quizCard">
+            <!-- 題目將由 JS 動態插入 -->
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <h3>答題記錄</h3>
+            <div class="history-grid" id="historyGrid">
+                <!-- 歷史記錄將由 JS 動態插入 -->
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="toggleHistory()">查看記錄</button>
+            <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">上一題</button>
+            <button class="btn btn-secondary" onclick="nextQuestion()" id="nextBtn">下一題</button>
+            <button class="btn btn-success" onclick="restartQuiz()">重新開始</button>
+            <button class="action-btn" id="backHome" onclick="window.location.href='index.html'">回主頁</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // 所有題目數據 (第3單元)
+        const questions = [
+            {
+                id: 1,
+                question: "機關進行資通系統風險評鑑時，下列哪一種作法是必須避免的？",
+                type: "single",
+                options: ["邀請業務承辦人參與", "由單一成員執行所有評鑑工作", "評鑑結果經資安長核定", "評估資料外洩可能造成的衝擊"],
+                correct: [1],
+                explanation: "應避免由單一成員執行所有資通系統風險評鑑工作，而導致產出結果過於主觀。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 2,
+                question: "進行資通系統高階風險評鑑時，主要依據哪四個影響構面來衡量資安事件可能造成的後果嚴重程度？",
+                type: "single",
+                options: ["成本、時間、範圍、品質", "機密性、完整性、可用性、法律遵循性", "軟體、硬體、網路、人員", "策略面、管理面、技術面、實體面"],
+                correct: [1],
+                explanation: "依據機密性、完整性、可用性及法律遵循性四大影響構面，衡量資安事件可能造成的衝擊。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 3,
+                question: "高階風險評鑑作法的安全等級評估結果，分為哪三級？",
+                type: "single",
+                options: ["低、中、高", "普、中、高", "1、2、3", "輕、重、災難性"],
+                correct: [1],
+                explanation: "評估、設定安全等級分為普、中、高 3 級。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 4,
+                question: "機關採用「高階風險評鑑」作法的主要優點之一是？",
+                type: "single",
+                options: ["評鑑結果非常精確", "容易獲得評鑑參與人員接受", "可識別所有營運過程中的潛在風險", "需耗費大量時間與專家意見"],
+                correct: [1],
+                explanation: "高階風險評鑑優點是一開始採用較簡單作法，容易獲得風險評鑑參與人員接受。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 5,
+                question: "高階風險評鑑作法中，資通系統安全等級的最終核定權責屬於下列哪一位？",
+                type: "single",
+                options: ["業務承辦人", "承辦單位主管", "資訊主管", "資通安全長"],
+                correct: [3],
+                explanation: "資通系統安全等級經承辦單位主管與資訊主管確認後，最後由 資通安全長 核定。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 6,
+                question: "機關應將資源與預算運用於最有利之處，這是哪一種風險評鑑作法的優點？",
+                type: "single",
+                options: ["定量風險評鑑", "詳細風險評鑑", "高階風險評鑑", "定性風險評鑑"],
+                correct: [2],
+                explanation: "高階風險評鑑的優點是可以將資源與預算運用於最有利之處。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 7,
+                question: "關於高階風險評鑑的流程，下列哪一個步驟應由業務承辦人執行？",
+                type: "single",
+                options: ["檢視業務承辦人所設定安全等級之合理性", "依機密性等四個影響構面設定等級", "由資通安全長核定", "設定資通系統安全等級"],
+                correct: [1],
+                explanation: "由業務承辦人依機密性、完整性、可用性及法律遵循性 4 大影響構面，分別考量資安事件時可能造成的衝擊。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 8,
+                question: "高階風險評鑑作法中，當機關營運、資產或信譽等方面造成可預期「嚴重」負面影響時，其機密性安全等級應評定為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [1],
+                explanation: "機密性安全等級「中」的定義是造成可預期「嚴重」負面影響。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 9,
+                question: "機關在實作風險管理的第 1、2 年，建議採用哪一種風險評鑑作法？",
+                type: "single",
+                options: ["詳細風險評鑑", "高階風險評鑑", "定量風險評鑑", "專家訪談法"],
+                correct: [1],
+                explanation: "高階風險評鑑使用時機為實作風險管理的第 1、2 年。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 10,
+                question: "根據機密性影響構面，如果資料外洩將導致機關權益 輕微受損 ，則安全等級應評定為？",
+                type: "single",
+                options: ["普", "中", "高", "無法評定"],
+                correct: [0],
+                explanation: "機密性安全等級「普」的說明為資料外洩不致影響機關權益，或僅導致機關權益輕微受損 (一般性資料)。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 11,
+                question: "針對機密性影響構面，涉及 區域性或地區性個人資料 的外洩事件，其安全等級通常會被評定為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [1],
+                explanation: "機密性安全等級「中」的說明包括涉及區域性或地區性個人資料。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 12,
+                question: "下列哪一項屬於機密性安全等級為「高」的資通系統範例？",
+                type: "single",
+                options: ["全球資訊網", "一般電子郵件系統", "刑案資訊整合系統", "內部文件共享系統"],
+                correct: [2],
+                explanation: "涉及個人之醫療、基因、性生活、健康檢查、犯罪前科等資料，其安全等級為「高」。刑案資訊整合系統即為此類範例。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 13,
+                question: "高階風險評鑑作法的其中一項缺點是？",
+                type: "single",
+                options: ["評鑑結果過於精確", "評鑑結果較不精確", "不適用於實作風險管理的第一年", "耗費資源與預算過多"],
+                correct: [1],
+                explanation: "高階風險評鑑的缺點是評鑑結果較不精確。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 14,
+                question: "在高階風險評鑑中，資通系統安全等級經業務承辦人設定後，接著應由誰進行「檢視業務承辦人所設定安全等級之合理性」？",
+                type: "single",
+                options: ["資訊主管與資安長", "承辦單位主管與資訊主管", "專案經理", "外部顧問"],
+                correct: [1],
+                explanation: "資通系統安全等級經承辦單位主管與資訊主管確認後，最後由資通安全長核定。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 15,
+                question: "根據完整性影響構面，如果未經授權之資訊修改或破壞，在機關營運等方面，造成可預期「嚴重」負面影響，則安全等級應評定為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [1],
+                explanation: "完整性安全等級「中」的定義是造成可預期「嚴重」負面影響。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 16,
+                question: "進行詳細風險評鑑時，必須對資產進行哪兩項深度作業？",
+                type: "single",
+                options: ["採購與報廢", "識別與鑑別", "備份與還原", "監控與記錄"],
+                correct: [1],
+                explanation: "詳細風險評鑑作法應對資產進行深度 識別與鑑別 作業。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 17,
+                question: "詳細風險評鑑作法可以採用哪兩種方法，或兩者結合？",
+                type: "single",
+                options: ["邏輯方法與數學方法", "定量方法與定性方法", "主觀方法與客觀方法", "高階方法與低階方法"],
+                correct: [1],
+                explanation: "詳細風險評鑑作法可以是 定量方法、定性方法或二者結合 。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 18,
+                question: "詳細風險評鑑中，評鑑威脅發生之可能性是依據哪兩項要素？",
+                type: "single",
+                options: ["威脅來源的地理位置", "資產價值或需被保護的特性", "駭客的國籍與動機", "系統的網路連線速度"],
+                correct: [1],
+                explanation: "詳細風險評鑑依據 資產價值或需被保護的特性 ，評鑑威脅發生之可能性。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 19,
+                question: "關於機密性安全等級的判斷，下列哪一種資料外洩將使個人權益 非常嚴重受損 ？",
+                type: "single",
+                options: ["聯絡方式", "國民身分證統一編號", "犯罪前科", "婚姻"],
+                correct: [2],
+                explanation: "涉及個人之醫療、基因、性生活、健康檢查、 犯罪前科 等資料，資料外洩將使個人權益非常嚴重受損，屬於「高」安全等級。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 20,
+                question: "針對完整性影響構面，如果未經授權之資訊修改或破壞，導致機關權益 輕微受損 ，則安全等級應評定為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [0],
+                explanation: "完整性安全等級「普」的說明為資料遭竄改不致影響機關權益，或僅導致機關權益輕微受損。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 21,
+                question: "高階風險評鑑作法中，識別資通系統所支援的業務屬性，應由哪個單位或人員執行？",
+                type: "single",
+                options: ["資訊部門主管", "承辦單位", "資安長", "專案經理"],
+                correct: [1],
+                explanation: "識別資通系統所支援之業務屬性，並由 承辦單位 主管檢視合理性。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 22,
+                question: "關於風險評鑑小組的成員組成，下列哪一類人員 不屬於 建議的組成成員？",
+                type: "single",
+                options: ["資訊人員", "資安人員", "業務人員", "系統使用者"],
+                correct: [3],
+                explanation: "風險評鑑小組成員宜包含施政業務與支援該業務之資通系統相關人員 (例如：資訊、資安、總務、人事、會計及業務人員)。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 23,
+                question: "在高階風險評鑑中，資通系統資料外洩，若對機關營運、資產或信譽等方面造成可預期「有限」負面影響，則其機密性安全等級應為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [0],
+                explanation: "機密性安全等級「普」的定義是造成可預期「有限」負面影響。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 24,
+                question: "關於詳細風險評鑑，下列哪一項敘述正確？",
+                type: "single",
+                options: ["主要用於風險管理的第一年", "作為評鑑風險與風險處理方法之依據", "只能採用定量方法", "結果較高階評鑑更不精確"],
+                correct: [1],
+                explanation: "詳細風險評鑑作法旨在對資產詳細列出可能面臨威脅與可能存在的弱點，作為評鑑風險與風險處理方法之依據。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 25,
+                question: "高階風險評鑑流程中，業務承辦人進行完衝擊評估後，應由誰接著進行安全等級的檢視？",
+                type: "single",
+                options: ["資訊主管", "承辦單位主管", "總務人員", "資安長"],
+                correct: [1],
+                explanation: "業務承辦人設定影響構面等級後，由承辦單位主管檢視合理性。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 26,
+                question: "關於機密性等級為「高」的資料，下列哪一項是其特徵之一？",
+                type: "single",
+                options: ["資料外洩不致影響機關權益", "僅涉及地區性個人資料", "涉及國家安全之外交、情報等重要機敏系統", "造成可預期「有限」負面影響"],
+                correct: [2],
+                explanation: "機密性等級「高」的資料包括涉及國家安全之外交、情報等重要機敏系統。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 27,
+                question: "機關若採行高階風險評鑑作法，可將資源運用於最有利之處，這主要幫助機關優先實作哪一類資通系統的防護措施？",
+                type: "single",
+                options: ["最不關鍵的", "最關鍵且需受保護的", "僅實體安全的", "僅網路層級的"],
+                correct: [1],
+                explanation: "高階風險評鑑優點是讓 最關鍵且需受保護的資通系統 ，優先被提出與實作。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 28,
+                question: "關於機密性安全等級的判斷，涉及 全國性個人資料 ，如戶役政資訊系統，其機密性安全等級應評定為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [2],
+                explanation: "涉及全國性個人資料，屬於機密性安全等級「高」。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 29,
+                question: "關於完整性影響構面，如果未經授權之資訊修改或破壞，在機關、資產或信譽等方面，造成可預期「非常嚴重」或「災難性」負面影響，則安全等級應評定為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [2],
+                explanation: "完整性安全等級「高」的定義是造成可預期「非常嚴重」或「災難性」負面影響。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 30,
+                question: "在高階風險評鑑作法中，哪個步驟應由承辦單位主管與資訊主管共同確認？",
+                type: "single",
+                options: ["識別資通系統所支援的業務屬性", "檢視業務承辦人所設定安全等級之合理性", "最終核定資通系統安全等級", "決定風險處理方式"],
+                correct: [1],
+                explanation: "資通系統安全等級經 承辦單位主管與資訊主管確認後 ，才由資通安全長核定。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 31,
+                question: "進行詳細風險評鑑時，列出可能面臨威脅與可能存在的弱點的目的是什麼？",
+                type: "single",
+                options: ["判斷資通系統的採購時程", "作為評鑑風險與風險處理方法之依據", "決定風險保留或風險轉移", "僅為資料蒐集用途"],
+                correct: [1],
+                explanation: "對資產詳細列出可能面臨威脅與可能存在的弱點，作為評鑑風險與風險處理方法之依據。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 32,
+                question: "高階風險評鑑的缺點之一是可能未識別到哪些資產？",
+                type: "single",
+                options: ["最關鍵的資通系統", "某些營運過程或系統", "實體機房設備", "網路線路"],
+                correct: [1],
+                explanation: "高階風險評鑑的缺點是可能未識別某些營運過程或系統。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 33,
+                question: "根據機密性影響構面，涉及 特殊屬性之個人資料 （如：臥底警員、受保護證人）的外洩，其安全等級應評定為？",
+                type: "single",
+                options: ["普", "中", "高", "無法評定"],
+                correct: [2],
+                explanation: "特殊屬性之個人資料，資料外洩可能會使相關個人身心受到危害，屬於機密性安全等級「高」。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 34,
+                question: "關於風險評鑑小組成員的職責，哪一類成員最熟悉實際執行業務的承辦人？",
+                type: "single",
+                options: ["法務人員", "業務承辦人員", "總務人員", "資安長"],
+                correct: [1],
+                explanation: "最熟悉者為各部門實際執行業務的承辦人員。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 35,
+                question: "機關可視需要針對哪一類資產，進行詳細風險評鑑作業？",
+                type: "single",
+                options: ["低安全等級之資產", "高安全等級之資產", "僅一般性資料", "僅網路設備"],
+                correct: [1],
+                explanation: "可視需要針對 高安全等級之資產 ，進行詳細風險評鑑作業。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 36,
+                question: "高階風險評鑑作法中，資通系統分級處理程序的第二步驟是？",
+                type: "single",
+                options: ["設定影響構面等級", "識別業務屬性", "檢視安全等級", "設定資通系統安全等級"],
+                correct: [1],
+                explanation: "流程步驟：1. 設定影響構面等級；2. 識別業務屬性；3. 檢視安全等級；4. 設定資通系統安全等級。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 37,
+                question: "關於機密性影響構面，若造成可預期「非常嚴重」或「災難性」負面影響，其安全等級為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [2],
+                explanation: "機密性安全等級「高」的定義是造成可預期「非常嚴重」或「災難性」負面影響。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 38,
+                question: "關於全球資訊網（官方網站）的風險評鑑範例，其可用性影響構面初估的安全等級是？",
+                type: "single",
+                options: ["普", "中", "高", "無法評估"],
+                correct: [0],
+                explanation: "全球資訊網的可用性初估等級為普。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 39,
+                question: "關於全球資訊網（官方網站）的風險評鑑範例，其完整性影響構面初估的安全等級是？",
+                type: "single",
+                options: ["普", "中", "高", "無法評估"],
+                correct: [0],
+                explanation: "全球資訊網的完整性初估等級為普。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 40,
+                question: "關於全球資訊網（官方網站）的風險評鑑範例，其機密性影響構面初估的安全等級是？",
+                type: "single",
+                options: ["普", "中", "高", "無法評估"],
+                correct: [0],
+                explanation: "全球資訊網的機密性初估等級為普。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 41,
+                question: "高階風險評鑑的優點之一是能夠優先實作防護措施，這主要幫助機關做到什麼？",
+                type: "single",
+                options: ["確保所有資通系統達到相同的防護等級", "把握時效，讓最關鍵的資通系統優先被實作", "取代詳細風險評鑑", "降低整體資安預算"],
+                correct: [1],
+                explanation: "高階風險評鑑優點是把握時效，讓最關鍵且需受保護的資通系統，優先被提出與實作。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 42,
+                question: "關於詳細風險評鑑，下列哪一項是該作法必須納入考量的細節？",
+                type: "single",
+                options: ["資通安全長核定的簡化程序", "資產的深度識別與鑑別作業", "避免考量專家意見", "僅限於定性方法"],
+                correct: [1],
+                explanation: "詳細風險評鑑需對資產進行 深度識別與鑑別作業 。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 43,
+                question: "關於完整性影響構面，資料遭竄改將導致機關權益嚴重受損，其安全等級應評定為？",
+                type: "single",
+                options: ["普", "中", "高", "極高"],
+                correct: [1],
+                explanation: "完整性安全等級「中」的說明為資料遭竄改將導致機關權益嚴重受損。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 44,
+                question: "風險處理的目標是將資通系統資產與對應的風險，施予適當的防護控制措施，以維持什麼？",
+                type: "single",
+                options: ["最高的資產價值", "持續運作", "系統的複雜度", "駭客的滿意度"],
+                correct: [1],
+                explanation: "風險處理目標是施予適當的防護控制措施，以維持 持續運作 。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 45,
+                question: "風險處理作法中，將風險等級調整至 可接受水準 的處理方式稱為？",
+                type: "single",
+                options: ["風險留存", "風險避免", "風險修正", "風險轉移"],
+                correct: [2],
+                explanation: "風險修正旨在將風險等級調整至可接受水準。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 46,
+                question: "風險處理作法中，權衡控制措施實作及維護之成本，與 受保護的資產價值 加以比較，這是哪一個處理步驟的關鍵考量？",
+                type: "single",
+                options: ["風險留存", "風險避免", "控制措施選擇", "風險識別"],
+                correct: [2],
+                explanation: "於 控制措施選擇期間 ，應權衡控制措施實作及維護之成本，與受保護的資產價值加以比較。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 47,
+                question: "關於風險留存（Risk Retention），如果風險等級符合哪一項準則，則不需要實作額外控制措施？",
+                type: "single",
+                options: ["風險最高準則", "風險接受準則", "風險成本準則", "風險消除準則"],
+                correct: [1],
+                explanation: "若風險等級符合 風險接受準則 ，則不需要實作額外控制措施，風險將被保留。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 48,
+                question: "風險保留後，仍被視為哪一種風險，必須定期監控？",
+                type: "single",
+                options: ["潛在風險", "殘餘風險", "初始風險", "次要風險"],
+                correct: [1],
+                explanation: "風險保留後，仍為 殘餘風險 ，必須定期監控。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 49,
+                question: "風險留存後，機關仍需考量實施哪一項計畫，以利風險發生時，快速因應處理？",
+                type: "single",
+                options: ["軟體開發計畫", "業務持續管理計畫", "系統汰換計畫", "資訊資產盤點計畫"],
+                correct: [1],
+                explanation: "需考量實施 業務持續管理計畫  (BCM)。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 50,
+                question: "風險修正的目的是透過實施哪一項措施，將風險等級調整至可接受水準？",
+                type: "single",
+                options: ["業務持續管理", "額外的控制措施", "資訊資產鑑別", "風險評鑑"],
+                correct: [1],
+                explanation: "風險修正需藉由實施 額外的控制措施 ，將風險等級調整至可接受水準。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 51,
+                question: "下列哪一項屬於風險避免的作法範例？",
+                type: "single",
+                options: ["為機房設備購買保險", "自建機房容易斷電，但保留此風險", "將發電機從地下室移置樓上", "實施額外的存取控制措施"],
+                correct: [2],
+                explanation: "將發電機從地下室移置樓上，屬於風險避免的範例，旨在避免可能造成特定風險增加的情況。",
+                page: "資通安全概論 1-50 (3-4)"
+            },
+            {
+                id: 52,
+                question: "風險避免（Risk Avoidance）的核心精神是？",
+                type: "single",
+                options: ["接受殘餘風險", "避免可能造成特定風險增加的活動或情況", "尋求第三方承擔風險", "實施控制措施以降低風險衝擊"],
+                correct: [1],
+                explanation: "風險避免旨在避免可能造成特定風險增加的活動或情況。",
+                page: "資通安全概論 1-50 (3-4)"
+            },
+            {
+                id: 53,
+                question: "關於風險避免的範例，管制使用任何第三方未經嚴格安全審核的開源函式庫，屬於哪一種風險處理方式？",
+                type: "single",
+                options: ["風險留存", "風險修正", "風險避免", "風險轉移"],
+                correct: [2],
+                explanation: "管制使用未經安全審核的開源函式庫，屬於避免可能造成特定風險增加的活動。",
+                page: "資通安全概論 1-50 (3-4)"
+            },
+            {
+                id: 54,
+                question: "風險轉移（Risk Transfer）最常見的作法是？",
+                type: "single",
+                options: ["將風險分攤給不同部門", "實施額外安全控制措施", "為資訊系統購買保險", "停止高風險業務"],
+                correct: [2],
+                explanation: "風險轉移最常見的作法是購買保險。",
+                page: "資通安全概論 1-50 (3-4)"
+            },
+            {
+                id: 55,
+                question: "關於風險留存的正式決策過程，其目的是？",
+                type: "single",
+                options: ["確保機房不斷電", "確認風險符合風險接受準則", "尋找替代風險轉移方案", "決定風險修正成本"],
+                correct: [1],
+                explanation: "留存需基於正式決策過程，確認風險等級符合風險接受準則。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 56,
+                question: "當機關自建機房容易斷電，但無空間建置發電機，也無法保險或搬遷時，選擇保留此風險屬於哪種作法？",
+                type: "single",
+                options: ["風險修正", "風險留存", "風險轉移", "風險避免"],
+                correct: [1],
+                explanation: "在確認無進一步行動後而保留風險決策，屬於風險留存。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 57,
+                question: "風險修正的過程中，實施額外控制措施以降低風險等級，這導致風險被重新評定為可接受時，該風險被稱為？",
+                type: "single",
+                options: ["初始風險", "殘餘風險", "潛在風險", "不可抗力風險"],
+                correct: [1],
+                explanation: "修正後剩餘的風險等級，使殘餘風險被重新評定為可接受。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 58,
+                question: "若機關採用高階風險評鑑作法，在控制措施選擇期間，應參考哪一項指引的防護基準？",
+                type: "single",
+                options: ["CNS 27001", "隱私資訊管理系統要求事項", "安全控制措施參考指引", "網路攻防演練實施指引"],
+                correct: [2],
+                explanation: "高階風險評鑑作法者，其控制措施選擇，可以參考 安全控制措施參考指引 的防護基準。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 59,
+                question: "根據風險處理作法，控制措施可以提供多種形式保護，下列哪一項不是明確列出的保護形式？",
+                type: "single",
+                options: ["偵測", "復原", "懲罰", "預防"],
+                correct: [2],
+                explanation: "保護形式包含矯正、消弭、預防、衝擊最小化、制止、偵測、復原、監視及認知。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 60,
+                question: "關於風險留存後的處理，下列哪一項敘述是必須的？",
+                type: "single",
+                options: ["立即實施風險轉移", "停止所有資安監控", "必須定期監控", "重新進行詳細風險評鑑"],
+                correct: [2],
+                explanation: "風險保留後，仍為殘餘風險，必須定期監控。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 61,
+                question: "風險轉移通常是將風險責任分擔給哪些對象？",
+                type: "single",
+                options: ["保險公司或外部服務供應商", "內部業務承辦人", "資訊部門主管", "駭客組織"],
+                correct: [0],
+                explanation: "風險轉移作法是將風險責任分攤給保險公司或外部服務供應商。",
+                page: "資通安全概論 1-50 (3-4)"
+            },
+            {
+                id: 62,
+                question: "若機關選擇「風險避免」的處理作法，這代表機關將會採取哪一項行動？",
+                type: "single",
+                options: ["實施額外的控制措施", "停止可能造成特定風險增加的活動", "購買保險", "承認殘餘風險"],
+                correct: [1],
+                explanation: "風險避免是避免可能造成特定風險增加的活動或情況。",
+                page: "資通安全概論 1-50 (3-4)"
+            },
+            {
+                id: 63,
+                question: "關於資通系統風險評鑑小組的成員組成，下列哪些人員宜包含在內？(複選)",
+                type: "multiple",
+                options: ["施政業務承辦人員。", "資通系統相關的資訊人員。", "資安人員。", "總務、人事、會計等支援業務人員。"],
+                correct: [0, 1, 2, 3],
+                explanation: "風險評鑑小組成員宜包含施政業務與支援該業務之資通系統相關人員。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 64,
+                question: "關於高階風險評鑑作法的優點，下列敘述何者正確？(複選)",
+                type: "multiple",
+                options: ["一開始採用較簡單作法，容易獲得參與人員接受。", "把握時效，讓最關鍵且需受保護的資通系統優先被提出。", "可將資源與預算運用於最有利之處。", "評鑑結果非常精確。"],
+                correct: [0, 1, 2],
+                explanation: "高階風險評鑑的缺點是評鑑結果較不精確。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 65,
+                question: "關於風險評鑑流程中，應考量的衝擊構面有哪些？(複選)",
+                type: "multiple",
+                options: ["機密性。", "完整性。", "可用性。", "法律遵循性。"],
+                correct: [0, 1, 2, 3],
+                explanation: "評鑑應考量機密性、完整性、可用性及法律遵循性四大影響構面。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 66,
+                question: "根據機密性影響構面，下列哪些資料外洩將使個人權益 非常嚴重受損 ，屬於「高」安全等級？(複選)",
+                type: "multiple",
+                options: ["醫療資料。", "基因資料。", "犯罪前科。", "特殊屬性之個人資料（如臥底警員）。"],
+                correct: [0, 1, 2, 3],
+                explanation: "這些都是機密性安全等級「高」的說明內容。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 67,
+                question: "關於風險處理的作法，下列哪些敘述是正確的？(複選)",
+                type: "multiple",
+                options: ["風險修正旨在將風險等級調整至可接受水準。", "風險轉移最常見的作法是購買保險。", "風險避免是避免可能造成特定風險增加的活動。", "風險留存必須基於正式決策過程。"],
+                correct: [0, 1, 2, 3],
+                explanation: "這些都是四種風險處理作法的定義與特性。",
+                page: "資通安全概論 1-49 (3-4), 1-50 (3-4)"
+            },
+            {
+                id: 68,
+                question: "關於完整性影響構面，下列哪些敘述屬於「中」等級的描述？(複選)",
+                type: "multiple",
+                options: ["資料遭竄改將導致機關權益輕微受損。", "未經授權之資訊修改或破壞，造成可預期「嚴重」負面影響。", "資料遭竄改將導致機關權益嚴重受損。", "造成可預期「非常嚴重」負面影響。"],
+                correct: [1, 2],
+                explanation: "完整性「中」等級定義是造成可預期「嚴重」負面影響，說明為資料遭竄改將導致機關權益嚴重受損。",
+                page: "資通安全概論 1-47 (3-3)"
+            },
+            {
+                id: 69,
+                question: "關於資通系統風險評鑑的流程，下列哪些敘述正確？(複選)",
+                type: "multiple",
+                options: ["資通系統安全等級應由承辦單位主管與資訊主管共同確認。", "資通系統安全等級的最終核定權責屬於資通安全長。", "應由業務承辦人設定影響構面等級。", "檢視安全等級的合理性步驟，由承辦單位主管與資訊主管共同執行。"],
+                correct: [0, 1, 2, 3],
+                explanation: "這些都是高階風險評鑑流程中，不同角色的職責。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 70,
+                question: "高階風險評鑑作法，可視為一種簡化程序，其缺點包含哪些？(複選)",
+                type: "multiple",
+                options: ["評鑑結果較不精確。", "耗費時間與資源過多。", "可能未識別某些營運過程或系統。", "無法將資源運用於最有利之處。"],
+                correct: [0, 2],
+                explanation: "高階風險評鑑的缺點是結果較不精確，且可能未識別某些營運過程或系統。優點則是把握時效，將資源用於最有利之處。",
+                page: "資通安全概論 1-45 (3-3)"
+            },
+            {
+                id: 71,
+                question: "進行詳細風險評鑑時，下列哪些是該作法會考慮的要素？(複選)",
+                type: "multiple",
+                options: ["對資產進行深度識別與鑑別。", "對資產詳細列出可能存在的弱點。", "評鑑威脅發生的可能性。", "可以是定量方法或定性方法。"],
+                correct: [0, 1, 2, 3],
+                explanation: "這些都是詳細風險評鑑作法的特徵與步驟。",
+                page: "資通安全概論 1-48 (3-3)"
+            },
+            {
+                id: 72,
+                question: "關於風險留存（Risk Retention），下列哪些敘述正確？(複選)",
+                type: "multiple",
+                options: ["風險等級符合風險接受準則時，不需要實作額外控制措施。", "風險保留後，仍為殘餘風險。", "必須定期監控。", "無需考量實施業務持續管理計畫。"],
+                correct: [0, 1, 2],
+                explanation: "風險保留後仍需考量實施業務持續管理計畫。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 73,
+                question: "風險處理作法中，控制措施可以提供多種形式保護，下列哪些屬於這些保護形式？(複選)",
+                type: "multiple",
+                options: ["偵測。", "預防。", "衝擊最小化。", "制止。"],
+                correct: [0, 1, 2, 3],
+                explanation: "保護形式包含矯正、消弭、預防、衝擊最小化、制止、偵測、復原、監視及認知。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 74,
+                question: "關於風險修正（Risk Modification），下列哪些敘述正確？(複選)",
+                type: "multiple",
+                options: ["目標是將風險等級調整至可接受水準。", "實施額外的控制措施。", "導致殘餘風險被重新評定為可接受。", "僅限於採用高階風險評鑑作法的機關。"],
+                correct: [0, 1, 2],
+                explanation: "風險修正的目的是調整風險等級、實施額外控制措施，並使殘餘風險可接受。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 75,
+                question: "在控制措施選擇期間，機關應權衡比較哪些因素？(複選)",
+                type: "multiple",
+                options: ["控制措施實作及維護之成本。", "受保護的資產價值。", "資通安全長最終核定的權限。", "威脅發生的可能性。"],
+                correct: [0, 1],
+                explanation: "應權衡控制措施實作及維護之成本，與受保護的資產價值加以比較。",
+                page: "資通安全概論 1-49 (3-4)"
+            },
+            {
+                id: 76,
+                question: "關於風險避免的範例，下列哪些敘述正確？(複選)",
+                type: "multiple",
+                options: ["將發電機移置樓上，以避免颱風淹水風險。", "管制使用任何第三方未經嚴格安全審核的開源函式庫。", "為高風險資通系統購買保險。", "停止可能造成特定風險增加的活動或情況。"],
+                correct: [0, 1, 3],
+                explanation: "購買保險屬於風險轉移。",
+                page: "資通安全概論 1-50 (3-4)"
+            },
+            {
+                id: 77,
+                question: "關於機密性安全等級「普」的描述，下列哪些敘述正確？(複選)",
+                type: "multiple",
+                options: ["造成可預期「有限」負面影響。", "屬於一般性資料。", "資料外洩不致影響機關權益。", "涉及區域性或地區性個人資料。"],
+                correct: [0, 1, 2],
+                explanation: "涉及區域性或地區性個人資料屬於「中」安全等級。",
+                page: "資通安全概論 1-46 (3-3)"
+            },
+            {
+                id: 78,
+                question: "進行資通系統高階風險評鑑時，下列哪些衝擊構面的安全等級評估結果，會影響資通系統的最終安全等級？(複選)",
+                type: "multiple",
+                options: ["機密性。", "完整性。", "可用性。", "法律遵循性。"],
+                correct: [0, 1, 2, 3],
+                explanation: "必須考量四個影響構面。",
+                page: "資通安全概論 1-45 (3-3)"
+            }
+        ];
+
+        // 全域變數
+        let currentQuestion = 0;
+        let userAnswers = {}; // 儲存使用者答案
+        let showingExplanation = false;
+
+        // 初始化測驗
+        function initQuiz() {
+            document.getElementById('totalNum').textContent = questions.length;
+            loadQuestion();
+            updateStats();
+            generateHistoryGrid();
+        }
+
+        // 載入題目
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            const quizCard = document.getElementById('quizCard');
+            
+            // 判斷題目類型
+            const typeLabel = question.type === 'single' ? '單選題' : '複選題';
+            const inputType = question.type === 'single' ? 'radio' : 'checkbox';
+            
+            // 生成選項HTML
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestion] && userAnswers[currentQuestion].includes(index);
+                optionsHTML += `
+                    <div class="option" onclick="selectOption(${index})">
+                        <input type="${inputType}" name="q${currentQuestion}" value="${index}" ${isSelected ? 'checked' : ''} onchange="handleOptionChange(${index})">
+                        <label>(${String.fromCharCode(65 + index)}) ${option}</label>
+                    </div>
+                `;
+            });
+
+            quizCard.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">第 ${currentQuestion + 1} 題</span>
+                    <span class="question-type">${typeLabel}</span>
+                </div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">${optionsHTML}</div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="submitAnswer()">提交答案</button>
+                    <button class="btn btn-secondary" onclick="showExplanation()" id="explanationBtn" style="display: none;">查看解答</button>
+                </div>
+                <div class="explanation" id="explanation">
+                    <h4>📝 解答說明</h4>
+                    <p><strong>正確答案：</strong>${question.correct.map(i => String.fromCharCode(65 + i)).join(', ')}</p>
+                    <p>${question.explanation}</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;"><strong>📖 出處頁碼：</strong>${question.page}</p>
+                </div>
+            `;
+
+            // 更新進度
+            document.getElementById('currentNum').textContent = currentQuestion + 1;
+            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // 更新按鈕狀態
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = currentQuestion === questions.length - 1;
+            
+            showingExplanation = false;
+        }
+
+        // 選擇選項
+        function selectOption(index) {
+            const question = questions[currentQuestion];
+            const checkbox = document.querySelector(`input[value="${index}"]`);
+            
+            if (question.type === 'single') {
+                // 單選題：取消所有選項，只選中當前項
+                document.querySelectorAll(`input[name="q${currentQuestion}"]`).forEach(input => {
+                    input.checked = false;
+                });
+                checkbox.checked = true;
+                userAnswers[currentQuestion] = [index];
+            } else {
+                // 複選題：切換選中狀態
+                checkbox.checked = !checkbox.checked;
+                if (!userAnswers[currentQuestion]) {
+                    userAnswers[currentQuestion] = [];
+                }
+                
+                if (checkbox.checked) {
+                    if (!userAnswers[currentQuestion].includes(index)) {
+                        userAnswers[currentQuestion].push(index);
+                    }
+                } else {
+                    userAnswers[currentQuestion] = userAnswers[currentQuestion].filter(i => i !== index);
+                }
+            }
+            
+            updateHistoryGrid();
+        }
+
+        // 處理選項變化
+        function handleOptionChange(index) {
+            // 這個函數由於selectOption已經處理了邏輯，可以保持空白
+        }
+
+        // 提交答案
+        function submitAnswer() {
+            const question = questions[currentQuestion];
+            const userAnswer = userAnswers[currentQuestion];
+            
+            if (!userAnswer || userAnswer.length === 0) {
+                showToast('請選擇答案！', 'error');
+                return;
+            }
+
+            // 檢查答案正確性
+            const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+            
+            // 顯示結果
+            highlightOptions(isCorrect);
+            
+            // 播放音效（模擬）
+            if (isCorrect) {
+                showToast('答對了！', 'success');
+            } else {
+                showToast('答錯了，請查看解答', 'error');
+            }
+            
+            // 顯示解答按鈕
+            document.getElementById('explanationBtn').style.display = 'inline-block';
+            
+            updateStats();
+            updateHistoryGrid();
+        }
+
+        // 比較陣列相等
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        // 標示選項正確性
+        function highlightOptions(isCorrect) {
+            const question = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, index) => {
+                const input = option.querySelector('input');
+                option.classList.remove('correct', 'incorrect', 'user-selected');
+                
+                if (question.correct.includes(index)) {
+                    option.classList.add('correct');
+                } else if (input.checked) {
+                    option.classList.add('incorrect');
+                }
+                
+                if (input.checked) {
+                    option.classList.add('user-selected');
+                }
+            });
+        }
+
+        // 顯示解答
+        function showExplanation() {
+            const explanation = document.getElementById('explanation');
+            explanation.classList.add('show');
+            showingExplanation = true;
+        }
+
+        // 上一題
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // 下一題
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        // 跳到指定題目
+        function goToQuestion(questionIndex) {
+            currentQuestion = questionIndex;
+            loadQuestion();
+            toggleHistory(); // 關閉歷史面板
+        }
+
+        // 切換歷史記錄面板
+        function toggleHistory() {
+            const historyPanel = document.getElementById('historyPanel');
+            historyPanel.classList.toggle('show');
+        }
+
+        // 生成歷史記錄網格
+        function generateHistoryGrid() {
+            const historyGrid = document.getElementById('historyGrid');
+            let gridHTML = '';
+            
+            for (let i = 0; i < questions.length; i++) {
+                let status = 'unanswered';
+                if (userAnswers[i]) {
+                    const isCorrect = arraysEqual(userAnswers[i].sort(), questions[i].correct.sort());
+                    status = isCorrect ? 'correct' : 'incorrect';
+                }
+                
+                gridHTML += `
+                    <div class="history-item ${status}" onclick="goToQuestion(${i})">
+                        ${i + 1}
+                    </div>
+                `;
+            }
+            
+            historyGrid.innerHTML = gridHTML;
+        }
+
+        // 更新歷史記錄網格
+        function updateHistoryGrid() {
+            generateHistoryGrid();
+        }
+
+        // 更新統計資料
+        function updateStats() {
+            let correctCount = 0;
+            let incorrectCount = 0;
+            
+            Object.keys(userAnswers).forEach(questionIndex => {
+                const question = questions[parseInt(questionIndex)];
+                const userAnswer = userAnswers[questionIndex];
+                
+                if (userAnswer && userAnswer.length > 0) {
+                    const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+                    if (isCorrect) {
+                        correctCount++;
+                    } else {
+                        incorrectCount++;
+                    }
+                }
+            });
+            
+            const totalAnswered = correctCount + incorrectCount;
+            const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('accuracy').textContent = `${accuracy}%`;
+        }
+
+        // 顯示提示訊息
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 重新開始測驗
+        function restartQuiz() {
+            if (confirm('確定要重新開始測驗嗎？所有答案將被清除。')) {
+                userAnswers = {};
+                currentQuestion = 0;
+                showingExplanation = false;
+                initQuiz();
+                showToast('測驗已重新開始', 'success');
+            }
+        }
+
+        // 頁面載入完成後初始化
+        window.addEventListener('load', initQuiz);
+    </script>
+</body>
+</html>

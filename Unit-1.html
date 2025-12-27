@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>資通安全概論第1單元自我評量測驗</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e9ecef;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #8BC34A);
+            transition: width 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .quiz-card {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .question-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 15px;
+        }
+
+        .question-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .question-type {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .question-text {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            color: #2c3e50;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #fafafa;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+            transform: translateY(-1px);
+        }
+
+        .option input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .option.correct {
+            border-color: #4CAF50;
+            background: #e8f5e8;
+        }
+
+        .option.incorrect {
+            border-color: #f44336;
+            background: #ffebee;
+        }
+
+        .option.user-selected {
+            border-color: #2196F3;
+            background: #e3f2fd;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-transform: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .explanation {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .explanation h4 {
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .explanation p {
+            color: #533d03;
+            line-height: 1.6;
+        }
+
+        .history-panel {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .history-panel.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .history-item {
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .history-item.correct {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .history-item.incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .history-item.unanswered {
+            background: #e2e3e5;
+            color: #383d41;
+            border: 2px solid #d6d8db;
+        }
+
+        .history-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 10px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #4CAF50, #8BC34A);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #f44336, #ff7043);
+        }
+
+        .action-btn {
+            border: none;
+            border-radius: 30px;
+            background: #4763fa;
+            color: #fff;
+            font-size: 1rem;
+            padding: 10px 22px;
+            cursor: pointer;
+            margin: 0 6px 8px 0;
+            box-shadow: 0 2px 8px rgba(70,90,160,0.09);
+            transition: background 0.2s, color 0.2s;
+            font-family: inherit;
+        }
+        .action-btn:hover,
+        .action-btn:focus {
+            background: #253095;
+            color: #fff;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h1 {
+                font-size: 1.4rem;
+            }
+
+            .quiz-card {
+                padding: 20px;
+            }
+
+            .buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats {
+                flex-direction: column;
+                gap: 8px;
+                text-align: center;
+            }
+
+            .question-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>資通安全概論 第1單元自我評量測驗</h1>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="stats">
+                <span>題目 <span id="currentNum">1</span> / <span id="totalNum">26</span></span>
+                <span>答對：<span id="correctCount">0</span></span>
+                <span>答錯：<span id="incorrectCount">0</span></span>
+                <span>準確率：<span id="accuracy">0%</span></span>
+            </div>
+        </div>
+
+        <div class="quiz-card" id="quizCard">
+            <!-- 題目將由 JS 動態插入 -->
+        </div>
+
+        <div class="history-panel" id="historyPanel">
+            <h3>答題記錄</h3>
+            <div class="history-grid" id="historyGrid">
+                <!-- 歷史記錄將由 JS 動態插入 -->
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="toggleHistory()">查看記錄</button>
+            <button class="btn btn-secondary" onclick="prevQuestion()" id="prevBtn">上一題</button>
+            <button class="btn btn-secondary" onclick="nextQuestion()" id="nextBtn">下一題</button>
+            <button class="btn btn-success" onclick="restartQuiz()">重新開始</button>
+            <button class="action-btn" id="backHome" onclick="window.location.href='index.html'">回主頁</button>
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // 所有題目數據 (第1單元)
+        const questions = [
+            {
+                id: 1,
+                question: "根據《資通安全管理法》，「資通系統」的定義是指用以對資訊進行處理、使用或分享的系統，請問下列哪一項活動包含在該系統的處理範疇內？",
+                type: "single",
+                options: [
+                    "僅蒐集",
+                    "僅傳輸",
+                    "僅儲存",
+                    "蒐集、控制、傳輸、儲存、流通、刪除或對資訊為其他處理、使用或分享"
+                ],
+                correct: [3],
+                explanation: "資通系統指用以蒐集、控制、傳輸、儲存、流通、刪除資訊或對資訊為其他處理、使用或分享之系統。",
+                page: "資通安全概論 1-8"
+            },
+            {
+                id: 2,
+                question: "下列哪一項不是機關資通系統中需要保護的核心組成要素？",
+                type: "single",
+                options: [
+                    "資訊/資料",
+                    "軟體",
+                    "硬體",
+                    "建築物外牆結構"
+                ],
+                correct: [3],
+                explanation: "資通系統的組成包括資訊/資料、軟體、硬體、網路與人員。",
+                page: "資通安全概論 1-9"
+            },
+            {
+                id: 3,
+                question: "資通安全管理法中，「資通服務」的定義中，與資訊之「刪除」活動相關的服務是否包含在內？",
+                type: "single",
+                options: [
+                    "包含",
+                    "不包含",
+                    "僅在特定非公務機關包含",
+                    "僅在軍事機關包含"
+                ],
+                correct: [0],
+                explanation: "資通服務指與資訊之蒐集、控制、傳輸、儲存、流通、刪除、其他處理、使用或分享相關之服務。",
+                page: "資通安全概論 1-8"
+            },
+            {
+                id: 4,
+                question: "組織中，對組織具價值之任何事物，其資通安全層面稱之為？",
+                type: "single",
+                options: [
+                    "產品",
+                    "資產",
+                    "服務",
+                    "負債"
+                ],
+                correct: [1],
+                explanation: "資產（asset）是對組織具價值之任何事物。",
+                page: "資通安全概論 1-10"
+            },
+            {
+                id: 5,
+                question: "下列哪一項是《資通安全管理法》中明確列出的「資通系統」具體範例？",
+                type: "single",
+                options: [
+                    "員工餐廳系統",
+                    "eCPA 人事服務網",
+                    "內部訓練教材",
+                    "實體門禁卡管理"
+                ],
+                correct: [1],
+                explanation: "具體範例包括考選部全球資訊網、eCPA人事服務網、公文系統、差勤系統等。",
+                page: "資通安全概論 1-8"
+            },
+            {
+                id: 6,
+                question: "資通系統的組成中，除了硬體、軟體、網路和資訊/資料之外，還包括下列哪一項要素？",
+                type: "single",
+                options: [
+                    "採購合約",
+                    "人員",
+                    "財務預算",
+                    "外部顧問"
+                ],
+                correct: [1],
+                explanation: "資通系統的組成包括資訊/資料、軟體、硬體、網路及人員。",
+                page: "資通安全概論 1-9"
+            },
+            {
+                id: 7,
+                question: "資通安全防護目標中，確保授權使用者能即時存取資訊與資通系統，指的是哪一項特性？",
+                type: "single",
+                options: [
+                    "機密性",
+                    "完整性",
+                    "可用性",
+                    "法律遵循性"
+                ],
+                correct: [2],
+                explanation: "可用性保護措施包括容量規劃、備份、容錯、備援及負載平衡。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 8,
+                question: "資通安全防護目標中，確保資訊的正確性、可靠性及避免被未經授權修改，指的是哪一項特性？",
+                type: "single",
+                options: [
+                    "可用性",
+                    "完整性",
+                    "機密性",
+                    "不可否認性"
+                ],
+                correct: [1],
+                explanation: "完整性保護旨在確保資訊正確性與可靠性。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 9,
+                question: "為了達成資訊的「機密性保護」，下列哪一項是常採用的技術與方法？",
+                type: "single",
+                options: [
+                    "容錯",
+                    "備份",
+                    "存取控制",
+                    "數位簽章"
+                ],
+                correct: [2],
+                explanation: "機密性保護措施包括資料加解密及存取控制。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 10,
+                question: "為了達成資訊的「完整性保護」，下列哪一項是常採用的技術與方法？",
+                type: "single",
+                options: [
+                    "資料加解密",
+                    "負載平衡",
+                    "雜湊函數",
+                    "容量規劃"
+                ],
+                correct: [2],
+                explanation: "完整性保護措施包括雜湊函數、數位簽章及存取控制。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 11,
+                question: "為了達成資訊的「可用性保護」，下列哪一項是常採用的技術與方法？",
+                type: "single",
+                options: [
+                    "雜湊函數",
+                    "資料加解密",
+                    "存取控制",
+                    "容錯、備援及負載平衡"
+                ],
+                correct: [3],
+                explanation: "可用性保護措施包括容量規劃、備份、容錯、備援及負載平衡，以及存取控制。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 12,
+                question: "存取控制（Access Control）在資通安全目標中，可以同時提供哪三種主要屬性的保護？",
+                type: "single",
+                options: [
+                    "法律遵循性、完整性、可用性",
+                    "機密性、完整性、可用性",
+                    "實體、邏輯、程序",
+                    "系統、軟體、硬體"
+                ],
+                correct: [1],
+                explanation: "存取控制可同時用於機密性、完整性與可用性的保護。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 13,
+                question: "資通安全目標中，「法律遵循性」是指確保所欲保護的資訊內容，必須遵循哪一項要求？",
+                type: "single",
+                options: [
+                    "資訊資產的採購成本",
+                    "國際貿易協定",
+                    "法令法規要求",
+                    "網路攻擊預防"
+                ],
+                correct: [2],
+                explanation: "法律遵循性旨在確保所欲保護的資訊內容，遵循法令法規要求。",
+                page: "資通安全概論 1-11"
+            },
+            {
+                id: 14,
+                question: "根據資通安全目標，若資通系統發生資安事件時可能導致 loss of Availability ，代表系統失去了哪種安全屬性？",
+                type: "single",
+                options: [
+                    "機密性",
+                    "完整性",
+                    "可用性",
+                    "法律遵循性"
+                ],
+                correct: [2],
+                explanation: "可用性是指授權使用者能即時存取資訊與資通系統。",
+                page: "資通安全概論 1-10, 1-12"
+            },
+            {
+                id: 15,
+                question: "採用「數位簽章」技術的目的是為了保護資訊的哪兩種安全性目標？",
+                type: "single",
+                options: [
+                    "可用性與機密性",
+                    "完整性與不可否認性",
+                    "機密性與不可否認性",
+                    "可用性與完整性"
+                ],
+                correct: [1],
+                explanation: "數位簽章屬於完整性保護措施；同時也常作為不可否認性的實施技術。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 16,
+                question: "若發生未經授權之資訊揭露，在機關營運、資產或信譽等方面造成可預期「有限」負面影響，則其機密性安全等級應評定為？",
+                type: "single",
+                options: [
+                    "普",
+                    "中",
+                    "高",
+                    "極高"
+                ],
+                correct: [0],
+                explanation: "機密性安全等級中，「普」的定義是造成可預期「有限」負面影響。",
+                page: "資通安全概論 1-17"
+            },
+            {
+                id: 17,
+                question: "根據高階風險評鑑作法，若資通系統資料外洩將使個人權益 非常嚴重受損 ，例如涉及個人的醫療、基因、性生活、健康檢查、犯罪前科等資料，其機密性安全等級應評定為？",
+                type: "single",
+                options: [
+                    "普",
+                    "中",
+                    "高",
+                    "無法評估"
+                ],
+                correct: [2],
+                explanation: "涉及個人醫療、基因、犯罪前科等資料，資料外洩將使個人權益非常嚴重受損，機密性安全等級為「高」。",
+                page: "資通安全概論 1-18"
+            },
+            {
+                id: 18,
+                question: "在資通安全目標中，「法律遵循性」所涵蓋的重要相關法規中，下列哪一個法規的修正日期是 114 年 9 月 24 日？",
+                type: "single",
+                options: [
+                    "資通安全管理法施行細則",
+                    "資通安全責任等級分級辦法",
+                    "資通安全管理法",
+                    "個人資料保護法"
+                ],
+                correct: [2],
+                explanation: "資通安全管理法的修正日期為 114 年 9 月 24 日。",
+                page: "資通安全概論 1-11"
+            },
+            {
+                id: 19,
+                question: "根據《資通安全管理法》對「資通系統」的定義，下列哪一項活動 不被明確 包含在系統對資訊的處理範疇內？",
+                type: "single",
+                options: [
+                    "蒐集",
+                    "傳輸",
+                    "評估風險",
+                    "儲存"
+                ],
+                correct: [2],
+                explanation: "資通系統定義包含蒐集、控制、傳輸、儲存、流通、刪除等處理活動。評估風險屬於風險管理流程，不屬於系統本身的功能定義。",
+                page: "資通安全概論 1-8"
+            },
+            {
+                id: 20,
+                question: "關於資通系統的風險評鑑，下列敘述何者正確？",
+                type: "single",
+                options: [
+                    "風險評鑑可只由單一成員執行以保持一致性",
+                    "風險評鑑小組成員宜包含業務承辦人員",
+                    "風險評鑑應避免資訊人員的參與",
+                    "高階風險評鑑的結果比詳細風險評鑑更精確"
+                ],
+                correct: [1],
+                explanation: "風險評鑑小組成員宜包含施政業務與支援該業務之資通系統相關人員，且應避免由單一成員執行。",
+                page: "資通安全概論 1-16"
+            },
+            {
+                id: 21,
+                question: "關於資通系統中需要保護的核心資產，下列哪些敘述是正確的？(複選)",
+                type: "multiple",
+                options: [
+                    "資訊/資料",
+                    "軟體",
+                    "網路",
+                    "人員"
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: "資通系統的組成包括資訊/資料、軟體、硬體、網路與人員。",
+                page: "資通安全概論 1-9"
+            },
+            {
+                id: 22,
+                question: "關於資通安全防護目標，下列哪些敘述是正確的？(複選)",
+                type: "multiple",
+                options: [
+                    "機密性保護旨在防止未經授權的資訊揭露",
+                    "完整性保護旨在確保資訊的正確性",
+                    "可用性保護旨在確保授權使用者能即時存取",
+                    "法律遵循性旨在確保資訊內容遵循法令法規要求"
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: "資通安全防護的四大目標皆符合敘述。",
+                page: "資通安全概論 1-11, 1-12"
+            },
+            {
+                id: 23,
+                question: "為了達到資通安全目標，下列哪些技術與方法可同時用於「機密性保護」與「完整性保護」？(複選)",
+                type: "multiple",
+                options: [
+                    "資料加解密",
+                    "存取控制",
+                    "備援",
+                    "雜湊函數"
+                ],
+                correct: [0, 1],
+                explanation: "資料加解密和存取控制是機密性保護的方法；存取控制和雜湊函數是完整性保護的方法。因此資料加解密和存取控制同時提供給兩者。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 24,
+                question: "機關進行資通系統風險評鑑時，下列哪些衝擊構面是必須考量的？(複選)",
+                type: "multiple",
+                options: [
+                    "機密性",
+                    "完整性",
+                    "可用性",
+                    "法律遵循性"
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: "進行高階風險評鑑時，必須考量機密性、完整性、可用性及法律遵循性四大影響構面。",
+                page: "資通安全概論 1-16, 1-17"
+            },
+            {
+                id: 25,
+                question: "關於資通安全目標中「可用性保護」的實施方法，下列哪些敘述是正確的？(複選)",
+                type: "multiple",
+                options: [
+                    "實施容量規劃",
+                    "實施備份",
+                    "實施容錯、備援",
+                    "實施負載平衡"
+                ],
+                correct: [0, 1, 2, 3],
+                explanation: "可用性保護措施包括容量規劃、備份、容錯、備援及負載平衡。",
+                page: "資通安全概論 1-12"
+            },
+            {
+                id: 26,
+                question: "關於資通安全目標中「完整性保護」的實施方法，下列哪些敘述是正確的？(複選)",
+                type: "multiple",
+                options: [
+                    "雜湊函數",
+                    "存取控制",
+                    "數位簽章",
+                    "資料加解密"
+                ],
+                correct: [0, 1, 2],
+                explanation: "完整性保護措施包括雜湊函數、數位簽章及存取控制。資料加解密是機密性保護的措施。",
+                page: "資通安全概論 1-12"
+            }
+        ];
+
+        // 全域變數
+        let currentQuestion = 0;
+        let userAnswers = {}; // 儲存使用者答案
+        let showingExplanation = false;
+
+        // 初始化測驗
+        function initQuiz() {
+            document.getElementById('totalNum').textContent = questions.length;
+            loadQuestion();
+            updateStats();
+            generateHistoryGrid();
+        }
+
+        // 載入題目
+        function loadQuestion() {
+            const question = questions[currentQuestion];
+            const quizCard = document.getElementById('quizCard');
+            
+            // 判斷題目類型
+            const typeLabel = question.type === 'single' ? '單選題' : '複選題';
+            const inputType = question.type === 'single' ? 'radio' : 'checkbox';
+            
+            // 生成選項HTML
+            let optionsHTML = '';
+            question.options.forEach((option, index) => {
+                const isSelected = userAnswers[currentQuestion] && userAnswers[currentQuestion].includes(index);
+                optionsHTML += `
+                    <div class="option" onclick="selectOption(${index})">
+                        <input type="${inputType}" name="q${currentQuestion}" value="${index}" ${isSelected ? 'checked' : ''} onchange="handleOptionChange(${index})">
+                        <label>(${String.fromCharCode(65 + index)}) ${option}</label>
+                    </div>
+                `;
+            });
+
+            quizCard.innerHTML = `
+                <div class="question-header">
+                    <span class="question-number">第 ${currentQuestion + 1} 題</span>
+                    <span class="question-type">${typeLabel}</span>
+                </div>
+                <div class="question-text">${question.question}</div>
+                <div class="options">${optionsHTML}</div>
+                <div class="buttons">
+                    <button class="btn btn-primary" onclick="submitAnswer()">提交答案</button>
+                    <button class="btn btn-secondary" onclick="showExplanation()" id="explanationBtn" style="display: none;">查看解答</button>
+                </div>
+                <div class="explanation" id="explanation">
+                    <h4>📝 解答說明</h4>
+                    <p><strong>正確答案：</strong>${question.correct.map(i => String.fromCharCode(65 + i)).join(', ')}</p>
+                    <p>${question.explanation}</p>
+                    <p style="color: #666; font-size: 0.9em; margin-top: 10px;"><strong>📖 出處頁碼：</strong>${question.page}</p>
+                </div>
+            `;
+
+            // 更新進度
+            document.getElementById('currentNum').textContent = currentQuestion + 1;
+            document.getElementById('progressFill').style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            
+            // 更新按鈕狀態
+            document.getElementById('prevBtn').disabled = currentQuestion === 0;
+            document.getElementById('nextBtn').disabled = currentQuestion === questions.length - 1;
+            
+            showingExplanation = false;
+        }
+
+        // 選擇選項
+        function selectOption(index) {
+            const question = questions[currentQuestion];
+            const checkbox = document.querySelector(`input[value="${index}"]`);
+            
+            if (question.type === 'single') {
+                // 單選題：取消所有選項，只選中當前項
+                document.querySelectorAll(`input[name="q${currentQuestion}"]`).forEach(input => {
+                    input.checked = false;
+                });
+                checkbox.checked = true;
+                userAnswers[currentQuestion] = [index];
+            } else {
+                // 複選題：切換選中狀態
+                checkbox.checked = !checkbox.checked;
+                if (!userAnswers[currentQuestion]) {
+                    userAnswers[currentQuestion] = [];
+                }
+                
+                if (checkbox.checked) {
+                    if (!userAnswers[currentQuestion].includes(index)) {
+                        userAnswers[currentQuestion].push(index);
+                    }
+                } else {
+                    userAnswers[currentQuestion] = userAnswers[currentQuestion].filter(i => i !== index);
+                }
+            }
+            
+            updateHistoryGrid();
+        }
+
+        // 處理選項變化
+        function handleOptionChange(index) {
+            // 這個函數由於selectOption已經處理了邏輯，可以保持空白
+        }
+
+        // 提交答案
+        function submitAnswer() {
+            const question = questions[currentQuestion];
+            const userAnswer = userAnswers[currentQuestion];
+            
+            if (!userAnswer || userAnswer.length === 0) {
+                showToast('請選擇答案！', 'error');
+                return;
+            }
+
+            // 檢查答案正確性
+            const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+            
+            // 顯示結果
+            highlightOptions(isCorrect);
+            
+            // 播放音效（模擬）
+            if (isCorrect) {
+                showToast('答對了！', 'success');
+            } else {
+                showToast('答錯了，請查看解答', 'error');
+            }
+            
+            // 顯示解答按鈕
+            document.getElementById('explanationBtn').style.display = 'inline-block';
+            
+            updateStats();
+            updateHistoryGrid();
+        }
+
+        // 比較陣列相等
+        function arraysEqual(a, b) {
+            if (a.length !== b.length) return false;
+            for (let i = 0; i < a.length; i++) {
+                if (a[i] !== b[i]) return false;
+            }
+            return true;
+        }
+
+        // 標示選項正確性
+        function highlightOptions(isCorrect) {
+            const question = questions[currentQuestion];
+            const options = document.querySelectorAll('.option');
+            
+            options.forEach((option, index) => {
+                const input = option.querySelector('input');
+                option.classList.remove('correct', 'incorrect', 'user-selected');
+                
+                if (question.correct.includes(index)) {
+                    option.classList.add('correct');
+                } else if (input.checked) {
+                    option.classList.add('incorrect');
+                }
+                
+                if (input.checked) {
+                    option.classList.add('user-selected');
+                }
+            });
+        }
+
+        // 顯示解答
+        function showExplanation() {
+            const explanation = document.getElementById('explanation');
+            explanation.classList.add('show');
+            showingExplanation = true;
+        }
+
+        // 上一題
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                loadQuestion();
+            }
+        }
+
+        // 下一題
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                loadQuestion();
+            }
+        }
+
+        // 跳到指定題目
+        function goToQuestion(questionIndex) {
+            currentQuestion = questionIndex;
+            loadQuestion();
+            toggleHistory(); // 關閉歷史面板
+        }
+
+        // 切換歷史記錄面板
+        function toggleHistory() {
+            const historyPanel = document.getElementById('historyPanel');
+            historyPanel.classList.toggle('show');
+        }
+
+        // 生成歷史記錄網格
+        function generateHistoryGrid() {
+            const historyGrid = document.getElementById('historyGrid');
+            let gridHTML = '';
+            
+            for (let i = 0; i < questions.length; i++) {
+                let status = 'unanswered';
+                if (userAnswers[i]) {
+                    const isCorrect = arraysEqual(userAnswers[i].sort(), questions[i].correct.sort());
+                    status = isCorrect ? 'correct' : 'incorrect';
+                }
+                
+                gridHTML += `
+                    <div class="history-item ${status}" onclick="goToQuestion(${i})">
+                        ${i + 1}
+                    </div>
+                `;
+            }
+            
+            historyGrid.innerHTML = gridHTML;
+        }
+
+        // 更新歷史記錄網格
+        function updateHistoryGrid() {
+            generateHistoryGrid();
+        }
+
+        // 更新統計資料
+        function updateStats() {
+            let correctCount = 0;
+            let incorrectCount = 0;
+            
+            Object.keys(userAnswers).forEach(questionIndex => {
+                const question = questions[parseInt(questionIndex)];
+                const userAnswer = userAnswers[questionIndex];
+                
+                if (userAnswer && userAnswer.length > 0) {
+                    const isCorrect = arraysEqual(userAnswer.sort(), question.correct.sort());
+                    if (isCorrect) {
+                        correctCount++;
+                    } else {
+                        incorrectCount++;
+                    }
+                }
+            });
+            
+            const totalAnswered = correctCount + incorrectCount;
+            const accuracy = totalAnswered > 0 ? Math.round((correctCount / totalAnswered) * 100) : 0;
+            
+            document.getElementById('correctCount').textContent = correctCount;
+            document.getElementById('incorrectCount').textContent = incorrectCount;
+            document.getElementById('accuracy').textContent = `${accuracy}%`;
+        }
+
+        // 顯示提示訊息
+        function showToast(message, type) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type}`;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // 重新開始測驗
+        function restartQuiz() {
+            if (confirm('確定要重新開始測驗嗎？所有答案將被清除。')) {
+                userAnswers = {};
+                currentQuestion = 0;
+                showingExplanation = false;
+                initQuiz();
+                showToast('測驗已重新開始', 'success');
+            }
+        }
+
+        // 頁面載入完成後初始化
+        window.addEventListener('load', initQuiz);
+    </script>
+</body>
+</html>
